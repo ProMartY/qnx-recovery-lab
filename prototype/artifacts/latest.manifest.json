@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "trace": {
+    "file": "run-20261122-014546-687.json",
+    "sha256": "e3cd993a160e73dfc2783a63d6dd2e59eebe53700d3cb266063dd3f3c7d1928f"
+  },
+  "console": {
+    "file": "guest-20261122-014546-687.log",
+    "sha256": "70413b5c48edb7361f49695c46b3ef774a5a03ad2a7a064d1c319a54ac013d59"
+  },
+  "verification": {
+    "event_invariants": "passed",
+    "raw_console_correspondence": "passed"
+  },
+  "scenarios": [
+    {
+      "scenario": "healthy",
+      "outcome": "healthy"
+    },
+    {
+      "scenario": "crash",
+      "outcome": "recovered"
+    },
+    {
+      "scenario": "stall",
+      "outcome": "recovered"
+    },
+    {
+      "scenario": "invalid",
+      "outcome": "recovered"
+    },
+    {
+      "scenario": "crash_loop",
+      "outcome": "contained"
+    },
+    {
+      "scenario": "replay",
+      "outcome": "recovered"
+    },
+    {
+      "scenario": "wrong_generation",
+      "outcome": "recovered"
+    }
+  ],
+  "source": {
+    "file": "source-20261122-014546-687.c",
+    "sha256": "9c32b86ebe50ef0edf883f122cf5ad12ddad5d14744974d80d49da6a0005216d"
+  }
+}

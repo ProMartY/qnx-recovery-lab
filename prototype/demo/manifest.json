@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "mode": "recorded",
+  "note": "Recorded QNX 8.0 guest execution under QEMU TCG on Windows; playback uses archived events.",
+  "integrity": "Pinned input and internal-consistency checks; no independent execution attestation.",
+  "recordings": {
+    "baseline": {
+      "file": "data/baseline.json",
+      "source_file": "run-20261122-011701-835.json",
+      "source_trace": "run-20261122-011701-835.json",
+      "sha256": "b4bc6afa8040a1a8c365534439de0e8dda98d36d93cc6e3bfbcefb539196aac4",
+      "event_count": 203,
+      "scenario_count": 7,
+      "config": {
+        "scenario": "all",
+        "fault_at": 8,
+        "watchdog_ms": 700,
+        "restart_limit": 2
+      },
+      "recorded_at": "2026-11-21T23:17:52.0261441Z",
+      "outcomes": {
+        "contained": 1,
+        "healthy": 1,
+        "recovered": 5
+      },
+      "evidence": {
+        "verified": true,
+        "console_log": "data/evidence/baseline/guest-20261122-011701-835.log",
+        "console_sha256": "4b12a29fc01fa67101be36a2301aa58701d6e44d9db7fd425f945cbd120e0907",
+        "source_file": "data/evidence/baseline/source-20261122-011701-835.c",
+        "source_sha256": "9c32b86ebe50ef0edf883f122cf5ad12ddad5d14744974d80d49da6a0005216d",
+        "report": "data/evidence/baseline/report.md",
+        "report_sha256": "41122070432088f333dc81de65b57d43fb8df09c2deff45aa0b4b49d90122c62",
+        "checks": {
+          "trace_sha256": "matched_reference_pin",
+          "event_invariants": "passed",
+          "raw_console_correspondence": "passed",
+          "console_sha256": "passed",
+          "source_snapshot_sha256": "passed",
+          "guest_exit_markers": "passed"
+        }
+      }
+    },
+    "no_restarts": {
+      "file": "data/no-restarts.json",
+      "source_file": "run-20261122-011927-411.json",
+      "source_trace": "run-20261122-011927-411.json",
+      "sha256": "199e6d0dcf858340e329f6bd53ac1c5544001118a24dd76fffee91850706f4a1",
+      "event_count": 112,
+      "scenario_count": 7,
+      "config": {
+        "scenario": "all",
+        "fault_at": 8,
+        "watchdog_ms": 700,
+        "restart_limit": 0
+      },
+      "recorded_at": "2026-11-21T23:20:12.8528178Z",
+      "outcomes": {
+        "contained": 6,
+        "healthy": 1
+      },
+      "evidence": {
+        "verified": true,
+        "console_log": "data/evidence/no_restarts/guest-20261122-011927-411.log",
+        "console_sha256": "632e6a4787ed743edf862defe3390a05cb2e34dac98e18824ec3c4a32ef7dbb9",
+        "source_file": "data/evidence/no_restarts/source-20261122-011927-411.c",
+        "source_sha256": "9c32b86ebe50ef0edf883f122cf5ad12ddad5d14744974d80d49da6a0005216d",
+        "report": "data/evidence/no_restarts/report.md",
+        "report_sha256": "92fa9731530747faad774cdd2f023db2c16d457fac3b2b27c1d8076ca6f336d1",
+        "checks": {
+          "trace_sha256": "matched_reference_pin",
+          "event_invariants": "passed",
+          "raw_console_correspondence": "passed",
+          "console_sha256": "passed",
+          "source_snapshot_sha256": "passed",
+          "guest_exit_markers": "passed"
+        }
+      }
+    }
+  },
+  "assets": {
+    "index.html": {
+      "sha256": "b0f22d802063a8191bc628510e3a95e264185d4d9fd69843beeaea5e4e09a9ae",
+      "size_bytes": 7883
+    },
+    "demo.css": {
+      "sha256": "4e309e9d9b85c03eccd4347cab69867bafa54af748b27acae6283e4b20f2760b",
+      "size_bytes": 16850
+    },
+    "demo.js": {
+      "sha256": "26974719eadd979a6488f2e836e69b9ce7ec44bcbcb673485e7d8d0246896334",
+      "size_bytes": 21994
+    }
+  },
+  "media": [
+    {
+      "file": "media/demo.webm",
+      "sha256": "7a55a94cf911695c9954fdb8a364b48e0772071a7fa78176eae525d1e367ff44",
+      "size_bytes": 12827078,
+      "type": "video/webm"
+    },
+    {
+      "file": "media/demo.vtt",
+      "sha256": "e8747d3d9590802e8335e87166ad3360355c417ea8a2f3c06fe7be2978c4495c",
+      "size_bytes": 3071,
+      "type": "text/vtt"
+    },
+    {
+      "file": "media/demo-poster.png",
+      "sha256": "ce2fe30a521e6370123629d6ba5af33683aee5b7bbc4aaa0ee315778f6592099",
+      "size_bytes": 140826,
+      "type": "image/png"
+    }
+  ]
+}

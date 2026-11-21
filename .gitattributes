@@ -1,0 +1,7 @@
+# Preserve the exact bytes used by trace, console and demo SHA-256 receipts.
+* -text
+*.png binary
+*.jpg binary
+*.webm binary
+*.zip binary
+

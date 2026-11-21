@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Inspect recorded QNX Recovery Lab fault-injection evidence.">
+  <title>QNX Recovery Lab · Trace viewer</title>
+  <style>
+    :root { --ink:#0b1017; --panel:#111923; --panel-raised:#17212c; --line:#273440; --text:#e9f0f2; --muted:#97a8b6; --mint:#72f0b8; --amber:#ffbd66; --coral:#ff6b70; --mono:ui-monospace,"Cascadia Code","SFMono-Regular",Consolas,monospace; --sans:Inter,"Segoe UI",Arial,sans-serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--ink); color:var(--text); font-family:var(--sans); font-size:14px; line-height:1.5; }
+    button,input,select { font:inherit; }
+    button,select { cursor:pointer; }
+    button { color:inherit; }
+    button:disabled,select:disabled { cursor:default; opacity:.4; }
+    button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible { outline:2px solid var(--mint); outline-offset:5px; }
+    button { border-radius:6px; }
+    a { color:var(--mint); }
+    .shell { width:min(1248px,100%); margin:auto; padding:0 40px; }
+    .masthead { min-height:88px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:20px; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:650; font-size:15px; letter-spacing:-.3px; }
+    .brand-mark { width:27px; height:27px; display:flex; align-items:center; justify-content:center; border:1px solid #487465; border-radius:7px; color:var(--mint); font:700 15px var(--mono); }
+    .brand span:last-child { color:var(--muted); font-size:12px; font-weight:400; border-left:1px solid var(--line); padding-left:12px; margin-left:3px; }
+    .source-label { display:flex; align-items:center; gap:8px; color:var(--muted); font:11px var(--mono); text-transform:uppercase; letter-spacing:1.2px; }
+    .dot { width:6px; height:6px; background:#647380; border-radius:50%; flex:none; }
+    .source-label.loaded { color:var(--mint); }
+    .source-label.loaded .dot { background:var(--mint); box-shadow:0 0 14px #72f0b83a; }
+    main { padding:39px 0 0; }
+    .intro { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:27px; }
+    .eyebrow { color:var(--mint); text-transform:uppercase; font:11px var(--mono); letter-spacing:1.6px; margin:0 0 10px; }
+    h1 { font-size:38px; letter-spacing:-1.6px; line-height:1.15; font-weight:600; margin:0 0 12px; }
+    .intro p:last-child { color:var(--muted); margin:0; max-width:540px; font-size:14px; }
+    .actions { display:flex; flex-wrap:wrap; gap:8px; flex:none; }
+    .button { min-height:38px; padding:8px 13px; border:1px solid var(--line); background:var(--panel); font-size:12px; font-weight:550; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+    .button:hover:enabled { background:var(--panel-raised); border-color:#486071; }
+    .button.primary { border-color:#3b6656; background:#17352b; color:var(--mint); }
+    .button.primary:hover:enabled { background:#214a3b; border-color:var(--mint); }
+    a.button { text-decoration:none; }
+    a.button:hover { background:var(--panel-raised); border-color:#486071; }
+    .button .symbol { font:15px var(--mono); }
+    .notice { padding:12px 15px; margin:0 0 20px; border:1px solid #45513f; border-radius:7px; color:var(--amber); background:#201f1b; font-size:12px; }
+    .notice[hidden] { display:none; }
+    .context { display:flex; gap:0; flex-wrap:wrap; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-bottom:26px; padding:14px 0; }
+    .context-item { padding:0 24px; border-left:1px solid var(--line); }
+    .context-item:first-child { padding-left:0; border:0; }
+    .context dt,.metric-label { color:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:1.2px; }
+    .context dd { margin:3px 0 0; font:12px var(--mono); }
+    .section-top { display:flex; justify-content:space-between; align-items:center; margin:0 0 12px; gap:12px; }
+    h2 { font-size:14px; font-weight:550; margin:0; letter-spacing:-.15px; }
+    .text-button { border:0; background:transparent; color:var(--muted); padding:4px 0; font-size:11px; border-bottom:1px solid transparent; border-radius:0; }
+    .text-button:hover:enabled,.text-button.active { color:var(--mint); border-bottom-color:var(--mint); }
+    .scenario-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+    .scenario-card { background:var(--panel); text-align:left; border:1px solid var(--line); padding:15px 16px 14px; min-width:0; transition:border-color .15s,background .15s; }
+    .scenario-card:hover:enabled { border-color:#506472; background:#151f29; }
+    .scenario-card.active { border-color:var(--mint); background:#14251f; box-shadow:inset 0 2px 0 var(--mint); }
+    .scenario-card.active.contained { border-color:var(--amber); background:#2b241b; box-shadow:inset 0 2px 0 var(--amber); }
+    .scenario-heading { display:flex; justify-content:space-between; gap:9px; align-items:center; margin-bottom:10px; }
+    .scenario-name { font-size:13px; font-weight:600; }
+    .result { font:10px var(--mono); color:var(--muted); text-transform:uppercase; letter-spacing:.6px; }
+    .result.pass { color:var(--mint); }
+    .result.contained { color:var(--amber); }
+    .result.fail { color:var(--coral); }
+    .scenario-desc { color:var(--muted); font-size:11px; margin:0 0 15px; min-height:34px; }
+    .scenario-stats { display:flex; gap:12px; font:12px var(--mono); }
+    .scenario-stat-label { display:block; color:var(--muted); font:9px var(--sans); text-transform:uppercase; letter-spacing:.7px; margin-top:3px; }
+    .assessment { border-left:2px solid #486071; background:#111923; padding:13px 16px; margin-top:14px; }
+    .assessment[hidden] { display:none; }
+    .assessment-heading { display:flex; align-items:center; gap:14px; }
+    .assessment h2 { font-size:11px; color:var(--muted); }
+    .assessment p { font-size:12px; margin:6px 0 0; color:#c3d0d8; }
+    .assessment-config { display:flex; gap:12px 26px; flex-wrap:wrap; margin:10px 0 0; }
+    .assessment-config:empty { display:none; }
+    .assessment-config div { display:flex; gap:6px; font:10px var(--mono); }
+    .assessment-config dt { color:var(--muted); }
+    .assessment-config dd { margin:0; color:var(--text); }
+    .fault-response { padding:16px 20px; border-top:1px solid var(--line); background:#0e161f; }
+    .fault-response[hidden] { display:none; }
+    .response-header { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:13px; }
+    .response-header h3 { font-size:12px; font-weight:550; margin:0; }
+    .response-header p { font-size:10px; color:var(--muted); margin:0; }
+    .response-cycle + .response-cycle { border-top:1px solid var(--line); margin-top:12px; padding-top:12px; }
+    .response-generation { color:var(--muted); font:10px var(--mono); margin:0 0 7px; }
+    .milestone-path { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .milestone { border:1px solid var(--line); border-radius:5px; padding:8px 11px; text-align:left; background:#131d27; min-width:0; }
+    .milestone:hover:enabled { background:var(--panel-raised); border-color:#587386; }
+    .milestone-label { display:block; font-size:10px; color:var(--muted); }
+    .milestone-time { display:block; font:16px var(--mono); margin:3px 0 0; color:#a9b8c4; }
+    .milestone.reached { border-color:#496557; }
+    .milestone.reached .milestone-time { color:var(--mint); }
+    .milestone.reached.detected,.milestone.reached.contained { border-color:#6c5535; }
+    .milestone.reached.detected .milestone-time,.milestone.reached.contained .milestone-time { color:var(--amber); }
+    .milestone.current { box-shadow:inset 0 -2px 0 currentColor; color:var(--mint); }
+    .response-intervals { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:8px; }
+    .response-interval { display:flex; align-items:baseline; flex-wrap:wrap; gap:6px; color:var(--muted); font-size:10px; }
+    .response-interval strong { font:12px var(--mono); color:var(--text); }
+    .lab { margin-top:26px; border:1px solid var(--line); border-radius:9px; overflow:hidden; background:var(--panel); }
+    .lab-header { padding:16px 20px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); gap:16px; }
+    .lab-title { display:flex; align-items:baseline; gap:10px; }
+    .lab-title span { color:var(--muted); font:11px var(--mono); }
+    .legend { display:flex; align-items:center; gap:15px; color:var(--muted); font-size:10px; }
+    .legend span { display:inline-flex; align-items:center; gap:5px; }
+    .swatch { height:5px; width:13px; border-radius:2px; background:var(--line); }
+    .swatch.running { background:var(--mint); }
+    .swatch.hold { background:var(--amber); }
+    .swatch.fault { background:var(--coral); }
+    .lab-body { padding:23px 22px 18px; }
+    .live-metrics { display:grid; grid-template-columns:1.25fr repeat(3,1fr); gap:20px; margin-bottom:30px; }
+    .live-metric { min-width:0; border-left:1px solid var(--line); padding-left:24px; }
+    .live-metric:first-child { border:0; padding:0; }
+    .metric-value { font:28px var(--mono); margin-top:6px; font-weight:450; line-height:1.2; overflow-wrap:anywhere; }
+    .metric-value.state { font-family:var(--sans); font-size:25px; font-weight:550; letter-spacing:-.6px; }
+    .metric-note { margin-top:5px; color:var(--muted); font:10px var(--mono); }
+    .timeline-wrap { position:relative; padding:11px 0 8px; }
+    .timeline { height:15px; position:relative; border-radius:3px; overflow:hidden; background:#202b36; }
+    .timeline-segment { position:absolute; height:100%; background:#5e7080; opacity:.85; border-right:1px solid var(--panel); }
+    .timeline-segment.running { background:var(--mint); }
+    .timeline-segment.hold { background:var(--amber); }
+    .timeline-segment.fault { background:var(--coral); }
+    .timeline-cursor { position:absolute; top:6px; width:2px; height:25px; background:white; box-shadow:0 0 6px #ffffff88; pointer-events:none; transform:translateX(-1px); }
+    .timeline-cursor::before { content:""; position:absolute; top:-4px; left:-3px; border-left:4px solid transparent; border-right:4px solid transparent; border-top:5px solid white; }
+    .timeline-empty { height:15px; background:repeating-linear-gradient(90deg,#24313d 0,#24313d 1px,transparent 1px,transparent 8px); }
+    .time-labels { display:flex; justify-content:space-between; color:var(--muted); font:10px var(--mono); margin:8px 0 12px; }
+    .scrubber { width:100%; display:block; height:15px; accent-color:var(--mint); margin:0; cursor:pointer; }
+    .scrubber:disabled { cursor:default; }
+    .transport { display:flex; align-items:center; justify-content:space-between; gap:15px; margin-top:14px; }
+    .transport-buttons { display:flex; align-items:center; gap:7px; }
+    .icon-button { width:32px; min-height:32px; padding:0; font-family:var(--mono); }
+    .play-button { min-width:105px; min-height:32px; }
+    .speed { font:11px var(--mono); color:var(--muted); display:flex; gap:7px; align-items:center; margin-left:7px; }
+    .speed select { border:1px solid var(--line); color:var(--text); background:var(--ink); padding:5px; border-radius:4px; }
+    .event-position { font:10px var(--mono); color:var(--muted); }
+    .empty { display:flex; flex-direction:column; justify-content:center; align-items:center; padding:36px 20px 41px; gap:8px; border-top:1px solid var(--line); text-align:center; }
+    .empty[hidden] { display:none; }
+    .empty .empty-mark { font:25px var(--mono); color:#759084; margin-bottom:4px; }
+    .empty h3 { font-size:14px; font-weight:550; margin:0; }
+    .empty p { font-size:12px; margin:0; color:var(--muted); max-width:440px; }
+    .log-panel { margin:21px 0 0; border:1px solid var(--line); border-radius:9px; background:var(--panel); overflow:hidden; }
+    .log-header { padding:15px 20px; display:flex; justify-content:space-between; align-items:center; gap:12px; border-bottom:1px solid var(--line); }
+    .log-count { font:10px var(--mono); color:var(--muted); }
+    .log-columns { display:grid; grid-template-columns:88px 1.25fr 1.2fr 70px 88px; gap:16px; padding:9px 20px; border-bottom:1px solid var(--line); color:var(--muted); font:9px var(--mono); text-transform:uppercase; letter-spacing:.8px; }
+    .event-list { max-height:313px; overflow:auto; scrollbar-color:#3e5362 var(--panel); scrollbar-width:thin; }
+    .event-row { width:100%; border:0; border-bottom:1px solid #1d2a36; border-radius:0; background:transparent; padding:10px 20px; display:grid; grid-template-columns:88px 1.25fr 1.2fr 70px 88px; gap:16px; text-align:left; align-items:start; font:11px var(--mono); }
+    .event-row:hover { background:var(--panel-raised); }
+    .event-row[aria-current="true"] { background:#1b2e29; box-shadow:inset 2px 0 0 var(--mint); }
+    .event-time { color:var(--muted); }
+    .event-name { overflow-wrap:anywhere; }
+    .event-reason { display:block; color:var(--muted); font:10px var(--sans); padding-top:3px; overflow-wrap:anywhere; }
+    .event-state { color:var(--muted); overflow-wrap:anywhere; }
+    .event-state.running { color:var(--mint); }
+    .event-state.hold { color:var(--amber); }
+    .event-state.fault { color:var(--coral); }
+    .numeric { text-align:right; }
+    .log-placeholder { color:var(--muted); text-align:center; padding:26px 15px; margin:0; font-size:12px; }
+    .log-window { padding:8px 20px; margin:0; color:var(--muted); font:10px var(--mono); border-top:1px solid var(--line); }
+    .log-window[hidden] { display:none; }
+    .next-run { margin-top:21px; border:1px solid var(--line); border-radius:8px; background:var(--panel); }
+    .next-run summary { cursor:pointer; padding:14px 20px; color:var(--text); font-weight:550; font-size:12px; }
+    .next-run summary:focus-visible { outline:2px solid var(--mint); outline-offset:4px; }
+    .next-run-content { padding:0 20px 18px; }
+    .next-run p { font-size:11px; color:var(--muted); margin:0 0 14px; }
+    .run-fields { display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:14px; }
+    .run-fields label { display:flex; flex-direction:column; gap:6px; color:var(--muted); font-size:10px; }
+    .run-fields input,.run-fields select,.run-command { min-width:0; border:1px solid var(--line); border-radius:5px; color:var(--text); background:var(--ink); font:12px var(--mono); padding:8px 10px; }
+    .run-fields input:invalid { border-color:var(--coral); }
+    .command-line { display:flex; align-items:stretch; gap:9px; margin-top:14px; }
+    .run-command { flex:1; resize:vertical; min-height:58px; line-height:1.6; }
+    .copy-command { align-self:flex-start; min-width:74px; }
+    .command-status { min-height:16px; color:var(--muted); font-size:10px; margin-top:5px; }
+    footer { padding:20px 0 28px; display:flex; justify-content:space-between; gap:28px; color:#8193a1; font-size:10px; line-height:1.6; }
+    footer p { margin:0; max-width:540px; }
+    .evidence-note { flex:none; }
+    .evidence-note strong { display:block; font-weight:500; color:var(--muted); }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    @media (max-width:900px) { .shell { padding:0 24px; } .intro { align-items:flex-start; flex-direction:column; } .context { row-gap:16px; } .context-item { padding:0 16px; } .scenario-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .live-metric { padding-left:16px; } .metric-value { font-size:23px; } .metric-value.state { font-size:22px; } }
+    @media (max-width:600px) { .shell { padding:0 16px; } .masthead { min-height:72px; } .brand span:last-child { display:none; } main { padding-top:26px; } h1 { font-size:32px; } .context-item { width:50%; padding:0 10px; } .context-item:nth-child(odd) { border:0; padding-left:0; } .context dd { font-size:10px; } .scenario-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .scenario-card { padding:12px; } .scenario-heading { align-items:flex-start; flex-direction:column; gap:3px; margin-bottom:6px; } .scenario-desc { min-height:34px; margin-bottom:10px; } .scenario-stats { gap:13px; } .lab-header,.log-header { padding:14px; } .lab-header { align-items:flex-start; } .legend { gap:7px; flex-wrap:wrap; justify-content:flex-end; } .lab-title { display:block; } .lab-body { padding:20px 14px 15px; } .live-metrics { grid-template-columns:repeat(2,1fr); row-gap:22px; } .live-metric:nth-child(3) { border:0; padding-left:0; } .metric-value { font-size:24px; } .event-position { font-size:9px; } .speed { margin-left:1px; } .speed span { display:none; } .fault-response { padding:15px 14px; } .response-header { align-items:flex-start; flex-direction:column; gap:4px; } .milestone-path { gap:6px; } .milestone { padding:7px; } .milestone-time { font-size:13px; } .milestone-label { font-size:9px; } .log-columns,.event-row { grid-template-columns:58px minmax(0,1.4fr) minmax(0,1fr) 36px; padding-left:14px; padding-right:14px; gap:10px; } .log-columns .output-column,.event-row .output-column { display:none; } .run-fields { grid-template-columns:repeat(2,minmax(0,1fr)); } .next-run summary { padding:14px; } .next-run-content { padding:0 14px 14px; } .command-line { flex-wrap:wrap; } .run-command { flex-basis:100%; } footer { flex-direction:column; gap:10px; } }
+    @media (max-width:600px) {
+      .scenario-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; font-size:11px; }
+      .scenario-stat-label { font-size:8px; letter-spacing:0; }
+    }
+    @media (max-width:360px) { .scenario-grid { grid-template-columns:1fr; } }
+    @media (prefers-reduced-motion:reduce) { * { transition:none !important; scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <div class="brand"><div class="brand-mark" aria-hidden="true">↳</div>QNX Recovery Lab<span>Trace viewer</span></div>
+      <div class="source-label" id="sourceStatus"><span class="dot"></span><span id="sourceText">Awaiting evidence</span></div>
+    </header>
+    <main>
+      <div class="intro">
+        <div><p class="eyebrow">Developer fault-injection lab</p><h1>Recovery, under observation.</h1><p>Follow worker faults, held output, and recovery through a recorded QNX run.</p></div>
+        <div class="actions">
+          <a class="button" id="demoLink" href="../demo/">Guided demo ↗</a>
+          <button class="button" id="reloadButton" type="button"><span class="symbol" aria-hidden="true">↻</span>Load latest run</button>
+          <button class="button primary" id="importButton" type="button"><span class="symbol" aria-hidden="true">↑</span>Import trace</button>
+          <input class="sr-only" id="fileInput" type="file" accept=".json,application/json" aria-label="Import a JSON trace" tabindex="-1">
+          <button class="button" id="downloadButton" type="button" disabled><span class="symbol" aria-hidden="true">↓</span>View trace</button>
+        </div>
+      </div>
+      <p class="notice" id="notice" role="status" hidden></p>
+      <dl class="context" aria-label="Recorded environment">
+        <div class="context-item"><dt>Guest</dt><dd id="guestValue">—</dd></div>
+        <div class="context-item"><dt>Target</dt><dd id="machineValue">—</dd></div>
+        <div class="context-item"><dt>Runtime</dt><dd id="runtimeValue">—</dd></div>
+        <div class="context-item"><dt>Toolchain</dt><dd id="toolchainValue">—</dd></div>
+        <div class="context-item"><dt>Recorded</dt><dd id="recordedValue">—</dd></div>
+      </dl>
+      <section aria-labelledby="scenariosHeading">
+        <div class="section-top"><h2 id="scenariosHeading">Scenario results</h2><button class="text-button" id="allButton" type="button" disabled>All events</button></div>
+        <div class="scenario-grid" id="scenarioCards"></div>
+        <section class="assessment" id="assessment" aria-labelledby="assessmentHeading" hidden><div class="assessment-heading"><h2 id="assessmentHeading">Recorded assessment</h2><span class="result" id="assessmentResult"></span></div><p id="assessmentText"></p><dl class="assessment-config" id="assessmentConfig"></dl></section>
+      </section>
+      <section class="lab" aria-labelledby="timelineHeading">
+        <div class="lab-header"><div class="lab-title"><h2 id="timelineHeading">State over time</h2><span id="selectedScenario">Select a recorded scenario</span></div><div class="legend" aria-label="State colors"><span><i class="swatch running"></i>Running</span><span><i class="swatch hold"></i>Hold / recovery / lockout</span><span><i class="swatch fault"></i>Fault</span></div></div>
+        <div class="lab-body">
+          <div class="live-metrics" aria-live="off">
+            <div class="live-metric"><div class="metric-label">State at cursor</div><div class="metric-value state" id="stateValue">Awaiting trace</div><div class="metric-note" id="stateNote">—</div></div>
+            <div class="live-metric"><div class="metric-label">Elapsed</div><div class="metric-value" id="elapsedValue">—</div><div class="metric-note" id="durationNote">—</div></div>
+            <div class="live-metric"><div class="metric-label">Generation</div><div class="metric-value" id="generationValue">—</div><div class="metric-note" id="sequenceNote">Worker sequence —</div></div>
+            <div class="live-metric"><div class="metric-label">Accepted output</div><div class="metric-value" id="outputValue">—</div><div class="metric-note" id="outputNote">Recorded value at cursor</div></div>
+          </div>
+          <div class="timeline-wrap"><div class="timeline timeline-empty" id="stateTrack" role="img" aria-label="No recorded states"></div><div class="timeline-cursor" id="timelineCursor" hidden></div></div>
+          <div class="time-labels"><span>0.000 s</span><span id="endTime">—</span></div>
+          <label class="sr-only" for="scrubber">Trace time. Use arrow keys to seek.</label><input id="scrubber" class="scrubber" type="range" min="0" max="1" step="1" value="0" disabled>
+          <div class="transport"><div class="transport-buttons"><button class="button icon-button" id="previousButton" aria-label="Previous event" title="Previous event" type="button" disabled>‹</button><button class="button primary play-button" id="playButton" type="button" disabled>▶ Play trace</button><button class="button icon-button" id="nextButton" aria-label="Next event" title="Next event" type="button" disabled>›</button><label class="speed"><span>Speed</span><select id="speedSelect" aria-label="Playback speed" disabled><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label></div><span class="event-position" id="eventPosition">0 events</span></div>
+        </div>
+        <section class="fault-response" id="faultResponse" aria-labelledby="faultResponseHeading" hidden><div class="response-header"><h3 id="faultResponseHeading">Measured fault response</h3><p>Recorded guest clock · QEMU software emulation</p></div><div id="responseCycles"></div></section>
+        <div class="empty" id="emptyState"><span class="empty-mark" aria-hidden="true">[ · ]</span><h3>Run the QNX lab or import a trace</h3><p>Load <code>artifacts/latest.json</code> from the local server, or choose a recorded JSON file.</p></div>
+      </section>
+      <section class="log-panel" aria-labelledby="logHeading"><div class="log-header"><h2 id="logHeading">Event log</h2><span class="log-count" id="logCount">No trace loaded</span></div><div class="log-columns" aria-hidden="true"><span>Elapsed</span><span>Event</span><span>State</span><span class="numeric">Gen.</span><span class="numeric output-column">Output</span></div><div class="event-list" id="eventList"><p class="log-placeholder">Recorded events will appear here.</p></div><p class="log-window" id="logWindow" hidden></p></section>
+      <details class="next-run"><summary>Next run configuration</summary><div class="next-run-content"><p>Copy this command into PowerShell to record a new run.</p><div class="run-fields"><label for="runScenario">Scenario<select id="runScenario"><option value="all">All scenarios</option><option value="healthy">Healthy</option><option value="crash">Worker crash</option><option value="stall">Worker stall</option><option value="invalid">Invalid output</option><option value="crash_loop">Restart limit</option><option value="replay">Sequence replay</option><option value="wrong_generation">Wrong generation</option></select></label><label for="runFaultAt">Fault at sequence · 4–20<input id="runFaultAt" type="number" min="4" max="20" step="1" value="8" required></label><label for="runWatchdog">Watchdog · 300–2,000 ms<input id="runWatchdog" type="number" min="300" max="2000" step="1" value="700" required></label><label for="runRestartLimit">Restart limit · 0–3<input id="runRestartLimit" type="number" min="0" max="3" step="1" value="2" required></label></div><div class="command-line"><label class="sr-only" for="runCommand">Command for the next lab run from the project directory</label><textarea class="run-command" id="runCommand" rows="2" readonly spellcheck="false"></textarea><button class="button copy-command" id="copyCommandButton" type="button">Copy</button></div><div class="command-status" id="commandStatus" role="status"></div></div></details>
+    </main>
+    <footer><p class="evidence-note"><strong id="evidenceSource">Evidence source · awaiting a recorded run</strong><span id="sourceName">JSON trace · schema v1</span></p><p>QEMU results describe the recorded emulated run. Hardware timing, physical I/O, and production safety require separate validation.</p></footer>
+  </div>
+  <p class="sr-only" id="announcer" aria-live="polite"></p>
+  <script>
+    'use strict';
+    const SCENARIOS = [
+      { id:'healthy', name:'Healthy', description:'Steady worker operation' },
+      { id:'crash', name:'Worker crash', description:'Process exits unexpectedly' },
+      { id:'stall', name:'Worker stall', description:'Progress stops responding' },
+      { id:'invalid', name:'Invalid output', description:'Proposal fails validation' },
+      { id:'crash_loop', name:'Restart limit', description:'Repeated crashes exhaust the restart budget' },
+      { id:'replay', name:'Sequence replay', description:'Duplicate prior sequence is rejected' },
+      { id:'wrong_generation', name:'Wrong generation', description:'Generation 0 message is rejected' }
+    ];
+    const elements = Object.fromEntries(Array.from(document.querySelectorAll('[id]'), element => [element.id, element]));
+    let trace = null;
+    let selected = null;
+    let events = [];
+    let cursor = 0;
+    let duration = 0;
+    let origin = 0;
+    let playing = false;
+    let frame = null;
+    let lastFrame = 0;
+    let displayedEvent = -2;
+    let rows = new Map();
+    let rowStart = -1;
+    let rowEnd = -1;
+    let loadVersion = 0;
+    let exactEvent = null;
+    let configEdited = false;
+    let milestoneButtons = [];
+
+    function node(tag, className, text) {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      if (text !== undefined) element.textContent = String(text);
+      return element;
+    }
+    function scalar(value, fallback = '—') {
+      return typeof value === 'string' || (typeof value === 'number' && Number.isFinite(value)) ? String(value) : fallback;
+    }
+    function human(value) { return scalar(value).replaceAll('_',' '); }
+    function number(value) { return typeof value === 'number' && Number.isFinite(value) ? value.toLocaleString('en-US', { maximumFractionDigits:3 }) : '—'; }
+    function time(milliseconds) { return `${(milliseconds / 1000).toFixed(3)} s`; }
+    function displayTime(event) { return event.view_ms - origin; }
+    function tone(state) {
+      const value = scalar(state, '').toLowerCase();
+      if (/hold|held|restart|recover|starting|boot|locked_out/.test(value)) return 'hold';
+      if (/fault|crash|invalid|error|fail/.test(value)) return 'fault';
+      if (/running|healthy|active|ready/.test(value)) return 'running';
+      return '';
+    }
+    function resultInfo(result) {
+      if (result?.passed === false || result?.outcome === 'failed') return { label:'Failed', style:'fail' };
+      if (result?.passed === true && result.outcome === 'contained') return { label:'Contained', style:'contained' };
+      if (result?.passed === true) return { label:'Passed', style:'pass' };
+      return { label:'Unrecorded', style:'' };
+    }
+    function notice(message) { elements.notice.textContent = message; elements.notice.hidden = !message; }
+    function announce(message) { elements.announcer.textContent = message; }
+    function eventIndex() {
+      if (exactEvent !== null) return exactEvent;
+      let low = 0;
+      let high = events.length;
+      while (low < high) {
+        const middle = Math.floor((low + high) / 2);
+        if (displayTime(events[middle]) <= cursor) low = middle + 1;
+        else high = middle;
+      }
+      return low - 1;
+    }
+    function validate(data) {
+      if (!data || typeof data !== 'object' || Array.isArray(data) || data.schema_version !== 1) throw new Error('Choose a Recovery Lab trace with schema_version 1.');
+      if (!Array.isArray(data.events) || !Array.isArray(data.scenarios)) throw new Error('The trace must contain events and scenarios arrays.');
+      if (data.events.length > 100000) throw new Error('This viewer accepts up to 100,000 events per trace.');
+      const validEvents = data.events.every(event => event && typeof event === 'object' && typeof event.scenario === 'string' && typeof event.event === 'string' && typeof event.t_ms === 'number' && Number.isFinite(event.t_ms) && event.t_ms >= 0);
+      if (!validEvents) throw new Error('Each event needs a scenario, event name, and a finite non-negative t_ms.');
+      return data;
+    }
+    function renderCards() {
+      elements.scenarioCards.replaceChildren();
+      for (const scenario of SCENARIOS) {
+        const result = trace?.scenarios.find(item => item && item.scenario === scenario.id);
+        const status = resultInfo(result);
+        const available = Boolean(trace?.events.some(event => event.scenario === scenario.id));
+        const card = node('button', `scenario-card${selected === scenario.id ? ' active' : ''}${status.style === 'contained' ? ' contained' : ''}`);
+        card.type = 'button';
+        card.dataset.scenario = scenario.id;
+        card.disabled = !available;
+        card.setAttribute('aria-pressed', String(selected === scenario.id));
+        card.setAttribute('aria-label', `${scenario.name}. ${status.label}${status.style === 'contained' ? ', containment checks passed' : ''}. Inspect scenario.`);
+        const heading = node('div', 'scenario-heading');
+        heading.append(node('span', 'scenario-name', scenario.name), node('span', `result ${status.style}`, `${status.style === 'fail' ? '× ' : result?.passed === true ? '✓ ' : ''}${status.label}`));
+        card.append(heading, node('p', 'scenario-desc', scenario.description));
+        const stats = node('div', 'scenario-stats');
+        for (const [key,label] of [['restarts','Restarts'],['accepted','Accepted'],['rejected','Rejected']]) {
+          const stat = node('div', '', number(result?.[key]));
+          stat.append(node('span', 'scenario-stat-label', label));
+          stats.append(stat);
+        }
+        card.append(stats);
+        card.addEventListener('click', () => selectScenario(scenario.id));
+        elements.scenarioCards.append(card);
+      }
+      elements.allButton.classList.toggle('active', selected === 'all');
+      elements.allButton.setAttribute('aria-pressed', String(selected === 'all'));
+      elements.allButton.disabled = !trace?.events.length;
+    }
+    function renderAssessment() {
+      elements.assessment.hidden = !trace;
+      elements.assessmentConfig.replaceChildren();
+      if (!trace) return;
+      const result = trace.scenarios.find(item => item && item.scenario === selected);
+      const status = resultInfo(result);
+      const statements = [];
+      if (selected === 'all') {
+        const results = trace.scenarios.filter(item => item && typeof item === 'object');
+        const passed = results.filter(item => resultInfo(item).style === 'pass').length;
+        const contained = results.filter(item => resultInfo(item).style === 'contained').length;
+        const failed = results.filter(item => resultInfo(item).style === 'fail').length;
+        elements.assessmentResult.className = 'result';
+        elements.assessmentResult.textContent = `${results.length} recorded`;
+        statements.push(`${passed} passed, ${contained} contained, ${failed} failed. Select a scenario to inspect its assessment.`);
+      } else {
+        elements.assessmentResult.className = `result ${status.style}`;
+        elements.assessmentResult.textContent = status.label;
+        if (status.style === 'fail') statements.push('The recorded scenario failed its checks.');
+        else if (status.style === 'contained') {
+          statements.push('The expected containment checks passed.');
+          if (events.some(event => event.state === 'locked_out' && event.output === 0)) statements.push('The trace records locked out output at 0.');
+        } else if (status.style === 'pass') {
+          statements.push(result?.outcome === 'recovered' || result?.resumed === true ? 'The recovery checks passed.' : 'The scenario passed its checks.');
+        } else statements.push('A final assessment is unavailable for this scenario.');
+        const counts = [['accepted','accepted proposals'],['rejected','rejected proposals'],['restarts','restarts']]
+          .filter(([key]) => typeof result?.[key] === 'number' && Number.isFinite(result[key]))
+          .map(([key,label]) => `${number(result[key])} ${label}`);
+        if (counts.length) statements.push(`${counts.join(' · ')}.`);
+      }
+      elements.assessmentText.textContent = statements.join(' ');
+      const metrics = [];
+      if (selected !== 'healthy' && selected !== 'all') {
+        for (const [key,label] of [['held_after_fault','Held after fault'],['resumed','Resumed']]) {
+          if (typeof result?.[key] === 'boolean') metrics.push([label,result[key] ? 'Yes' : 'No']);
+        }
+      }
+      if (typeof result?.recovery_delay_ms === 'number' && Number.isFinite(result.recovery_delay_ms) && result.recovery_delay_ms >= 0) metrics.push(['Recovery delay',`${number(result.recovery_delay_ms)} ms`]);
+      for (const [key,label,unit] of [['fault_at','Fault at sequence',''],['watchdog_ms','Watchdog',' ms'],['restart_limit','Restart limit','']]) {
+        const value = result?.[key] ?? trace.config?.[key];
+        if (typeof value === 'number' && Number.isFinite(value) && value >= 0) metrics.push([label,`${number(value)}${unit}`]);
+      }
+      for (const [label,value] of metrics) {
+        const metric = node('div');
+        metric.append(node('dt','',label),node('dd','',value));
+        elements.assessmentConfig.append(metric);
+      }
+      elements.assessment.style.borderLeftColor = ({ pass:'var(--mint)', contained:'var(--amber)', fail:'var(--coral)' })[status.style] ?? 'var(--line)';
+    }
+    function faultCycles(source) {
+      const cycles = [];
+      let cycle = null;
+      source.forEach((event,index) => {
+        if (!['fault_injected','hold','resumed','locked_out'].includes(event.event)) return;
+        const point = { event,index };
+        if (event.event === 'fault_injected') {
+          cycle = { notice:point };
+          cycles.push(cycle);
+          return;
+        }
+        if (!cycle || cycle.terminal) {
+          cycle = {};
+          cycles.push(cycle);
+        }
+        if (event.event === 'hold') cycle.detected ??= point;
+        else cycle.terminal = point;
+      });
+      return cycles;
+    }
+    function intervalMs(from,to) {
+      return from && to && to.event.t_ms >= from.event.t_ms ? to.event.t_ms - from.event.t_ms : null;
+    }
+    function renderResponse() {
+      elements.responseCycles.replaceChildren();
+      milestoneButtons = [];
+      const cycles = selected === 'all' ? [] : faultCycles(events);
+      elements.faultResponse.hidden = cycles.length === 0;
+      for (const cycle of cycles) {
+        const row = node('div','response-cycle');
+        const generation = cycle.notice?.event.generation ?? cycle.detected?.event.generation ?? cycle.terminal?.event.generation;
+        row.append(node('p','response-generation',`Generation ${number(generation)}`));
+        const path = node('div','milestone-path');
+        const contained = cycle.terminal?.event.event === 'locked_out';
+        const terminalLabel = cycle.terminal ? (contained ? 'Locked out' : 'Output resumed') : 'Resume / lockout';
+        for (const [key,label,style] of [['notice','Fault notice',''],['detected','Output held','detected'],['terminal',terminalLabel,contained ? 'contained' : '']]) {
+          const point = cycle[key];
+          const button = node('button',`milestone ${style}`);
+          button.type = 'button';
+          button.disabled = !point;
+          button.dataset.milestone = key;
+          button.append(node('span','milestone-label',label),node('span','milestone-time',point ? `${number(point.event.t_ms)} ms` : 'Unrecorded'));
+          button.setAttribute('aria-label',point ? `Seek to ${label.toLowerCase()} at ${number(point.event.t_ms)} milliseconds, generation ${number(generation)}` : `${label} unrecorded`);
+          if (point) {
+            button.dataset.eventIndex = String(point.index);
+            button.addEventListener('click',() => seek(displayTime(point.event),point.index));
+            milestoneButtons.push({ button,index:point.index });
+          }
+          path.append(button);
+        }
+        row.append(path);
+        const intervals = node('div','response-intervals');
+        for (const [label,from,to] of [['Notice → detection',cycle.notice,cycle.detected],[cycle.terminal ? (contained ? 'Detection → lockout' : 'Detection → recovery') : 'Detection → outcome',cycle.detected,cycle.terminal]]) {
+          const delay = intervalMs(from,to);
+          const metric = node('div','response-interval');
+          metric.append(node('strong','',delay === null ? 'Unrecorded' : `${number(delay)} ms`),node('span','',label));
+          intervals.append(metric);
+        }
+        row.append(intervals);
+        elements.responseCycles.append(row);
+      }
+    }
+    function renderTrack() {
+      elements.stateTrack.replaceChildren();
+      elements.stateTrack.classList.toggle('timeline-empty', events.length === 0);
+      const segments = [];
+      for (const event of events) {
+        const state = scalar(event.state, 'unreported');
+        const previous = segments.at(-1);
+        if (!previous || previous.state !== state || previous.scenario !== event.scenario) segments.push({ at:displayTime(event), state, scenario:event.scenario });
+      }
+      for (let index = 0; index < segments.length; index++) {
+        const segment = segments[index];
+        const end = segments[index + 1]?.at ?? duration;
+        const bar = node('span', `timeline-segment ${tone(segment.state)}`);
+        bar.style.left = `${duration ? segment.at / duration * 100 : 0}%`;
+        bar.style.width = `${duration ? Math.max(0, end - segment.at) / duration * 100 : 100}%`;
+        bar.title = `${human(segment.state)} · ${time(segment.at)} – ${time(end)}`;
+        elements.stateTrack.append(bar);
+      }
+      elements.stateTrack.setAttribute('aria-label', events.length ? `${segments.length} recorded state intervals. Use the time slider to inspect state changes.` : 'No recorded states');
+    }
+    function buildEvents(source,id) {
+      const groups = new Map();
+      source.forEach((event,index) => {
+        if (id !== 'all' && event.scenario !== id) return;
+        if (!groups.has(event.scenario)) groups.set(event.scenario,[]);
+        groups.get(event.scenario).push({ ...event, originalIndex:index });
+      });
+      const ordered = [];
+      let offset = 0;
+      for (const group of groups.values()) {
+        group.sort((a,b) => a.t_ms - b.t_ms || a.originalIndex - b.originalIndex);
+        ordered.push(...group.map(event => ({ ...event, view_ms:event.t_ms + offset })));
+        if (id === 'all') offset += group.at(-1).t_ms + 50;
+      }
+      return ordered;
+    }
+    function selectScenario(id) {
+      pause();
+      selected = id;
+      events = trace ? buildEvents(trace.events,id) : [];
+      origin = events[0]?.view_ms ?? 0;
+      duration = events.length ? displayTime(events.at(-1)) : 0;
+      cursor = 0;
+      exactEvent = null;
+      displayedEvent = -2;
+      rowStart = -1;
+      elements.scrubber.max = String(Math.max(1,duration));
+      elements.scrubber.disabled = events.length === 0;
+      elements.speedSelect.disabled = duration === 0;
+      elements.selectedScenario.textContent = id === 'all' ? 'All scenarios · sequential playback' : SCENARIOS.find(scenario => scenario.id === id)?.name ?? scalar(id, 'Select a recorded scenario');
+      elements.endTime.textContent = events.length ? time(duration) : '—';
+      elements.durationNote.textContent = events.length ? `of ${time(duration)}${id === 'all' ? ' · 50 ms between runs' : ''}` : '—';
+      elements.emptyState.hidden = events.length > 0;
+      elements.logCount.textContent = events.length ? `${events.length.toLocaleString('en-US')} recorded events` : 'No trace loaded';
+      renderCards();
+      renderAssessment();
+      renderResponse();
+      renderTrack();
+      renderCursor();
+      announce(events.length ? `${elements.selectedScenario.textContent} selected. ${events.length} events.` : 'Run the QNX lab or import a trace.');
+    }
+    function renderLog(current) {
+      const start = Math.max(0, Math.min(current - 100, events.length - 250));
+      const end = Math.min(events.length, start + 250);
+      if (start !== rowStart || end !== rowEnd) {
+        elements.eventList.replaceChildren();
+        rows = new Map();
+        rowStart = start;
+        rowEnd = end;
+        if (!events.length) elements.eventList.append(node('p', 'log-placeholder', 'Recorded events will appear here.'));
+        for (let index = start; index < end; index++) {
+          const event = events[index];
+          const row = node('button', 'event-row');
+          row.type = 'button';
+          row.setAttribute('aria-label', `${time(displayTime(event))}, ${human(event.event)}, ${human(event.state)}. Seek to event.`);
+          const name = node('span', 'event-name', human(event.event));
+          const receivedGeneration = typeof event.received_generation === 'number' && Number.isFinite(event.received_generation) && event.received_generation !== event.generation ? `received generation ${number(event.received_generation)} · active ${number(event.generation)}` : '';
+          const detail = [selected === 'all' ? `${event.scenario} · ${time(event.t_ms)} in scenario` : null, scalar(event.reason, ''),receivedGeneration].filter(Boolean).join(' · ');
+          if (detail) name.append(node('span', 'event-reason', detail));
+          row.append(node('span', 'event-time', time(displayTime(event))), name, node('span', `event-state ${tone(event.state)}`, human(event.state)), node('span', 'numeric', number(event.generation)), node('span', 'numeric output-column', number(event.output)));
+          row.addEventListener('click', () => seek(displayTime(event),index));
+          elements.eventList.append(row);
+          rows.set(index,row);
+        }
+        elements.logWindow.hidden = events.length <= 250;
+        elements.logWindow.textContent = `Events ${(start + 1).toLocaleString('en-US')}–${end.toLocaleString('en-US')} of ${events.length.toLocaleString('en-US')} near the cursor. Seek or step to inspect the full trace.`;
+      }
+      for (const [index,row] of rows) {
+        if (index === current) row.setAttribute('aria-current','true');
+        else row.removeAttribute('aria-current');
+      }
+    }
+    function renderCursor() {
+      const current = eventIndex();
+      const event = events[current];
+      elements.scrubber.value = String(cursor);
+      elements.scrubber.setAttribute('aria-valuetext', `${time(cursor)} of ${time(duration)}`);
+      elements.timelineCursor.hidden = events.length === 0;
+      elements.timelineCursor.style.left = `${duration ? cursor / duration * 100 : 0}%`;
+      elements.elapsedValue.textContent = events.length ? time(cursor) : '—';
+      elements.playButton.disabled = duration === 0;
+      elements.previousButton.disabled = current <= 0;
+      elements.nextButton.disabled = current >= events.length - 1 || !events.length;
+      elements.eventPosition.textContent = events.length ? `Event ${Math.max(0,current + 1)} / ${events.length}` : '0 events';
+      if (current === displayedEvent) return;
+      displayedEvent = current;
+      elements.stateValue.textContent = event ? human(event.state) : 'Awaiting trace';
+      elements.stateValue.style.color = event ? ({ running:'var(--mint)', hold:'var(--amber)', fault:'var(--coral)' }[tone(event.state)] ?? 'var(--text)') : 'var(--muted)';
+      elements.stateNote.textContent = event ? `${selected === 'all' ? `${event.scenario} · ` : ''}${human(event.event)}` : '—';
+      elements.generationValue.textContent = number(event?.generation);
+      elements.sequenceNote.textContent = `Worker sequence ${number(event?.seq)}`;
+      elements.outputValue.textContent = number(event?.output);
+      for (const { button,index } of milestoneButtons) {
+        button.classList.toggle('reached',index <= current);
+        button.classList.toggle('current',index === current);
+        if (index === current) button.setAttribute('aria-current','step');
+        else button.removeAttribute('aria-current');
+      }
+      renderLog(current);
+      const currentRow = rows.get(current);
+      if (currentRow) {
+        const listBounds = elements.eventList.getBoundingClientRect();
+        const rowBounds = currentRow.getBoundingClientRect();
+        if (rowBounds.bottom > listBounds.bottom) elements.eventList.scrollTop += rowBounds.bottom - listBounds.bottom;
+        else if (rowBounds.top < listBounds.top) elements.eventList.scrollTop -= listBounds.top - rowBounds.top;
+      }
+    }
+    function pause() {
+      playing = false;
+      cancelAnimationFrame(frame);
+      frame = null;
+      elements.playButton.textContent = '▶ Play trace';
+      elements.playButton.setAttribute('aria-pressed','false');
+    }
+    function seek(value,index = null) { pause(); exactEvent = index; cursor = Math.max(0,Math.min(duration,value)); renderCursor(); }
+    function tick(now) {
+      if (!playing) return;
+      exactEvent = null;
+      cursor = Math.min(duration,cursor + (now - lastFrame) * Number(elements.speedSelect.value));
+      lastFrame = now;
+      renderCursor();
+      if (cursor >= duration) pause();
+      else frame = requestAnimationFrame(tick);
+    }
+    function commandFor(config) {
+      if (config.scenario !== 'all' && !SCENARIOS.some(scenario => scenario.id === config.scenario)) return '';
+      for (const [key,min,max] of [['fault_at',4,20],['watchdog_ms',300,2000],['restart_limit',0,3]]) {
+        if (!Number.isInteger(config[key]) || config[key] < min || config[key] > max) return '';
+      }
+      return String.raw`.\prototype\run-lab.ps1 -Scenario ${config.scenario} -FaultAt ${config.fault_at} -WatchdogMs ${config.watchdog_ms} -RestartLimit ${config.restart_limit}`;
+    }
+    function updateCommand() {
+      const command = commandFor({ scenario:elements.runScenario.value, fault_at:elements.runFaultAt.valueAsNumber, watchdog_ms:elements.runWatchdog.valueAsNumber, restart_limit:elements.runRestartLimit.valueAsNumber });
+      elements.runCommand.value = command;
+      elements.copyCommandButton.disabled = !command;
+      elements.commandStatus.textContent = command ? 'Run from the project directory. Parameters apply to the next recording.' : 'Enter whole numbers within the displayed ranges to generate a command.';
+    }
+    function seedRunConfig(config) {
+      if (configEdited || !config || typeof config !== 'object') return;
+      if (config.scenario === 'all' || SCENARIOS.some(scenario => scenario.id === config.scenario)) elements.runScenario.value = config.scenario;
+      for (const [id,key,min,max] of [['runFaultAt','fault_at',4,20],['runWatchdog','watchdog_ms',300,2000],['runRestartLimit','restart_limit',0,3]]) {
+        if (Number.isInteger(config[key]) && config[key] >= min && config[key] <= max) elements[id].value = String(config[key]);
+      }
+      updateCommand();
+    }
+    async function copyCommand() {
+      const command = elements.runCommand.value;
+      if (!command || elements.copyCommandButton.disabled) return;
+      try {
+        if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+        await navigator.clipboard.writeText(command);
+        elements.commandStatus.textContent = 'Command copied. Run it in PowerShell from the project directory.';
+      } catch {
+        elements.runCommand.focus();
+        elements.runCommand.select();
+        let copied = false;
+        try { copied = document.execCommand('copy'); } catch { /* The selected command remains available for manual copying. */ }
+        elements.commandStatus.textContent = copied ? 'Command copied. Run it in PowerShell from the project directory.' : 'Command selected. Press Ctrl+C to copy it.';
+        if (copied) elements.copyCommandButton.focus();
+      }
+    }
+    function acceptTrace(data, source) {
+      trace = validate(data);
+      const environment = trace.environment && typeof trace.environment === 'object' ? trace.environment : {};
+      elements.guestValue.textContent = [scalar(environment.os,''), scalar(environment.release,'')].filter(Boolean).join(' ') || 'Unreported';
+      elements.machineValue.textContent = scalar(environment.machine,'Unreported');
+      elements.runtimeValue.textContent = scalar(environment.emulator,'Unreported');
+      elements.toolchainValue.textContent = scalar(environment.toolchain,'Unreported');
+      const recorded = typeof trace.recorded_at === 'string' ? new Date(trace.recorded_at) : null;
+      elements.recordedValue.textContent = recorded && !Number.isNaN(recorded.getTime()) ? recorded.toISOString().replace('T',' ').replace('.000Z',' UTC') : scalar(trace.recorded_at,'Unreported');
+      elements.sourceStatus.classList.add('loaded');
+      elements.sourceText.textContent = 'Recorded evidence';
+      elements.evidenceSource.textContent = `Evidence source · ${scalar(environment.os,'unreported')} guest`;
+      elements.sourceName.textContent = `${source} · schema v1${Number.isInteger(trace.suite_version) ? ` · suite v${trace.suite_version}` : ''}`;
+      elements.downloadButton.disabled = false;
+      seedRunConfig(trace.config);
+      const first = SCENARIOS.find(scenario => trace.events.some(event => event.scenario === scenario.id));
+      selectScenario(first?.id ?? (trace.events.length ? 'all' : null));
+      notice(trace.events.length ? '' : 'This trace contains no events. Import a completed lab run to inspect recovery.');
+      announce(`Loaded ${source}. ${trace.events.length} recorded events.`);
+    }
+    async function readLatestAttempt() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(),3000);
+      try {
+        const response = await fetch('../artifacts/latest-attempt.json', { cache:'no-store', signal:controller.signal });
+        if (!response.ok) return null;
+        const text = await response.text();
+        if (text.length > 65536) return null;
+        const attempt = JSON.parse(text);
+        return attempt && !Array.isArray(attempt) && attempt.schema_version === 1 && ['running','passed','failed'].includes(attempt.status) ? attempt : null;
+      } catch { return null; }
+      finally { clearTimeout(timeout); }
+    }
+    function latestAttemptNotice(attempt) {
+      if (!attempt || !['running','failed'].includes(attempt.status)) return '';
+      const scenario = typeof attempt.scenario === 'string' ? ` (${attempt.scenario})` : '';
+      const detail = typeof attempt.detail === 'string' && attempt.detail ? ` ${attempt.detail}` : '';
+      return `Latest attempt ${attempt.status === 'running' ? 'is running' : 'failed'}${scenario}. Showing the last verified report.${detail}`;
+    }
+    async function loadRecording(recording = 'latest.json', focus = null) {
+      const version = ++loadVersion;
+      elements.reloadButton.disabled = true;
+      const attemptRequest = recording === 'latest.json' ? readLatestAttempt() : Promise.resolve(null);
+      try {
+        const response = await fetch(`../artifacts/${recording}`, { cache:'no-store' });
+        if (!response.ok) throw new Error(`The local server returned HTTP ${response.status}.`);
+        const text = await response.text();
+        if (text.length > 10 * 1024 * 1024) throw new Error('The trace exceeds the 10 MB viewer limit.');
+        const data = JSON.parse(text);
+        if (version !== loadVersion) return;
+        acceptTrace(data,`artifacts/${recording}`);
+        if (focus?.scenario && trace.events.some(event => event.scenario === focus.scenario)) {
+          selectScenario(focus.scenario);
+          if (Number.isInteger(focus.event) && focus.event >= 0 && focus.event < events.length) {
+            seek(displayTime(events[focus.event]),focus.event);
+          }
+        }
+        const attempt = await attemptRequest;
+        const message = latestAttemptNotice(attempt);
+        if (version === loadVersion && message) notice(message);
+      } catch (error) {
+        if (version === loadVersion) notice(location.protocol === 'file:' ? 'Open this viewer through the local server to load recordings, or import a JSON trace directly.' : `Recording unavailable. ${error instanceof SyntaxError ? 'The file contains invalid JSON.' : error.message} Import a recorded JSON trace to continue.`);
+      } finally {
+        if (version === loadVersion) elements.reloadButton.disabled = false;
+      }
+    }
+    function loadLatest() { return loadRecording(); }
+    function loadInitialRecording() {
+      const query = new URLSearchParams(location.search);
+      const requested = query.get('trace');
+      const recording = requested && /^run-\d{8}-\d{6}-\d{3}\.json$/.test(requested) ? requested : 'latest.json';
+      const scenario = query.get('scenario');
+      const eventText = query.get('event');
+      const index = eventText !== null && /^\d{1,6}$/.test(eventText) ? Number(eventText) : null;
+      const focus = SCENARIOS.some(item => item.id === scenario) ? { scenario,event:index } : null;
+      return loadRecording(recording,focus);
+    }
+    elements.reloadButton.addEventListener('click', loadLatest);
+    elements.importButton.addEventListener('click', () => elements.fileInput.click());
+    elements.fileInput.addEventListener('change', async () => {
+      const file = elements.fileInput.files[0];
+      if (!file) return;
+      const version = ++loadVersion;
+      elements.reloadButton.disabled = false;
+      try {
+        if (file.size > 10 * 1024 * 1024) throw new Error('Choose a JSON trace smaller than 10 MB.');
+        const data = JSON.parse(await file.text());
+        if (version === loadVersion) acceptTrace(data,file.name);
+      } catch (error) { if (version === loadVersion) notice(`Could not import trace. ${error instanceof SyntaxError ? 'The file contains invalid JSON.' : error.message}`); }
+      if (version === loadVersion) elements.fileInput.value = '';
+    });
+    elements.allButton.addEventListener('click', () => selectScenario('all'));
+    for (const id of ['runScenario','runFaultAt','runWatchdog','runRestartLimit']) elements[id].addEventListener('input', () => { configEdited = true; updateCommand(); });
+    elements.copyCommandButton.addEventListener('click', copyCommand);
+    elements.scrubber.addEventListener('input', () => seek(Number(elements.scrubber.value)));
+    elements.previousButton.addEventListener('click', () => { const index = eventIndex(); if (index > 0) seek(displayTime(events[index - 1]),index - 1); });
+    elements.nextButton.addEventListener('click', () => { const index = eventIndex(); if (index < events.length - 1) seek(displayTime(events[index + 1]),index + 1); });
+    elements.playButton.addEventListener('click', () => {
+      if (playing) { pause(); return; }
+      if (!duration) return;
+      if (cursor >= duration) cursor = 0;
+      playing = true;
+      lastFrame = performance.now();
+      elements.playButton.textContent = 'Ⅱ Pause trace';
+      elements.playButton.setAttribute('aria-pressed','true');
+      frame = requestAnimationFrame(tick);
+    });
+    elements.downloadButton.addEventListener('click', () => {
+      if (!trace) return;
+      const url = URL.createObjectURL(new Blob([JSON.stringify(trace,null,2)], { type:'application/json' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'qnx-recovery-trace.json';
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url),1000);
+    });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+    selectScenario(null);
+    updateCommand();
+    loadInitialRecording();
+  </script>
+</body>
+</html>

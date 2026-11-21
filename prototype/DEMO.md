@@ -1,0 +1,43 @@
+# Показ QNX Recovery Lab
+
+Відкрийте `http://127.0.0.1:8764/demo/`. Самодостатня копія — `demo/offline.html`; її можна відкрити як звичайний HTML без сервера й без інтернету. Архів `artifacts/qnx-recovery-demo.zip` містить панель, зафіксовані записи та матеріали для їх перевірки. Це локальна версія для репетиції, без публікації чи подання.
+
+Демо відтворює справжні записи нативної програми у QNX 8 під QEMU. Воно не запускає гостьову ОС натисканням Play. Швидкість показу й тривалість відео відрізняються від часу, виміряного в гості; інтерфейс показує гостьові мілісекунди окремо.
+
+Запис екрана панелі — `demo/media/demo.webm`; сторінка програвача — `demo/video.html`. Тривалість приблизно 1 хв 47 с, розмір кадру 1440 × 1000. Озвучення немає; пояснення видно в інтерфейсі, додаткові англійські субтитри містяться в `demo/media/demo.vtt`.
+
+## Показ приблизно на півтори хвилини
+
+1. **Earn the output.** Покажіть перші дві коректні пропозиції: вихід залишається 0. Третя пропозиція завершує перевірку й дозволяє робоче значення. Супервізор і worker — окремі процеси; обмін реалізовано через QNX IPC.
+2. **Reject the proposal.** Виберіть Invalid command. На пропозиції 999 відбуваються відхилення й утримання виходу на нулі. Після запуску нового покоління потрібні ще три свіжі повідомлення. Sequence replay показує окрему перевірку повторного номера повідомлення.
+3. **Check the generation.** Повідомлення покоління 0 має дозволене числове значення, але відхиляється через невідповідне покоління. Це навмисно некоректне поле від активного worker; тест не моделює надсилання від уже заміненого процесу.
+4. **Bound the recovery.** У Baseline повторні аварії вичерпують бюджет. Останній збій завершується `locked_out` і виходом 0. У No restarts та сама політика одразу блокує вихід після першого збою.
+5. **Evidence & recording provenance.** Покажіть версію QNX, параметри, результати семи сценаріїв і контрольні суми. Посилання Inspect this event у серверній версії відкриває саме цей запис, сценарій і подію в докладній панелі.
+
+Кнопки Previous/Next moment і стрілки клавіатури пересувають між ключовими подіями. Нижній повзунок і маленькі стрілки дозволяють пройти всі записані події, включно з тими, що мають однакову часову мітку. Пробіл вмикає або зупиняє показ розділу.
+
+## Короткий текст англійською
+
+> Recovery Lab makes process recovery visible. The worker proposes values; a separate QNX supervisor decides what reaches the simulated output.
+>
+> At startup, the first two valid proposals keep the output at zero. The third completes fresh validation.
+>
+> Now the worker proposes 999. The supervisor rejects it and holds zero. A replacement process must earn the output again with three fresh proposals.
+>
+> A valid number is not enough. A repeated sequence or a mismatched generation is also rejected.
+>
+> Restarts are bounded. After the budget is exhausted, the system stays locked out at zero. With no restarts permitted, that happens after the first detected fault.
+>
+> These are recorded native QNX 8 runs under QEMU. The reports can be checked against the raw guest logs and source snapshots. The output is simulated; these timings are observations from emulation.
+
+## Межі показу
+
+У двох порівнюваних записах однакові номер ін’єкції та watchdog; відрізняється бюджет перезапусків. Демонстрація не встановлює апаратних часових гарантій. Окремий стресовий запуск із watchdog 300 мс зафіксував паузу 332 мс у здоровому сценарії під QEMU й завершився помилкою; цей журнал збережено серед артефактів, а не приховано успішним результатом.
+
+Перед зовнішнім поданням лишається звірити повні правила конкурсу, формат доказу запуску на цілі, вимоги до розкриття допомоги ШІ та ліцензію публічного репозиторію. Наявне демо й відео не позначають виконаного подання.
+
+## Повторний запис на цьому ПК
+
+Запустіть `python prototype/serve.py` з кореня проєкту, якщо сервер ще не працює. Він слухає лише `127.0.0.1:8764` та підтримує HTTP Range для перемотування відео.
+
+`node prototype/tools/record-demo.cjs` записує окремий headless Chrome через наявний Playwright 1.65.1 у `work/viewer-check` і локальний FFmpeg у `work/browser-cache`. Він не відкриває профіль користувача й не керує спільним робочим столом. Запис бере дані з зафіксованого manifest, перевіряє їхні хеші й зберігає таймлайн показаних подій у `artifacts/demo-video-timeline.json`. Після успіху команда `python prototype/build_demo.py --include-media` додає відео та субтитри до пакета.

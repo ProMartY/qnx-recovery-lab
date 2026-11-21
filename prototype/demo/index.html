@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A presenter replay of verified QNX Recovery Lab fault-injection recordings.">
+  <title>QNX Recovery Lab · Recorded demonstration</title>
+  <link rel="stylesheet" href="./demo.css">
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <a class="brand" href="#main"><span class="brand-mark" aria-hidden="true">↳</span><span>Recovery Lab<small>QNX developer demonstration</small></span></a>
+      <div class="recording-label"><span class="recording-dot" aria-hidden="true"></span><strong>Recorded replay</strong><span id="environmentLabel">Awaiting QNX evidence</span></div>
+    </header>
+    <main id="main">
+      <div class="introduction"><div><p class="eyebrow">Message passing. Validation. Recovery.</p><h1>A failed worker.<br>A controlled output.</h1></div><p class="intro-copy">Follow an isolated worker through fresh validation, a rejected message, and a bounded restart policy. Every step comes from a recorded run.</p></div>
+      <p class="data-notice" id="dataNotice" role="status">Loading recorded evidence…</p>
+      <div class="demo-layout">
+        <nav class="chapter-navigation" aria-label="Demonstration chapters">
+          <p class="navigation-label">Four chapters</p>
+          <button class="chapter-button" id="chapter-healthy" data-chapter="healthy" type="button" disabled><span class="chapter-number">01</span><span><strong>Earn the output</strong><small>Healthy startup</small></span></button>
+          <button class="chapter-button" id="chapter-validation" data-chapter="validation" type="button" disabled><span class="chapter-number">02</span><span><strong>Reject the proposal</strong><small>Range and sequence checks</small></span></button>
+          <button class="chapter-button" id="chapter-generation" data-chapter="generation" type="button" disabled><span class="chapter-number">03</span><span><strong>Check the generation</strong><small>A message from generation 0</small></span></button>
+          <button class="chapter-button" id="chapter-budget" data-chapter="budget" type="button" disabled><span class="chapter-number">04</span><span><strong>Bound the recovery</strong><small>Repeated worker crashes</small></span></button>
+          <div class="chapter-note"><span class="note-line"></span><p>Simulated numeric output.<br>QNX guest on QEMU.<br>Guest time is shown at each step.</p></div>
+        </nav>
+        <section class="presentation" aria-labelledby="chapterTitle">
+          <div class="presentation-top"><div><p class="eyebrow" id="chapterEyebrow">Chapter 01 · Healthy startup</p><h2 id="chapterTitle">Three fresh proposals.</h2></div><div class="mode-controls" role="group" aria-label="Recorded restart policy"><button id="mode-baseline" type="button" aria-pressed="true" disabled>Baseline<span id="baselineLimit">— restarts</span></button><button id="mode-no-restarts" type="button" aria-pressed="false" disabled>No restarts<span id="boundaryLimit">— restarts</span></button></div></div>
+          <div class="variant-controls" id="validationVariants" role="group" aria-label="Validation fault" hidden><button id="variant-invalid" type="button" aria-pressed="true">Invalid command</button><button id="variant-replay" type="button" aria-pressed="false">Sequence replay</button></div>
+          <div class="architecture" id="architecture" aria-label="Recorded supervisor, worker, and simulated output">
+            <div class="architecture-bar"><span id="scenarioLabel">Scenario —</span><span id="guestTime">Guest time —</span></div>
+            <div class="architecture-nodes">
+              <section class="architecture-node supervisor-node"><span class="node-kicker">Policy owner</span><h3>Supervisor</h3><span class="state-badge" id="supervisorState">Awaiting trace</span><p>Validates each message.<br>Owns the accepted output.</p><div class="node-bottom"><span>Restarts used</span><strong id="restartUsage">— / —</strong></div></section>
+              <div class="connection ipc-connection" aria-hidden="true"><span>QNX IPC</span><i>⇄</i></div>
+              <section class="architecture-node worker-node"><span class="node-kicker">Isolated process</span><h3>Worker</h3><div class="worker-generation" id="workerGeneration">G—</div><p id="workerMessage">No recorded message selected.</p><div class="fresh-validation"><span>Fresh proposals</span><div class="validation-dots" id="validationDots" aria-label="Fresh proposals unreported"><i></i><i></i><i></i></div></div></section>
+              <div class="connection output-connection" aria-hidden="true"><span>Supervisor<br>gate</span><i>→</i></div>
+              <section class="architecture-node output-node"><span class="node-kicker">Simulated output</span><div class="output-value" id="outputValue">—</div><strong id="outputState">Awaiting evidence</strong><p id="outputExplanation">Choose a recorded run.</p></section>
+            </div>
+            <div class="event-receipt"><span class="receipt-label">Recorded event</span><strong id="eventName">—</strong><code id="eventReason">—</code><span class="event-position" id="eventPosition">0 / 0</span></div>
+          </div>
+          <div class="story-caption" aria-live="polite"><span class="caption-line" aria-hidden="true"></span><div><h3 id="momentTitle">Evidence is loading.</h3><p id="momentDescription">The demonstration uses the bundled recordings.</p></div></div>
+          <div class="transport">
+            <div class="transport-primary"><button class="button secondary" id="previousMoment" type="button" disabled>← Previous moment</button><button class="button play-button" id="playToggle" type="button" aria-pressed="false" disabled>▶ Play chapter</button><button class="button primary" id="nextMoment" type="button" disabled>Next moment →</button></div>
+            <div class="scrubber-heading"><label for="eventScrubber">Inspect every recorded event</label><span id="playbackPace">Guided playback · 1 second per moment</span></div>
+            <div class="event-scrubber"><button id="previousEvent" type="button" aria-label="Previous recorded event" disabled>‹</button><input id="eventScrubber" type="range" min="0" max="1" step="1" value="0" disabled><button id="nextEvent" type="button" aria-label="Next recorded event" disabled>›</button></div>
+            <div class="transport-footer"><span>← → next or previous moment · Space to play</span><a id="inspectEvent" href="../viewer/" hidden>Inspect this event in the full viewer ↗</a></div>
+          </div>
+          <section class="moment-list-panel" aria-labelledby="momentsHeading"><div class="moments-heading"><h3 id="momentsHeading">Follow the evidence</h3><span id="momentCount">— moments</span></div><ol class="moment-list" id="momentList"></ol></section>
+        </section>
+      </div>
+      <details class="evidence" id="evidence"><summary id="evidenceToggle"><span>Evidence &amp; recording provenance</span><span id="evidenceTotals">Awaiting recordings</span></summary><div class="evidence-content"><p class="evidence-caveat">These are recorded QNX 8 guest runs under QEMU software emulation. The numeric output is simulated. Timing describes these guest recordings and requires separate validation on physical hardware.</p><div class="evidence-grid" id="evidenceRecords"></div><a class="documentation-link" href="./README.md">Read the demo and evidence notes ↗</a></div></details>
+    </main>
+    <footer><span>QNX Recovery Lab · Recorded fault-injection demonstration</span><span>Local evidence. No external resources.</span></footer>
+  </div>
+  <p class="sr-only" id="announcer" aria-live="polite"></p>
+  <script src="./demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "duration": 106.88,
+  "width": 1440,
+  "height": 1000,
+  "error": null,
+  "captions": 29,
+  "decoded_checkpoints": [
+    {
+      "name": "rejection",
+      "at_seconds": 19.946054999999998
+    },
+    {
+      "name": "lockout",
+      "at_seconds": 77.7910637
+    },
+    {
+      "name": "no-restarts",
+      "at_seconds": 82.9209232
+    },
+    {
+      "name": "evidence",
+      "at_seconds": 96.0232435
+    }
+  ],
+  "verified_at": "2026-11-21T23:34:10.220Z"
+}

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="QNX Recovery Lab" tests="7" failures="0" errors="0" skipped="0">
+  <properties>
+    <property name="scenario" value="all" />
+    <property name="fault_at" value="8" />
+    <property name="watchdog_ms" value="700" />
+    <property name="restart_limit" value="2" />
+    <property name="runtime" value="QNX guest under QEMU TCG" />
+  </properties>
+  <testcase classname="qnx.recovery" name="healthy" time="1.143">
+    <system-out>{"accepted": 12, "event": "summary", "fault_announced": false, "fault_at": 8, "fault_detected": false, "fault_notices": 0, "generation": 1, "held_after_fault": false, "holds": 0, "injection_observed": false, "injections": 0, "invalid_outputs": 0, "max_tick_gap_ms": 58, "outcome": "healthy", "output": 0, "passed": true, "recovered_valid": 0, "recoveries": 0, "recovery_delay_ms": null, "rejected": 0, "restart_limit": 2, "restarts": 0, "resumed": false, "scenario": "healthy", "seq": 12, "state": "stopped", "t_ms": 1143, "watchdog_ms": 700}</system-out>
+  </testcase>
+  <testcase classname="qnx.recovery" name="crash" time="1.805">
+    <system-out>{"accepted": 18, "event": "summary", "fault_announced": true, "fault_at": 8, "fault_detected": true, "fault_notices": 1, "generation": 2, "held_after_fault": true, "holds": 1, "injection_observed": true, "injections": 1, "invalid_outputs": 0, "max_tick_gap_ms": 58, "outcome": "recovered", "output": 0, "passed": true, "recovered_valid": 8, "recoveries": 1, "recovery_delay_ms": 232, "rejected": 0, "restart_limit": 2, "restarts": 1, "resumed": true, "scenario": "crash", "seq": 11, "state": "stopped", "t_ms": 1805, "watchdog_ms": 700}</system-out>
+  </testcase>
+  <testcase classname="qnx.recovery" name="stall" time="2.457">
+    <system-out>{"accepted": 18, "event": "summary", "fault_announced": true, "fault_at": 8, "fault_detected": true, "fault_notices": 1, "generation": 2, "held_after_fault": true, "holds": 1, "injection_observed": true, "injections": 1, "invalid_outputs": 0, "max_tick_gap_ms": 80, "outcome": "recovered", "output": 0, "passed": true, "recovered_valid": 8, "recoveries": 1, "recovery_delay_ms": 270, "rejected": 0, "restart_limit": 2, "restarts": 1, "resumed": true, "scenario": "stall", "seq": 11, "state": "stopped", "t_ms": 2457, "watchdog_ms": 700}</system-out>
+  </testcase>
+  <testcase classname="qnx.recovery" name="invalid" time="1.789">
+    <system-out>{"accepted": 18, "event": "summary", "fault_announced": true, "fault_at": 8, "fault_detected": true, "fault_notices": 1, "generation": 2, "held_after_fault": true, "holds": 1, "injection_observed": true, "injections": 1, "invalid_outputs": 0, "max_tick_gap_ms": 58, "outcome": "recovered", "output": 0, "passed": true, "recovered_valid": 8, "recoveries": 1, "recovery_delay_ms": 241, "rejected": 1, "restart_limit": 2, "restarts": 1, "resumed": true, "scenario": "invalid", "seq": 11, "state": "stopped", "t_ms": 1789, "watchdog_ms": 700}</system-out>
+  </testcase>
+  <testcase classname="qnx.recovery" name="crash_loop" time="2.257">
+    <system-out>{"accepted": 21, "event": "summary", "fault_announced": true, "fault_at": 8, "fault_detected": true, "fault_notices": 3, "generation": 3, "held_after_fault": true, "holds": 3, "injection_observed": true, "injections": 3, "invalid_outputs": 0, "max_tick_gap_ms": 58, "outcome": "contained", "output": 0, "passed": true, "recovered_valid": 4, "recoveries": 2, "recovery_delay_ms": null, "rejected": 0, "restart_limit": 2, "restarts": 2, "resumed": true, "scenario": "crash_loop", "seq": 7, "state": "locked_out", "t_ms": 2257, "watchdog_ms": 700}</system-out>
+  </testcase>
+  <testcase classname="qnx.recovery" name="replay" time="1.795">
+    <system-out>{"accepted": 18, "event": "summary", "fault_announced": true, "fault_at": 8, "fault_detected": true, "fault_notices": 1, "generation": 2, "held_after_fault": true, "holds": 1, "injection_observed": true, "injections": 1, "invalid_outputs": 0, "max_tick_gap_ms": 57, "outcome": "recovered", "output": 0, "passed": true, "recovered_valid": 8, "recoveries": 1, "recovery_delay_ms": 246, "rejected": 1, "restart_limit": 2, "restarts": 1, "resumed": true, "scenario": "replay", "seq": 11, "state": "stopped", "t_ms": 1795, "watchdog_ms": 700}</system-out>
+  </testcase>
+  <testcase classname="qnx.recovery" name="wrong_generation" time="1.789">
+    <system-out>{"accepted": 18, "event": "summary", "fault_announced": true, "fault_at": 8, "fault_detected": true, "fault_notices": 1, "generation": 2, "held_after_fault": true, "holds": 1, "injection_observed": true, "injections": 1, "invalid_outputs": 0, "max_tick_gap_ms": 60, "outcome": "recovered", "output": 0, "passed": true, "recovered_valid": 8, "recoveries": 1, "recovery_delay_ms": 241, "rejected": 1, "restart_limit": 2, "restarts": 1, "resumed": true, "scenario": "wrong_generation", "seq": 11, "state": "stopped", "t_ms": 1789, "watchdog_ms": 700}</system-out>
+  </testcase>
+</testsuite>

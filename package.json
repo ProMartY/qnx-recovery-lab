@@ -1,0 +1,16 @@
+{
+  "name": "qnx-recovery-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Recorded QNX process-recovery evidence and optional browser-demo tooling",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "serve": "python prototype/serve.py",
+    "test": "python -m unittest discover -s prototype/tests -v",
+    "demo:build": "python prototype/build_demo.py --include-media",
+    "demo:record": "node prototype/tools/record-demo.cjs"
+  },
+  "devDependencies": { "playwright": "1.65.1" }
+}
+
