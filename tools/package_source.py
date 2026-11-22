@@ -36,6 +36,10 @@ def audit_file(name, contents):
         raise ValueError(f"Executable content in tracked source: {name}")
     if path.suffix.lower() in {".png", ".jpg", ".webm"}:
         return
+    if path.suffix.lower() == ".woff2":
+        if name != "prototype/demo/fonts/inter-tight-latin-wght-normal.woff2" or not contents.startswith(b"wOF2"):
+            raise ValueError(f"Unreviewed font content: {name}")
+        return
     try:
         text = contents.decode("utf-8-sig")
     except UnicodeDecodeError:

@@ -150,6 +150,23 @@ class DemoBundleTests(unittest.TestCase):
         self.assertNotIn('src="./demo.js"', page)
         self.assertNotIn('href="./demo.css"', page)
 
+    def test_reviewed_font_is_embedded_and_keeps_its_license(self):
+        fonts = self.demo / "fonts"
+        fonts.mkdir()
+        raw = b"wOF2synthetic-font-fixture"
+        (fonts / "inter-tight-latin-wght-normal.woff2").write_bytes(raw)
+        (fonts / "OFL.txt").write_text("Fixture copyright\nSIL OPEN FONT LICENSE Version 1.1\n", encoding="utf-8")
+        (fonts / "SOURCE.txt").write_text("Synthetic packaging fixture, not a deployable font.", encoding="utf-8")
+        (self.demo / "demo.css").write_text('@font-face{src:url("./fonts/inter-tight-latin-wght-normal.woff2")}', encoding="utf-8")
+        manifest = self.build()
+        with zipfile.ZipFile(self.archive) as archive:
+            page = archive.read("offline.html").decode("utf-8")
+            self.assertIn("data:font/woff2;base64,", page)
+            self.assertIn("Fixture copyright", page)
+            self.assertNotIn('url("./fonts/', page)
+            self.assertEqual(archive.read("fonts/inter-tight-latin-wght-normal.woff2"), raw)
+        self.assertEqual(manifest["assets"]["fonts/inter-tight-latin-wght-normal.woff2"]["sha256"], hashlib.sha256(raw).hexdigest())
+
     def test_remote_assets_and_unsafe_tags_fail_before_publication(self):
         cases = (
             ("demo.css", "@import 'https://example.com/style.css';"),

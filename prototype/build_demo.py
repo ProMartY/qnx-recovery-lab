@@ -1,6 +1,7 @@
 """Build a portable, verified playback of two pinned QNX guest recordings."""
 
 import argparse
+import base64
 from collections import Counter
 import hashlib
 from html.parser import HTMLParser
@@ -27,6 +28,7 @@ DATA_FILES = {"baseline": "data/baseline.json", "no_restarts": "data/no-restarts
 CSS_TAG = '<link rel="stylesheet" href="./demo.css">'
 JS_TAG = '<script src="./demo.js"></script>'
 UI_FILES = ("index.html", "demo.css", "demo.js")
+FONT_FILES = ("fonts/inter-tight-latin-wght-normal.woff2", "fonts/OFL.txt", "fonts/SOURCE.txt")
 MEDIA_FILES = {"demo.mp4": "video/mp4", "demo.webm": "video/webm", "demo.vtt": "text/vtt",
                "demo-poster.png": "image/png"}
 
@@ -72,8 +74,14 @@ def read_ui(demo):
     require(text["index.html"].count(CSS_TAG) == text["index.html"].count(JS_TAG) == 1,
             "Demo must contain exactly the supported local CSS and JavaScript tags")
     ResourceCheck(offline=False).feed(text["index.html"])
-    require(not re.search(r"@import|url\s*\(", text["demo.css"], re.I),
-            "Demo stylesheet must be self-contained")
+    css_resources = text["demo.css"].replace('url("./fonts/inter-tight-latin-wght-normal.woff2")', '')
+    require(not re.search(r"@import|url\s*\(", css_resources, re.I),
+            "Demo stylesheet may only use the reviewed local font")
+    if 'url("./fonts/inter-tight-latin-wght-normal.woff2")' in text["demo.css"]:
+        for name in FONT_FILES:
+            assets[name] = (demo / name).read_bytes()
+        require(assets[FONT_FILES[0]].startswith(b"wOF2"), "Invalid local WOFF2 font")
+        require(b"SIL OPEN FONT LICENSE" in assets["fonts/OFL.txt"], "Missing font license")
     require(not re.search(r"</style", text["demo.css"], re.I), "Unsafe closing style tag in CSS")
     require(not re.search(r"</script", text["demo.js"], re.I), "Unsafe closing script tag in JavaScript")
     require(not re.search(r"(?:https?:)?//[^\s'\"<>]+", text["demo.js"]),
@@ -172,10 +180,18 @@ def read_media(demo):
     return files, metadata
 
 
-def offline_html(index, css, javascript, recordings, manifest):
+def offline_html(index, css, javascript, recordings, manifest, fonts=None):
+    font_notice = ''
+    if fonts:
+        encoded = base64.b64encode(fonts[FONT_FILES[0]]).decode('ascii')
+        css = css.replace('url("./fonts/inter-tight-latin-wght-normal.woff2")',
+                          'url("data:font/woff2;base64,' + encoded + '")')
+        # Keep the font copyright and license with the self-contained distribution.
+        notice = (fonts['fonts/OFL.txt'] + b'\n' + fonts['fonts/SOURCE.txt']).decode('utf-8-sig')
+        font_notice = '<!-- Bundled font license and source\n' + notice.replace('-->', '-- >') + '\n-->\n'
     globals_script = "<script>\nwindow.RECOVERY_DEMO_DATA=" + script_json(recordings) + ";\n"
     globals_script += "window.RECOVERY_DEMO_MANIFEST=" + script_json(manifest) + ";\n</script>\n"
-    result = index.replace(CSS_TAG, "<style>\n" + css + "\n</style>", 1)
+    result = index.replace(CSS_TAG, font_notice + "<style>\n" + css + "\n</style>", 1)
     result = result.replace(JS_TAG, globals_script + "<script>\n" + javascript + "\n</script>", 1)
     ResourceCheck(offline=True).feed(result)
     return result.encode("utf-8")
@@ -201,32 +217,36 @@ def video_html(media):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <title>Recorded walkthrough · QNX Recovery Lab</title>
   <style>
-    :root { color-scheme:light; --paper:#f4f3ee; --ink:#17212b; --muted:#53606a; --blue:#2349ce; --line:#d5d9d8; }
+    @font-face { font-family:"Inter Tight"; font-style:normal; font-weight:100 900; font-display:swap; src:url("./fonts/inter-tight-latin-wght-normal.woff2") format("woff2"); }
+    :root { color-scheme:dark; --paper:#0c0e10; --ink:#f0f2f4; --muted:#a3adb7; --blue:#ff7049; --line:#30363c; }
     * { box-sizing:border-box; }
-    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.6 "Segoe UI",Arial,sans-serif; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.6 "Inter Tight","Segoe UI",Arial,sans-serif; }
     a { color:var(--blue); text-underline-offset:4px; }
     a:focus-visible,video:focus-visible { outline:3px solid var(--blue); outline-offset:5px; }
     .shell { width:min(1380px,100%); margin:auto; padding:0 40px; }
     header { min-height:88px; display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid var(--line); }
     .brand { color:var(--ink); text-decoration:none; font-size:18px; font-weight:650; letter-spacing:-.5px; }
-    .brand span { display:inline-grid; place-items:center; width:30px; height:30px; border:1px solid var(--ink); margin-right:10px; border-radius:7px; font-family:Consolas,monospace; }
-    .status { font:11px/1.4 Consolas,monospace; text-transform:uppercase; letter-spacing:1.5px; color:#86442c; }
-    .status::before { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:#b34b35; margin-right:8px; }
+    .brand { display:flex; align-items:center; gap:12px; font-size:25px; letter-spacing:-1px; }
+    .brand span { display:inline-flex; align-items:center; gap:4px; height:28px; }
+    .brand i { width:6px; height:19px; background:var(--ink); border-radius:1px; }
+    .brand i:nth-child(2) { height:28px; background:var(--blue); }
+    .brand i:nth-child(3) { height:12px; align-self:end; }
+    .status { font:12px/1.4 Consolas,monospace; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
     .intro { display:grid; grid-template-columns:1fr minmax(250px,440px); gap:32px; align-items:end; padding:44px 0 30px; }
     .eyebrow { margin:0 0 13px; font:11px Consolas,monospace; color:var(--blue); text-transform:uppercase; letter-spacing:1.6px; }
     h1 { margin:0; font-size:clamp(36px,4.7vw,64px); line-height:1.08; font-weight:550; letter-spacing:-2.5px; }
     .intro-copy { margin:0; color:var(--muted); font-size:15px; line-height:1.7; }
-    .stage { background:#101720; padding:12px; border-radius:16px; box-shadow:0 12px 36px #15212b12; }
-    video { display:block; width:100%; aspect-ratio:36/25; background:#101720; border-radius:7px; }
+    .stage { background:#131619; padding:10px; border:1px solid var(--line); border-radius:10px; }
+    video { display:block; width:100%; aspect-ratio:36/25; background:#0c0e10; border-radius:4px; }
     video::cue { font-size:18px; line-height:1.3; background:rgba(10,16,23,.88); }
     .recording-meta { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; color:#c0ccd6; padding:15px 10px 5px; font:12px/1.5 Consolas,monospace; }
     .bottom { display:grid; grid-template-columns:1fr auto; align-items:center; gap:28px; padding:27px 0; }
     .bottom p { margin:0; color:var(--muted); max-width:740px; font-size:14px; }
-    .action { display:inline-flex; align-items:center; padding:12px 17px; min-height:46px; border-radius:7px; background:var(--blue); color:white; text-decoration:none; font-size:14px; font-weight:600; white-space:nowrap; }
-    .action:hover { background:#193aa9; }
+    .action { display:inline-flex; align-items:center; padding:12px 17px; min-height:46px; border-radius:5px; background:var(--blue); color:#1c100b; text-decoration:none; font-size:15px; font-weight:650; white-space:nowrap; }
+    .action:hover { background:#ff8969; }
     footer { border-top:1px solid var(--line); padding:22px 0 30px; font-size:12px; color:var(--muted); }
     @media(max-width:700px) { .shell{padding:0 18px}header{min-height:76px}.brand{font-size:15px}.status{font-size:9px;letter-spacing:.6px}.intro{grid-template-columns:1fr;padding:30px 0 23px;gap:20px}h1{letter-spacing:-1.5px}.intro-copy{font-size:14px}.stage{padding:7px;border-radius:11px}.recording-meta{font-size:10px;padding:11px 5px 5px}.bottom{grid-template-columns:1fr;gap:18px}.action{justify-self:start}video::cue{font-size:14px} }
     @media(prefers-reduced-motion:reduce) { *{scroll-behavior:auto} }
@@ -234,7 +254,7 @@ def video_html(media):
 </head>
 <body>
   <div class="shell">
-  <header><a class="brand" href="./offline.html"><span aria-hidden="true">↳</span>Recovery Lab</a><span class="status">Recorded walkthrough</span></header>
+  <header><a class="brand" href="./offline.html"><span aria-hidden="true"><i></i><i></i><i></i></span>recoverylab</a><span class="status">Recorded walkthrough</span></header>
   <main>
     <div class="intro"><div><p class="eyebrow">QNX Recovery Lab / Demonstration</p><h1 id="videoTitle">Recovery,<br>on record.</h1></div>
     <p class="intro-copy" id="videoDescription">Follow a rejected message, a replacement worker, and a bounded restart policy. This screencast presents archived native QNX 8 guest events under QEMU.</p></div>
@@ -246,7 +266,7 @@ CAPTIONS
     </video>
     <div class="recording-meta"><span>QNX 8 guest · QEMU software emulation</span><span id="clipDuration">Recorded UI replay</span></div>
     </section>
-    <div class="bottom"><p>The numeric output is simulated. Guest timestamps describe the archived execution; playback time describes this walkthrough. Use the interactive demo to inspect each decision at your own pace.</p><a class="action" href="./offline.html">Open the interactive demo ↗</a></div>
+    <div class="bottom"><p>The numeric output is simulated. Guest timestamps describe the archived execution; playback time describes this walkthrough. Use the interactive demo to inspect each decision at your own pace.</p><a class="action" href="./offline.html">Open the interactive demo</a></div>
   </main>
   <footer>Original interface and recordings · Local evidence · No hardware timing guarantee</footer>
   </div>
@@ -340,8 +360,9 @@ def prepare_bundle(artifacts, demo, include_media=False, baseline=None, no_resta
         files.update(media_files)
         files["video.html"] = video_html(manifest["media"])
     files["manifest.json"] = json_bytes(manifest)
+    fonts = {name: assets[name] for name in FONT_FILES} if FONT_FILES[0] in assets else None
     files["offline.html"] = offline_html(text["index.html"], text["demo.css"], text["demo.js"],
-                                         recordings, manifest)
+                                         recordings, manifest, fonts)
     files["README.md"] = readme(manifest)
     return files, manifest
 
@@ -366,7 +387,7 @@ def build_bundle(artifacts=PROTOTYPE / "artifacts", demo=PROTOTYPE / "demo",
     archive_contents = zip_bytes(files)
     # Validate and construct every output before replacing any published file.
     outputs = {demo / name: contents for name, contents in files.items()
-               if name not in UI_FILES and not name.startswith("media/")}
+               if name not in UI_FILES and name not in FONT_FILES and not name.startswith("media/")}
     outputs[archive] = archive_contents
     with tempfile.TemporaryDirectory(prefix="qnx-demo-") as pending_directory:
         pending = []

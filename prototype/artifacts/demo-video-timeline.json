@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "recorded_at": "2026-11-22T00:12:07.486Z",
+  "recorded_at": "2026-11-22T00:47:57.315Z",
   "kind": "real browser UI capture",
   "viewport": {
     "width": 1440,
@@ -8,16 +8,28 @@
   },
   "ui_assets": {
     "index.html": {
-      "sha256": "16a69a37ed812443c1349124fff71f479afcd279e233cac71180433edda50c0c",
-      "size_bytes": 8421
+      "sha256": "85853266784605aa09fb99a5b971e9d6e3470444d5cab9d1b15c8d3a36cfeb45",
+      "size_bytes": 14836
     },
     "demo.css": {
-      "sha256": "d847dfe91c7ab39197c10bbc8461580683b89dba2921d8edcbc5ad2176f5732e",
-      "size_bytes": 23716
+      "sha256": "6fb26ef9f017974ed7c2492b74cd389513d873dde1713d281f17a3c0185b910e",
+      "size_bytes": 24290
     },
     "demo.js": {
-      "sha256": "f2685fe9bbd2e172ce2060ebbb2076181d1ebcfb12a522b91d892c6086108dd8",
-      "size_bytes": 31612
+      "sha256": "2c59836bab87b997b16027c46a33bdba6c4688c12bb54212e784c8832d2185ee",
+      "size_bytes": 35558
+    },
+    "fonts/inter-tight-latin-wght-normal.woff2": {
+      "sha256": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618",
+      "size_bytes": 44872
+    },
+    "fonts/OFL.txt": {
+      "sha256": "1e1c8b3dc6dfcbd5498a33f17fcc68ff2d39c599f6e8195fbf14601261dbef6a",
+      "size_bytes": 4489
+    },
+    "fonts/SOURCE.txt": {
+      "sha256": "80bcb08c5c196f2ecab23aa7032a81564a8bb34d31e682cedd78e863b95afc8a",
+      "size_bytes": 1496
     }
   },
   "recordings": {
@@ -97,8 +109,8 @@
   },
   "captions": [
     {
-      "start": 0.12459820000000002,
-      "end": 5.1357181,
+      "start": 0.19593129999999997,
+      "end": 5.207839,
       "text": "Recovery Lab replays native QNX 8 recordings. The worker proposes values; the supervisor owns the simulated output.",
       "ready": true,
       "mode": "baseline",
@@ -126,8 +138,8 @@
       "tourCompleted": false
     },
     {
-      "start": 5.1613239,
-      "end": 7.1666739,
+      "start": 5.3502705,
+      "end": 7.359932000000001,
       "text": "The first fresh proposal is accepted, but output remains zero.",
       "ready": true,
       "mode": "baseline",
@@ -155,8 +167,8 @@
       "tourCompleted": false
     },
     {
-      "start": 7.1781094,
-      "end": 9.1813216,
+      "start": 7.4200088,
+      "end": 9.442335100000001,
       "text": "The second proposal still keeps the output at zero.",
       "ready": true,
       "mode": "baseline",
@@ -184,8 +196,8 @@
       "tourCompleted": false
     },
     {
-      "start": 9.192869,
-      "end": 13.1937247,
+      "start": 9.5701466,
+      "end": 13.5766698,
       "text": "The third fresh proposal completes validation and releases a valid output.",
       "ready": true,
       "mode": "baseline",
@@ -213,8 +225,8 @@
       "tourCompleted": false
     },
     {
-      "start": 13.245290400000002,
-      "end": 16.2602977,
+      "start": 13.744815899999999,
+      "end": 16.7584732,
       "text": "The worker now announces an injected out-of-range command.",
       "ready": true,
       "mode": "baseline",
@@ -242,8 +254,8 @@
       "tourCompleted": false
     },
     {
-      "start": 16.2736118,
-      "end": 21.279649400000004,
+      "start": 16.769921199999995,
+      "end": 21.776870799999998,
       "text": "Proposed output 999 is rejected. The supervisor holds the accepted output at zero.",
       "ready": true,
       "mode": "baseline",
@@ -272,8 +284,8 @@
       "tourCompleted": false
     },
     {
-      "start": 21.291514300000003,
-      "end": 24.2923973,
+      "start": 21.787903599999996,
+      "end": 24.8020028,
       "text": "The hold is a separate recorded decision, even when events share a timestamp.",
       "ready": true,
       "mode": "baseline",
@@ -301,8 +313,8 @@
       "tourCompleted": false
     },
     {
-      "start": 24.306212600000002,
-      "end": 27.308482,
+      "start": 24.8134973,
+      "end": 27.8274113,
       "text": "A replacement worker starts as generation 2. Output remains zero.",
       "ready": true,
       "mode": "baseline",
@@ -330,8 +342,8 @@
       "tourCompleted": false
     },
     {
-      "start": 27.318090599999998,
-      "end": 29.324548600000004,
+      "start": 27.838013,
+      "end": 29.8395766,
       "text": "The replacement must provide fresh proposal one.",
       "ready": true,
       "mode": "baseline",
@@ -359,8 +371,8 @@
       "tourCompleted": false
     },
     {
-      "start": 29.3353878,
-      "end": 31.3354749,
+      "start": 29.849910400000002,
+      "end": 31.851521500000004,
       "text": "Fresh proposal two still does not release the output.",
       "ready": true,
       "mode": "baseline",
@@ -388,8 +400,8 @@
       "tourCompleted": false
     },
     {
-      "start": 31.3468722,
-      "end": 36.3604228,
+      "start": 31.8627056,
+      "end": 36.866022199999996,
       "text": "Fresh proposal three restores the output. The guest timestamp records the observed recovery.",
       "ready": true,
       "mode": "baseline",
@@ -417,8 +429,8 @@
       "tourCompleted": false
     },
     {
-      "start": 36.39361590000001,
-      "end": 38.405190000000005,
+      "start": 36.8955778,
+      "end": 38.9025051,
       "text": "Range checking alone is not enough. This injection repeats an old sequence number.",
       "ready": true,
       "mode": "baseline",
@@ -446,8 +458,8 @@
       "tourCompleted": false
     },
     {
-      "start": 38.414645799999995,
-      "end": 43.4285369,
+      "start": 38.912925900000005,
+      "end": 43.928420900000006,
       "text": "The duplicate sequence is rejected even though its numeric value is within range.",
       "ready": true,
       "mode": "baseline",
@@ -476,8 +488,8 @@
       "tourCompleted": false
     },
     {
-      "start": 43.437707200000006,
-      "end": 46.4453697,
+      "start": 43.9384456,
+      "end": 46.952600600000004,
       "text": "The replayed command never reaches the simulated output.",
       "ready": true,
       "mode": "baseline",
@@ -505,8 +517,8 @@
       "tourCompleted": false
     },
     {
-      "start": 46.477644500000004,
-      "end": 48.4910614,
+      "start": 46.977583900000006,
+      "end": 48.9803135,
       "text": "Next, the active worker deliberately sends generation zero.",
       "ready": true,
       "mode": "baseline",
@@ -534,8 +546,8 @@
       "tourCompleted": false
     },
     {
-      "start": 48.501267500000004,
-      "end": 53.501869400000004,
+      "start": 48.9904441,
+      "end": 54.0032781,
       "text": "Received generation zero does not match active generation one. The message is rejected and output is zero.",
       "ready": true,
       "mode": "baseline",
@@ -564,8 +576,8 @@
       "tourCompleted": false
     },
     {
-      "start": 53.511605499999995,
-      "end": 56.52273460000001,
+      "start": 54.013673000000004,
+      "end": 57.0174775,
       "text": "The validated replacement can resume output.",
       "ready": true,
       "mode": "baseline",
@@ -593,8 +605,8 @@
       "tourCompleted": false
     },
     {
-      "start": 56.552887000000005,
-      "end": 59.5555375,
+      "start": 57.0473614,
+      "end": 60.0558079,
       "text": "Repeated crashes exercise the restart budget.",
       "ready": true,
       "mode": "baseline",
@@ -622,8 +634,8 @@
       "tourCompleted": false
     },
     {
-      "start": 59.5651445,
-      "end": 61.5757985,
+      "start": 60.067204600000004,
+      "end": 62.0706465,
       "text": "The guest records the worker exit with code 42.",
       "ready": true,
       "mode": "baseline",
@@ -652,8 +664,8 @@
       "tourCompleted": false
     },
     {
-      "start": 61.58574,
-      "end": 64.5967862,
+      "start": 62.0801171,
+      "end": 65.0919862,
       "text": "The supervisor holds zero before restarting.",
       "ready": true,
       "mode": "baseline",
@@ -681,8 +693,8 @@
       "tourCompleted": false
     },
     {
-      "start": 64.6064609,
-      "end": 66.61219609999999,
+      "start": 65.10290180000001,
+      "end": 67.116251,
       "text": "A restart consumes one unit of the budget.",
       "ready": true,
       "mode": "baseline",
@@ -710,8 +722,8 @@
       "tourCompleted": false
     },
     {
-      "start": 66.6213415,
-      "end": 68.63624879999999,
+      "start": 67.1316075,
+      "end": 69.135159,
       "text": "Fresh validation permits the replacement to run.",
       "ready": true,
       "mode": "baseline",
@@ -739,8 +751,8 @@
       "tourCompleted": false
     },
     {
-      "start": 68.64580919999999,
-      "end": 70.6483428,
+      "start": 69.1522401,
+      "end": 71.1526944,
       "text": "A second crash repeats the containment and recovery path.",
       "ready": true,
       "mode": "baseline",
@@ -768,8 +780,8 @@
       "tourCompleted": false
     },
     {
-      "start": 70.65787259999999,
-      "end": 73.66023,
+      "start": 71.16712700000001,
+      "end": 74.1759702,
       "text": "The third crash arrives after both permitted restarts have been used.",
       "ready": true,
       "mode": "baseline",
@@ -797,8 +809,8 @@
       "tourCompleted": false
     },
     {
-      "start": 73.6690483,
-      "end": 78.6742744,
+      "start": 74.1959624,
+      "end": 79.19964540000001,
       "text": "The budget is exhausted. The supervisor stays locked out at zero.",
       "ready": true,
       "mode": "baseline",
@@ -826,8 +838,8 @@
       "tourCompleted": false
     },
     {
-      "start": 78.7339611,
-      "end": 82.74126999999999,
+      "start": 79.2775708,
+      "end": 83.2905955,
       "text": "The second recording keeps the same fault sequence and watchdog, with no restarts allowed.",
       "ready": true,
       "mode": "no_restarts",
@@ -855,8 +867,8 @@
       "tourCompleted": false
     },
     {
-      "start": 82.78302179999999,
-      "end": 87.79524029999999,
+      "start": 83.3465131,
+      "end": 88.3565699,
       "text": "Under that policy, the first rejected command holds zero without creating a replacement.",
       "ready": true,
       "mode": "no_restarts",
@@ -885,8 +897,8 @@
       "tourCompleted": false
     },
     {
-      "start": 87.80515779999999,
-      "end": 91.8177401,
+      "start": 88.369877,
+      "end": 92.3706506,
       "text": "The first detected fault ends in containment: generation one, zero restarts, output zero.",
       "ready": true,
       "mode": "no_restarts",
@@ -914,8 +926,8 @@
       "tourCompleted": false
     },
     {
-      "start": 91.84752759999999,
-      "end": 99.84926329999999,
+      "start": 92.4163564,
+      "end": 100.4291728,
       "text": "Both recordings contain seven checked scenarios. Raw guest logs, source snapshots and digests are included. Output is simulated; QEMU timing is not a hardware guarantee.",
       "ready": true,
       "mode": "no_restarts",

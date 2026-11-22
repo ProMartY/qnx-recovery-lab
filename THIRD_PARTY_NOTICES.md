@@ -10,8 +10,9 @@ The MIT license at the repository root covers this project's own source, documen
 | Playwright 1.65.1, Apache-2.0 | Optional browser tests and UI screencast | Dependency declaration and lockfile only; no package binaries. |
 | axe-core 4.14.1, MPL-2.0 | Optional automated accessibility checks | Dependency declaration and lockfile only; no package binaries. |
 | Chrome and Playwright FFmpeg/Winldd | Optional screencast capture | No. Browser and recording tools are installed separately. |
+| Inter Tight, SIL Open Font License 1.1 | Local interface typeface from `@fontsource-variable/inter-tight` 5.3.0 | Latin normal variable [WOFF2](prototype/demo/fonts/inter-tight-latin-wght-normal.woff2), original [copyright and license](prototype/demo/fonts/OFL.txt), and [source record](prototype/demo/fonts/SOURCE.txt). |
 
-The browser UI uses system fonts and original HTML/CSS. No external font, stock illustration, music or third-party logo is bundled. The WebM and PNG assets record this project's own UI. Console logs contain guest execution evidence, and C snapshots contain this project's own program; licensed QNX executables and VM images are excluded.
+The browser UI uses local Inter Tight with system-font fallbacks and original HTML/CSS. Inter Tight retains its SIL Open Font License 1.1 and accompanying copyright notice. No stock illustration, music or third-party logo is bundled. The WebM and PNG assets record this project's own UI. Console logs contain guest execution evidence, and C snapshots contain this project's own program; licensed QNX executables and VM images are excluded.
 
 QNX is referenced to identify the target platform. This project is an independent prototype and makes no claim of vendor certification or endorsement.
 

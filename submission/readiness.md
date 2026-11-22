@@ -22,7 +22,8 @@
 | Незалежна перевірка | Обидва записи повторно пройшли `validate_trace` і `verify_console` 22.11.2026, включно з сирими журналами, типами JSON, exit marker та хешами знімків коду |
 | Збірка й ціль | Windows, `qcc`, GCC 12.2.0, `mkqnximage`, QNX 8.0.0 x86-64 під QEMU TCG |
 | Інтерактивне демо | [offline.html](../prototype/demo/offline.html), записані гостьові події, 315 подій у двох повних наборах |
-| Відео | [video.html](../prototype/demo/video.html), WebM, 1440 × 1000, 103,56 с, 29 англійських cues, без аудіо |
+| Шрифт інтерфейсу | Inter Tight, локальний WOFF2 разом із [SIL OFL 1.1](../prototype/demo/fonts/OFL.txt) та [записом джерела](../prototype/demo/fonts/SOURCE.txt) |
+| Відео | [video.html](../prototype/demo/video.html), WebM, 1440 × 1000, 100,28 с, 29 англійських cues, без аудіо |
 | Перевірка відео | [demo-video-check.json](../prototype/artifacts/demo-video-check.json), декодування й контрольні кадри, media error відсутня |
 | Відомий невдалий запуск | [run-20261122-011802-242.json](../prototype/artifacts/run-20261122-011802-242.json), watchdog 300 мс, здоровий сценарій завершився помилкою після паузи 332 мс |
 

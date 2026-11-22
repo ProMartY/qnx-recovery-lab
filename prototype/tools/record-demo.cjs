@@ -22,7 +22,8 @@ function stamp(seconds) {
   const media = path.join(folder,'media');
   await fs.mkdir(media,{recursive:true});
   const manifest = JSON.parse(await fs.readFile(path.join(folder,'manifest.json'),'utf8'));
-  for (const name of ['index.html','demo.css','demo.js']) {
+  assert(['index.html','demo.css','demo.js'].every(name => manifest.assets?.[name]), 'Rebuild the demo manifest before recording.');
+  for (const name of Object.keys(manifest.assets ?? {})) {
     const receipt = manifest.assets?.[name];
     const raw = await fs.readFile(path.join(folder,name));
     assert(receipt, `Missing demo asset receipt: ${name}. Rebuild the demo first.`);

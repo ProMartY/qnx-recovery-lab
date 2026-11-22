@@ -36,6 +36,7 @@ class RangeRequestHandler(SimpleHTTPRequestHandler):
         **SimpleHTTPRequestHandler.extensions_map,
         ".webm": "video/webm",
         ".mp4": "video/mp4",
+        ".woff2": "font/woff2",
     }
 
     def __init__(self, *args, directory=ROOT, **kwargs):

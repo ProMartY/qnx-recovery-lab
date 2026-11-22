@@ -24,6 +24,8 @@ The generation test sends deliberately incorrect metadata from the active worker
 
 A browser viewer exposes individual events and measured intervals. A guided replay compares the same fault and watchdog settings with two permitted restarts and with none. A pausable tour follows 20 recorded decisions, while manual controls expose every event. JSON, Markdown, JUnit XML and digest manifests let developers inspect the evidence alongside the visual explanation.
 
+The guided workbench shows a recorded message reaching the supervisor gate. The displayed route stops there during fresh validation or rejection, then reaches the output when the recorded supervisor permits it.
+
 ## How it was built
 
 The native C11 program uses QNX channels, synchronous message passing and timer pulses. The worker sends proposals with `MsgSend`, while the supervisor monitors the process and applies the output policy.
@@ -38,7 +40,7 @@ The baseline recording contains 203 events from QNX 8.0.0. Healthy operation pas
 
 A second recording changes only the restart budget to zero. It contains 112 events. The healthy control passes, and all six fault scenarios reach the expected contained outcome. Both recordings use fault sequence 8 and a 700 ms watchdog. Their raw guest logs and source snapshots accompany the reports.
 
-The 103.56-second demonstration video is a browser recording of this guided replay. It has 29 English caption cues and no audio. The underlying events came from native QNX guest executions, and the video presents those archived events through the UI.
+The 100.28-second demonstration video is a browser recording of this guided replay. It has 29 English caption cues and no audio. The underlying events came from native QNX guest executions, and the video presents those archived events through the UI.
 
 ## Challenges and lessons
 

@@ -32,6 +32,7 @@
   const dom = Object.fromEntries(Array.from(document.querySelectorAll('[id]'), element => [element.id,element]));
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const bundled = Boolean(window.RECOVERY_DEMO_DATA);
+  if (bundled && dom.fullViewerLink) dom.fullViewerLink.hidden = true;
   let recordings = null;
   let manifest = {};
   let mode = 'baseline';
@@ -287,6 +288,7 @@
     const state = event.state;
     const held = ['validating','holding','locked_out'].includes(state);
     dom.architecture.dataset.tone = event.event === 'rejected' ? 'rejected' : held ? 'hold' : state === 'running' ? 'valid' : 'neutral';
+    renderGraph(event);
     dom.supervisorState.textContent = human(state);
     dom.workerGeneration.textContent = `G${number(event.generation)}`;
     const messageGeneration = typeof event.received_generation === 'number' ? `received G${number(event.received_generation)}` : `active G${number(event.generation)}`;
@@ -303,6 +305,7 @@
     dom.eventName.textContent = human(event.event);
     dom.eventReason.textContent = text(event.reason,'');
     dom.eventPosition.textContent = `${eventIndex + 1} / ${events.length}`;
+    if (dom.eventCounterLabel) dom.eventCounterLabel.textContent = `Event ${eventIndex + 1} of ${events.length}`;
     dom.momentTitle.textContent = eventTitle(event);
     dom.momentDescription.textContent = eventDescription(event);
     dom.eventScrubber.value = String(eventIndex);
@@ -335,6 +338,7 @@
   }
   function renderEmpty(title = 'No recorded events in this chapter.',description = 'Choose another chapter or recording to inspect its evidence.') {
     dom.architecture.dataset.tone = 'neutral';
+    renderGraph(null);
     dom.supervisorState.textContent = 'No recorded event';
     dom.workerGeneration.textContent = 'G—';
     dom.workerMessage.textContent = 'No recorded message selected.';
@@ -348,6 +352,7 @@
     dom.eventName.textContent = '—';
     dom.eventReason.textContent = '';
     dom.eventPosition.textContent = '0 / 0';
+    if (dom.eventCounterLabel) dom.eventCounterLabel.textContent = 'Event 0 of 0';
     dom.momentTitle.textContent = title;
     dom.momentDescription.textContent = description;
     dom.eventScrubber.value = '0';
@@ -357,6 +362,63 @@
     dom.inspectEvent.hidden = true;
     dom.inspectEvent.removeAttribute('href');
     window.dispatchEvent(new CustomEvent('demo:step',{detail:getState()}));
+  }
+  function renderGraph(event) {
+    const packet = event && ['proposal','rejected','validated','resumed'].includes(event.event);
+    const rejected = event?.event === 'rejected';
+    const signal = !packet ? 'none' : rejected ? 'rejected' : event.state === 'running' ? 'accepted' : 'held';
+    dom.architecture.dataset.event = event?.event ?? 'none';
+    dom.architecture.dataset.state = event?.state ?? 'unavailable';
+    dom.architecture.dataset.signal = signal;
+    const receivedGeneration = event?.received_generation ?? event?.generation;
+    if (dom.liveSequence) dom.liveSequence.textContent = event ? `SEQ ${number(event.seq)} / G${number(receivedGeneration)}` : 'SEQ — / G—';
+    if (dom.packetLabel) {
+      dom.packetLabel.textContent = packet ? `${rejected ? '× ' : ''}seq ${number(event.seq)} / G${number(receivedGeneration)} / proposed ${number(event.proposed_output)}` : '';
+      dom.packetLabel.style.visibility = packet ? 'visible' : 'hidden';
+      dom.packetLabel.dataset.signal = signal;
+    }
+    if (dom.gateStatus) {
+      dom.gateStatus.textContent = !event ? 'NO EVIDENCE' : rejected ? 'REJECT' : signal === 'accepted' ? 'PASS' : event.state === 'locked_out' ? 'LOCKED OUT' : ['validating','holding','failed'].includes(event.state) ? 'HOLD' : event.state === 'stopped' ? 'STOPPED' : 'WAIT';
+      dom.gateStatus.dataset.signal = signal;
+      dom.gateStatus.dataset.reason = event?.reason ?? '';
+    }
+    const route = dom.signalRoute;
+    const marker = dom.packetMarker;
+    if (route) {
+      const ratio = Number.parseFloat(route.dataset.gateRatio);
+      // A blocked packet needs an explicit gate location to avoid drawing past it.
+      const fraction = signal === 'accepted' ? 1 : packet && Number.isFinite(ratio) && ratio >= 0 && ratio <= 1 ? ratio : 0;
+      route.setAttribute('pathLength','100');
+      route.style.strokeDasharray = `${fraction * 100} 100`;
+      route.style.strokeDashoffset = '0';
+      route.style.visibility = fraction > 0 ? 'visible' : 'hidden';
+      route.dataset.signal = signal;
+      if (marker) {
+        marker.dataset.signal = signal;
+        marker.style.visibility = 'hidden';
+        if (fraction > 0 && typeof route.getTotalLength === 'function') {
+          const length = route.getTotalLength();
+          if (length > 0) {
+            const point = route.getPointAtLength(length * fraction);
+            marker.setAttribute('cx',String(point.x));
+            marker.setAttribute('cy',String(point.y));
+            marker.style.visibility = 'visible';
+          }
+        }
+      }
+    } else if (marker) marker.style.visibility = 'hidden';
+    if (dom.currentOutputMeter) {
+      const output = Number.isFinite(event?.output) ? event.output : 0;
+      const configuredMaximum = Number.parseFloat(dom.currentOutputMeter.dataset.maxOutput);
+      const maximum = configuredMaximum > 0 ? configuredMaximum : 60;
+      dom.currentOutputMeter.dataset.output = event ? String(event.output) : '';
+      dom.currentOutputMeter.style.setProperty('--output-fraction',String(Math.max(0,Math.min(1,output / maximum))));
+    }
+  }
+  function renderRecordingCounts() {
+    const traces = recordings ? Object.values(recordings) : [];
+    if (dom.heroEventCount) dom.heroEventCount.textContent = traces.length ? number(traces.reduce((total,trace) => total + trace.events.length,0)) : '—';
+    if (dom.heroScenarioCount) dom.heroScenarioCount.textContent = traces.length ? number(new Set(traces.flatMap(trace => trace.events.map(event => event.scenario))).size) : '—';
   }
   function setIndex(index) {
     if (!events.length || !Number.isFinite(index)) return;
@@ -368,6 +430,7 @@
     return {ready:Boolean(recordings),mode,chapter,scenario:scenario(),eventIndex,eventCount:events.length,momentCount:moments.length,playing,event:event ? {...event} : null,touring,tourIndex,tourCount:tourSteps.length,tourCompleted};
   }
   function renderEvidence() {
+    renderRecordingCounts();
     dom.evidenceRecords.replaceChildren();
     const totals = [];
     for (const key of MODES) {
@@ -421,6 +484,7 @@
     dom.architecture.setAttribute('aria-busy','true');
     for (const id of ['mode-baseline','mode-no-restarts','variant-invalid','variant-replay',...Object.keys(CHAPTERS).map(key => `chapter-${key}`)]) dom[id].disabled = true;
     renderEmpty('Recorded evidence is loading.','The demonstration reads the bundled QNX guest recordings.');
+    renderRecordingCounts();
     renderTourControls();
     try {
       let data;
@@ -459,6 +523,7 @@
       dom.boundaryLimit.textContent = 'Restarts unreported';
       dom.environmentLabel.textContent = 'QNX evidence unavailable';
       dom.scenarioLabel.textContent = 'Scenario · —';
+      renderRecordingCounts();
       for (const id of ['mode-baseline','mode-no-restarts','variant-invalid','variant-replay',...Object.keys(CHAPTERS).map(key => `chapter-${key}`)]) dom[id].disabled = true;
       renderEmpty('Recorded evidence is unavailable.','The presentation needs both verified demo recordings. Reload after restoring the manifest and data files.');
       renderTourControls();

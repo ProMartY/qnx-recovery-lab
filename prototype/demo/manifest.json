@@ -80,35 +80,47 @@
   },
   "assets": {
     "index.html": {
-      "sha256": "16a69a37ed812443c1349124fff71f479afcd279e233cac71180433edda50c0c",
-      "size_bytes": 8421
+      "sha256": "85853266784605aa09fb99a5b971e9d6e3470444d5cab9d1b15c8d3a36cfeb45",
+      "size_bytes": 14836
     },
     "demo.css": {
-      "sha256": "d847dfe91c7ab39197c10bbc8461580683b89dba2921d8edcbc5ad2176f5732e",
-      "size_bytes": 23716
+      "sha256": "6fb26ef9f017974ed7c2492b74cd389513d873dde1713d281f17a3c0185b910e",
+      "size_bytes": 24290
     },
     "demo.js": {
-      "sha256": "f2685fe9bbd2e172ce2060ebbb2076181d1ebcfb12a522b91d892c6086108dd8",
-      "size_bytes": 31612
+      "sha256": "2c59836bab87b997b16027c46a33bdba6c4688c12bb54212e784c8832d2185ee",
+      "size_bytes": 35558
+    },
+    "fonts/inter-tight-latin-wght-normal.woff2": {
+      "sha256": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618",
+      "size_bytes": 44872
+    },
+    "fonts/OFL.txt": {
+      "sha256": "1e1c8b3dc6dfcbd5498a33f17fcc68ff2d39c599f6e8195fbf14601261dbef6a",
+      "size_bytes": 4489
+    },
+    "fonts/SOURCE.txt": {
+      "sha256": "80bcb08c5c196f2ecab23aa7032a81564a8bb34d31e682cedd78e863b95afc8a",
+      "size_bytes": 1496
     }
   },
   "media": [
     {
       "file": "media/demo.webm",
-      "sha256": "599eadb96ea3d82c29e9eaf6eaafd86dc14501da35f306fb6af0790edf3b198a",
-      "size_bytes": 17087780,
+      "sha256": "4e476b4a1c3b68a25527f28f28e47e02fef6158bbd7d05ab88e52a4f483cd8f4",
+      "size_bytes": 14087105,
       "type": "video/webm"
     },
     {
       "file": "media/demo.vtt",
-      "sha256": "24cada515e55c9baa1d07fd31c928d0a81b9e58bc35f8cc15e4b2f6d521e7e72",
+      "sha256": "e579e4a012a16e99b748c14702f87a1ee962ebdde68ed4830f31dc19716dd06e",
       "size_bytes": 3071,
       "type": "text/vtt"
     },
     {
       "file": "media/demo-poster.png",
-      "sha256": "99db6444a717a563e59b949f8b1691c9381a8196b4ac209a969063e5c476bfa5",
-      "size_bytes": 134731,
+      "sha256": "7e9e7dfe9cd6188869d85464812f7d726bb5256032b768af7319246dbdd2a56d",
+      "size_bytes": 137117,
       "type": "image/png"
     }
   ]

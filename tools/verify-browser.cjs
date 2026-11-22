@@ -85,6 +85,21 @@ const cleanEvent = event => {const {sourceIndex,...value} = event;return value;}
       }
       assert.equal(count,227);report.presented_events=count;
     });
+    await check('message packets stop at the supervisor gate',async () => {
+      await demo.locator('#mode-baseline').click();
+      await demo.locator('#chapter-validation').click();
+      await demo.locator('#variant-invalid').click();
+      const events = recordings.baseline.events.filter(event => event.scenario === 'invalid');
+      const index = events.findIndex(event => event.event === 'rejected');
+      await demo.locator('#eventScrubber').evaluate((input,value) => {input.value=String(value);input.dispatchEvent(new Event('input',{bubbles:true}));},index);
+      assert.equal(await demo.locator('#gateStatus').textContent(),'REJECT');
+      assert.match(await demo.locator('#packetLabel').textContent(),/999/);
+      assert(await demo.locator('#signalRoute').evaluate(route => {
+        const marker = document.getElementById('packetMarker');
+        return Number(marker.getAttribute('cx')) < route.getPointAtLength(route.getTotalLength()).x;
+      }));
+      assert.equal(await demo.locator('#outputValue').textContent(),'0');
+    });
     await check('20 actual-event tour steps and controls',async () => {
       await demo.clock.install();
       await demo.evaluate(() => {window.qaTour=[];window.addEventListener('demo:step',event => {if(event.detail.touring)window.qaTour.push(event.detail);});});
@@ -141,7 +156,7 @@ const cleanEvent = event => {const {sourceIndex,...value} = event;return value;}
       assert(metadata.width>0&&metadata.height>0);assert.equal(metadata.captions,1);assert.equal(metadata.error,false);
       report.video=metadata;
     });
-    await check('WCAG 2 A, AA and 2.1 AA plus responsive bounds',async () => {
+    await check('WCAG 2 and 2.1 A/AA plus responsive bounds',async () => {
       await demo.goto(base+'demo/');await demoReady(demo);
       for (const [name,page] of [['demo',demo],['viewer',viewer],['video',video]]) {
         await page.addScriptTag({path:axePath});
@@ -149,7 +164,7 @@ const cleanEvent = event => {const {sourceIndex,...value} = event;return value;}
           await page.setViewportSize({width,height:1000});
           await page.evaluate(() => document.fonts.ready);
           assert(await page.evaluate(() => document.documentElement.scrollWidth<=innerWidth),`${name} overflows at ${width}`);
-          const violations = await page.evaluate(async () => (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}})).violations.map(item => ({id:item.id,nodes:item.nodes.length})));
+          const violations = await page.evaluate(async () => (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa']}})).violations.map(item => ({id:item.id,nodes:item.nodes.length})));
           report.accessibility.push({page:name,width,violations});
           assert.deepEqual(violations,[],`${name} has accessibility violations at ${width}`);
         }
@@ -161,6 +176,8 @@ const cleanEvent = event => {const {sourceIndex,...value} = event;return value;}
       await offline.route(/^https?:/,route => {requests++;return route.abort();});
       await offline.goto(pathToFileURL(path.join(root,'prototype/demo/offline.html')).href);
       await demoReady(offline);
+      await offline.evaluate(() => document.fonts.ready);
+      assert(await offline.evaluate(() => Array.from(document.fonts).some(face => face.family.includes('Inter Tight') && face.status === 'loaded')),'Offline font did not load');
       assert.equal((await demoState(offline)).tourCount,20);
       assert(await offline.locator('#inspectEvent').isHidden());
       await offline.locator('#chapter-budget').click();await offline.locator('#mode-no-restarts').click();

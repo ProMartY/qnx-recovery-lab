@@ -7,5 +7,6 @@ prototype/tests/fixtures/** -whitespace
 *.png binary
 *.jpg binary
 *.webm binary
+*.woff2 binary
 *.zip binary
 
