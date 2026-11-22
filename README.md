@@ -16,7 +16,9 @@ python prototype/serve.py
 
 Open [the guided demo](http://127.0.0.1:8764/demo/), [the full trace viewer](http://127.0.0.1:8764/viewer/), or [the video player](http://127.0.0.1:8764/demo/video.html). The server listens only on `127.0.0.1` and supports video seeking. You can also open [prototype/demo/offline.html](prototype/demo/offline.html) directly from disk.
 
-The [106.88-second screencast](prototype/demo/media/demo.webm) has [English captions](prototype/demo/media/demo.vtt), with explanations also visible in the UI. It records the replay interface; it is not a live capture of the guest OS. [Presenter notes](prototype/DEMO.md) explain the four chapters.
+**Start guided tour** walks through 20 recorded decisions across both restart policies. Pause or resume from the chapter navigation or transport controls. Manual navigation resets the tour; Escape pauses playback. Presentation pauses adapt to the explanation length and reduced-motion preference, while guest timestamps remain unchanged.
+
+The [recorded walkthrough](prototype/demo/media/demo.webm) has [English captions](prototype/demo/media/demo.vtt), with explanations also visible in the UI. It records the replay interface; it is not a live capture of the guest OS. [Presenter notes](prototype/DEMO.md) explain the four chapters.
 
 ## What runs on QNX
 
@@ -78,6 +80,8 @@ python prototype/build_demo.py --include-media
 ```
 
 Keep the local server running while recording. These commands use a separate headless browser context. [Reproduction notes](docs/reproduce.md) cover the optional local browser cache.
+
+With an installed Chrome and `npm ci`, run `npm run test:browser` against the local server to check the recorded event displays, guided tour, offline page, responsive bounds and automated accessibility rules. This check uses an isolated headless browser and writes its report to the ignored `work` directory.
 
 ## Submission materials
 

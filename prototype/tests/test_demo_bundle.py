@@ -188,7 +188,6 @@ class DemoBundleTests(unittest.TestCase):
             self.assertIn('<track src="./media/demo.vtt" kind="captions" srclang="en" label="English" default>', page)
             self.assertIn('href="./offline.html"', page)
             self.assertNotIn('poster="', page)
-            self.assertIn("video::cue { font-size: 18px; line-height: 1.3; background: rgba(10,16,23,.82); }", page)
             self.assertNotIn("http://", page)
             self.assertNotIn("https://", page)
             self.assertIn("./video.html", archive.read("README.md").decode("utf-8"))

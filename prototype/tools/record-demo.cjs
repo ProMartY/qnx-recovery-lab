@@ -22,6 +22,12 @@ function stamp(seconds) {
   const media = path.join(folder,'media');
   await fs.mkdir(media,{recursive:true});
   const manifest = JSON.parse(await fs.readFile(path.join(folder,'manifest.json'),'utf8'));
+  for (const name of ['index.html','demo.css','demo.js']) {
+    const receipt = manifest.assets?.[name];
+    const raw = await fs.readFile(path.join(folder,name));
+    assert(receipt, `Missing demo asset receipt: ${name}. Rebuild the demo first.`);
+    assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),receipt.sha256,`Demo UI changed after its manifest: ${name}. Rebuild before recording.`);
+  }
   const data = {};
   for (const role of ['baseline','no_restarts']) {
     const record = manifest.recordings[role];
@@ -138,6 +144,6 @@ function stamp(seconds) {
   } finally { await context.close(); await video.saveAs(path.join(media,'demo.webm')); await browser.close(); }
   const vtt='WEBVTT\n\n'+captions.map((item,index)=>`${index+1}\n${stamp(item.start)} --> ${stamp(item.end)}\n${item.text}\n`).join('\n');
   await fs.writeFile(path.join(media,'demo.vtt'),vtt,'utf8');
-  await fs.writeFile(path.join(root,'prototype/artifacts/demo-video-timeline.json'),JSON.stringify({schema_version:1,recorded_at:new Date().toISOString(),kind:'real browser UI capture',viewport:{width:1440,height:1000},recordings:manifest.recordings,captions},null,2)+'\n');
+  await fs.writeFile(path.join(root,'prototype/artifacts/demo-video-timeline.json'),JSON.stringify({schema_version:1,recorded_at:new Date().toISOString(),kind:'real browser UI capture',viewport:{width:1440,height:1000},ui_assets:manifest.assets,recordings:manifest.recordings,captions},null,2)+'\n');
   console.log(`Saved actual demo UI recording (${now().toFixed(1)} seconds wall time), captions and event timeline.`);
 })().catch(error=>{console.error(error);process.exitCode=1;});

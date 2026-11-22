@@ -201,30 +201,63 @@ def video_html(media):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Recorded UI replay — QNX guest evidence</title>
+  <meta name="color-scheme" content="light">
+  <title>Recorded walkthrough · QNX Recovery Lab</title>
   <style>
-    body { margin: 0; padding: 24px; background: #f3f5f4; color: #152827;
-           font-family: Inter, Arial, sans-serif; }
-    main { max-width: 1200px; margin: auto; }
-    h1 { font-size: clamp(1.4rem, 3vw, 2rem); }
-    video { display: block; width: 100%; margin: 24px 0; background: #152827; }
-    video::cue { font-size: 18px; line-height: 1.3; background: rgba(10,16,23,.82); }
-    a { color: #075c50; }
-    p { line-height: 1.5; }
+    :root { color-scheme:light; --paper:#f4f3ee; --ink:#17212b; --muted:#53606a; --blue:#2349ce; --line:#d5d9d8; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.6 "Segoe UI",Arial,sans-serif; }
+    a { color:var(--blue); text-underline-offset:4px; }
+    a:focus-visible,video:focus-visible { outline:3px solid var(--blue); outline-offset:5px; }
+    .shell { width:min(1380px,100%); margin:auto; padding:0 40px; }
+    header { min-height:88px; display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid var(--line); }
+    .brand { color:var(--ink); text-decoration:none; font-size:18px; font-weight:650; letter-spacing:-.5px; }
+    .brand span { display:inline-grid; place-items:center; width:30px; height:30px; border:1px solid var(--ink); margin-right:10px; border-radius:7px; font-family:Consolas,monospace; }
+    .status { font:11px/1.4 Consolas,monospace; text-transform:uppercase; letter-spacing:1.5px; color:#86442c; }
+    .status::before { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:#b34b35; margin-right:8px; }
+    .intro { display:grid; grid-template-columns:1fr minmax(250px,440px); gap:32px; align-items:end; padding:44px 0 30px; }
+    .eyebrow { margin:0 0 13px; font:11px Consolas,monospace; color:var(--blue); text-transform:uppercase; letter-spacing:1.6px; }
+    h1 { margin:0; font-size:clamp(36px,4.7vw,64px); line-height:1.08; font-weight:550; letter-spacing:-2.5px; }
+    .intro-copy { margin:0; color:var(--muted); font-size:15px; line-height:1.7; }
+    .stage { background:#101720; padding:12px; border-radius:16px; box-shadow:0 12px 36px #15212b12; }
+    video { display:block; width:100%; aspect-ratio:36/25; background:#101720; border-radius:7px; }
+    video::cue { font-size:18px; line-height:1.3; background:rgba(10,16,23,.88); }
+    .recording-meta { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; color:#c0ccd6; padding:15px 10px 5px; font:12px/1.5 Consolas,monospace; }
+    .bottom { display:grid; grid-template-columns:1fr auto; align-items:center; gap:28px; padding:27px 0; }
+    .bottom p { margin:0; color:var(--muted); max-width:740px; font-size:14px; }
+    .action { display:inline-flex; align-items:center; padding:12px 17px; min-height:46px; border-radius:7px; background:var(--blue); color:white; text-decoration:none; font-size:14px; font-weight:600; white-space:nowrap; }
+    .action:hover { background:#193aa9; }
+    footer { border-top:1px solid var(--line); padding:22px 0 30px; font-size:12px; color:var(--muted); }
+    @media(max-width:700px) { .shell{padding:0 18px}header{min-height:76px}.brand{font-size:15px}.status{font-size:9px;letter-spacing:.6px}.intro{grid-template-columns:1fr;padding:30px 0 23px;gap:20px}h1{letter-spacing:-1.5px}.intro-copy{font-size:14px}.stage{padding:7px;border-radius:11px}.recording-meta{font-size:10px;padding:11px 5px 5px}.bottom{grid-template-columns:1fr;gap:18px}.action{justify-self:start}video::cue{font-size:14px} }
+    @media(prefers-reduced-motion:reduce) { *{scroll-behavior:auto} }
   </style>
 </head>
 <body>
+  <div class="shell">
+  <header><a class="brand" href="./offline.html"><span aria-hidden="true">↳</span>Recovery Lab</a><span class="status">Recorded walkthrough</span></header>
   <main>
-    <h1 id="videoTitle">Recorded UI replay — QNX guest evidence</h1>
-    <p id="videoDescription">A browser screencast of archived QNX 8.0 guest events under QEMU.
-      The interface shows a simulated actuator output and recorded fault recovery.</p>
+    <div class="intro"><div><p class="eyebrow">QNX Recovery Lab / Demonstration</p><h1 id="videoTitle">Recovery,<br>on record.</h1></div>
+    <p class="intro-copy" id="videoDescription">Follow a rejected message, a replacement worker, and a bounded restart policy. This screencast presents archived native QNX 8 guest events under QEMU.</p></div>
+    <section class="stage" aria-label="Recorded demonstration video">
     <video controls preload="metadata" playsinline aria-labelledby="videoTitle" aria-describedby="videoDescription">
 SOURCES
 CAPTIONS
       Your browser can use the video files in the media directory.
     </video>
-    <p><a href="./offline.html">Open the interactive recorded demo</a></p>
+    <div class="recording-meta"><span>QNX 8 guest · QEMU software emulation</span><span id="clipDuration">Recorded UI replay</span></div>
+    </section>
+    <div class="bottom"><p>The numeric output is simulated. Guest timestamps describe the archived execution; playback time describes this walkthrough. Use the interactive demo to inspect each decision at your own pace.</p><a class="action" href="./offline.html">Open the interactive demo ↗</a></div>
   </main>
+  <footer>Original interface and recordings · Local evidence · No hardware timing guarantee</footer>
+  </div>
+  <script>
+    const video = document.querySelector('video');
+    video.addEventListener('loadedmetadata', () => {
+      if (!Number.isFinite(video.duration)) return;
+      const seconds = Math.round(video.duration);
+      document.getElementById('clipDuration').textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')} walkthrough`;
+    });
+  </script>
 </body>
 </html>
 '''

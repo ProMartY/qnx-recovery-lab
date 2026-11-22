@@ -1,5 +1,5 @@
 {
-  "duration": 106.88,
+  "duration": 103.56,
   "width": 1440,
   "height": 1000,
   "error": null,
@@ -7,20 +7,20 @@
   "decoded_checkpoints": [
     {
       "name": "rejection",
-      "at_seconds": 19.946054999999998
+      "at_seconds": 17.2736118
     },
     {
       "name": "lockout",
-      "at_seconds": 77.7910637
+      "at_seconds": 74.6690483
     },
     {
       "name": "no-restarts",
-      "at_seconds": 82.9209232
+      "at_seconds": 79.7339611
     },
     {
       "name": "evidence",
-      "at_seconds": 96.0232435
+      "at_seconds": 92.84752759999999
     }
   ],
-  "verified_at": "2026-11-21T23:34:10.220Z"
+  "verified_at": "2026-11-22T00:12:36.921Z"
 }

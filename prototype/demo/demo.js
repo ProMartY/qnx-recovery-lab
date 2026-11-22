@@ -7,7 +7,30 @@
     budget: { number:'04', title:'A restart is a limited resource.', subtitle:'Repeated worker crashes', scenario:'crash_loop' }
   };
   const MODES = ['baseline','no_restarts'];
+  const TOUR = [
+    ['baseline','healthy','start','Begin with zero output'],
+    ['baseline','healthy','proposal','Fresh proposal one',event => event.seq === 1],
+    ['baseline','healthy','proposal','Fresh proposal two',event => event.seq === 2],
+    ['baseline','healthy','validated','Three proposals earn the output'],
+    ['baseline','validation','fault_injected','Announce an invalid command'],
+    ['baseline','validation','rejected','Reject the proposed command'],
+    ['baseline','validation','hold','Hold zero before recovery'],
+    ['baseline','validation','restart','Spend one restart'],
+    ['baseline','validation','proposal','Replacement proposal one',event => event.generation === 2 && event.seq === 1],
+    ['baseline','validation','proposal','Replacement proposal two',event => event.generation === 2 && event.seq === 2],
+    ['baseline','validation','resumed','Fresh validation restores output'],
+    ['baseline','generation','fault_injected','Announce a generation mismatch'],
+    ['baseline','generation','rejected','Reject generation zero'],
+    ['baseline','generation','resumed','Validate the replacement identity'],
+    ['baseline','budget','worker_exit','Observe an actual worker exit'],
+    ['baseline','budget','restart','Apply the bounded restart policy'],
+    ['baseline','budget','resumed','Validate a replacement worker'],
+    ['baseline','budget','locked_out','Contain repeated crashes'],
+    ['no_restarts','validation','rejected','Compare the no-restart recording'],
+    ['no_restarts','validation','locked_out','Contain the first detected fault']
+  ];
   const dom = Object.fromEntries(Array.from(document.querySelectorAll('[id]'), element => [element.id,element]));
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const bundled = Boolean(window.RECOVERY_DEMO_DATA);
   let recordings = null;
   let manifest = {};
@@ -20,6 +43,11 @@
   let playing = false;
   let timer = null;
   let momentButtons = [];
+  let tourSteps = [];
+  let touring = false;
+  let tourIndex = -1;
+  let tourTimer = null;
+  let tourCompleted = false;
 
   function element(tag,className,text) {
     const result = document.createElement(tag);
@@ -94,6 +122,85 @@
     timer = null;
     dom.playToggle.textContent = '▶ Play chapter';
     dom.playToggle.setAttribute('aria-pressed','false');
+    renderPlaybackPace();
+  }
+  function presentationDelay(event,isTour = false) {
+    const words = eventDescription(event).split(/\s+/).length;
+    const readingTime = Math.round(words / 4 * 1000);
+    const minimum = reducedMotion.matches ? 4500 : isTour ? 2600 : 1800;
+    return Math.min(reducedMotion.matches ? 7500 : 5500,Math.max(minimum,readingTime));
+  }
+  function renderPlaybackPace() {
+    if (!dom.playbackPace) return;
+    dom.playbackPace.textContent = touring ? 'Tour pace · time to read each step' : reducedMotion.matches ? 'Presentation pace · slower reading pauses' : 'Presentation pace · adaptive reading pauses';
+    dom.playbackPace.title = 'Presentation pauses do not represent elapsed guest time. Guest timestamps are copied from the recording.';
+  }
+  function renderTourControls() {
+    for (const button of [dom.tourToggle,dom.tourTransportToggle].filter(Boolean)) {
+      button.disabled = !tourSteps.length;
+      button.textContent = touring ? 'Pause guided tour' : tourCompleted ? 'Replay guided tour' : tourIndex >= 0 ? 'Resume guided tour' : 'Start guided tour';
+      button.setAttribute('aria-pressed',String(touring));
+    }
+    if (dom.tourProgress) {
+      dom.tourProgress.textContent = !recordings ? 'Tour unavailable until evidence loads.' : !tourSteps.length ? 'Tour needs both complete recordings.' : tourCompleted ? `Tour complete · ${tourSteps.length} recorded moments` : tourIndex < 0 ? `${tourSteps.length} recorded moments · ready when you are` : `${touring ? 'Tour' : 'Paused'} ${tourIndex + 1} / ${tourSteps.length} · ${tourSteps[tourIndex].label}`;
+    }
+    renderPlaybackPace();
+  }
+  function pauseTour(reset = false) {
+    touring = false;
+    clearTimeout(tourTimer);
+    tourTimer = null;
+    if (reset) { tourIndex = -1; tourCompleted = false; }
+    renderTourControls();
+  }
+  function manualNavigation() {
+    pause();
+    pauseTour(true);
+  }
+  function buildTour() {
+    tourSteps = [];
+    for (const [recording,nextChapter,kind,label,predicate] of TOUR) {
+      const nextScenario = nextChapter === 'validation' ? 'invalid' : CHAPTERS[nextChapter].scenario;
+      const candidates = recordings[recording].events.filter(event => event.scenario === nextScenario).map((event,index) => ({...event,sourceIndex:index})).sort((a,b) => a.t_ms - b.t_ms || a.sourceIndex - b.sourceIndex);
+      const index = candidates.findIndex(event => event.event === kind && (!predicate || predicate(event)));
+      if (index < 0) { tourSteps = []; break; }
+      tourSteps.push({mode:recording,chapter:nextChapter,index,label});
+    }
+    renderTourControls();
+  }
+  function showTourStep() {
+    const step = tourSteps[tourIndex];
+    if (!step) return;
+    if (mode !== step.mode || chapter !== step.chapter || (chapter === 'validation' && variant !== 'invalid')) chooseContext(step.mode,step.chapter,'invalid',false,true,step.index);
+    else setIndex(step.index);
+    renderTourControls();
+    announce(`Guided tour, step ${tourIndex + 1} of ${tourSteps.length}. ${step.label}. ${eventTitle(currentEvent())}`);
+  }
+  function scheduleTourStep() {
+    tourTimer = setTimeout(() => {
+      if (!touring) return;
+      if (tourIndex >= tourSteps.length - 1) {
+        tourCompleted = true;
+        pauseTour();
+        announce('Guided tour complete. Both recorded restart policies have been shown.');
+        return;
+      }
+      tourIndex++;
+      showTourStep();
+      scheduleTourStep();
+    },presentationDelay(currentEvent(),true));
+  }
+  function toggleTour() {
+    if (!tourSteps.length) return;
+    if (touring) { pauseTour(); return; }
+    pause();
+    if (tourCompleted || tourIndex < 0) {
+      tourIndex = 0;
+      tourCompleted = false;
+    }
+    touring = true;
+    showTourStep();
+    scheduleTourStep();
   }
   function moveMoment(direction) {
     const target = direction > 0 ? moments.find(index => index > eventIndex) : moments.findLast(index => index < eventIndex);
@@ -103,7 +210,7 @@
   function playStep() {
     if (!playing) return;
     if (!moveMoment(1)) { pause(); return; }
-    timer = setTimeout(playStep,1000);
+    timer = setTimeout(playStep,presentationDelay(currentEvent()));
   }
   function freshCount(event) {
     if (!event) return 0;
@@ -125,7 +232,7 @@
       button.type = 'button';
       button.dataset.eventIndex = String(index);
       button.append(element('time','',`${number(event.t_ms)} ms`));
-      button.addEventListener('click',() => { pause(); setIndex(index); });
+      button.addEventListener('click',() => { manualNavigation(); setIndex(index); });
       const item = element('li');
       item.append(button);
       dom.momentList.append(item);
@@ -133,10 +240,11 @@
     }
     dom.momentCount.textContent = `${moments.length} moments`;
   }
-  function chooseContext(nextMode,nextChapter,nextVariant,preserveMoment = false) {
+  function chooseContext(nextMode,nextChapter,nextVariant,preserveMoment = false,fromTour = false,nextEventIndex = null) {
     const prior = currentEvent();
     const occurrence = prior ? events.slice(0,eventIndex + 1).filter(event => event.event === prior.event).length - 1 : 0;
     pause();
+    if (!fromTour) pauseTour(true);
     mode = nextMode;
     chapter = nextChapter;
     variant = nextVariant;
@@ -148,6 +256,7 @@
       if (matches.length) eventIndex = matches[Math.min(occurrence,matches.length - 1)];
       else if (prior.event === 'resumed' || prior.event === 'restart') eventIndex = Math.max(0,events.findIndex(event => event.event === 'locked_out'));
     }
+    if (Number.isFinite(nextEventIndex) && events.length) eventIndex = Math.max(0,Math.min(events.length - 1,Math.trunc(nextEventIndex)));
     for (const [id] of Object.entries(CHAPTERS)) {
       const button = dom[`chapter-${id}`];
       button.disabled = !recordings;
@@ -159,6 +268,7 @@
     dom.validationVariants.hidden = chapter !== 'validation';
     dom['variant-invalid'].setAttribute('aria-pressed',String(variant === 'invalid'));
     dom['variant-replay'].setAttribute('aria-pressed',String(variant === 'replay'));
+    for (const value of ['invalid','replay']) dom[`variant-${value}`].disabled = !recordings || !currentTrace().events.some(event => event.scenario === value);
     dom.chapterEyebrow.textContent = `Chapter ${CHAPTERS[chapter].number} · ${CHAPTERS[chapter].subtitle}`;
     dom.chapterTitle.textContent = CHAPTERS[chapter].title;
     dom.scenarioLabel.textContent = `Scenario · ${human(scenario())}`;
@@ -173,7 +283,7 @@
   }
   function renderEvent() {
     const event = currentEvent();
-    if (!event) return;
+    if (!event) { renderEmpty(); return; }
     const state = event.state;
     const held = ['validating','holding','locked_out'].includes(state);
     dom.architecture.dataset.tone = event.event === 'rejected' ? 'rejected' : held ? 'hold' : state === 'running' ? 'valid' : 'neutral';
@@ -219,16 +329,43 @@
     const canInspect = !bundled && typeof filename === 'string' && /^run-\d{8}-\d{6}-\d{3}\.json$/.test(filename);
     dom.inspectEvent.hidden = !canInspect;
     if (canInspect) dom.inspectEvent.href = `../viewer/?${new URLSearchParams({trace:filename,scenario:scenario(),event:String(eventIndex)})}`;
+    else dom.inspectEvent.removeAttribute('href');
+    renderPlaybackPace();
+    window.dispatchEvent(new CustomEvent('demo:step',{detail:getState()}));
+  }
+  function renderEmpty(title = 'No recorded events in this chapter.',description = 'Choose another chapter or recording to inspect its evidence.') {
+    dom.architecture.dataset.tone = 'neutral';
+    dom.supervisorState.textContent = 'No recorded event';
+    dom.workerGeneration.textContent = 'G—';
+    dom.workerMessage.textContent = 'No recorded message selected.';
+    for (const dot of dom.validationDots.children) dot.classList.remove('filled');
+    dom.validationDots.setAttribute('aria-label','Fresh proposals unreported');
+    dom.restartUsage.textContent = '— / —';
+    dom.outputValue.textContent = '—';
+    dom.outputState.textContent = 'Awaiting evidence';
+    dom.outputExplanation.textContent = 'No recorded output selected.';
+    dom.guestTime.textContent = 'Guest time · —';
+    dom.eventName.textContent = '—';
+    dom.eventReason.textContent = '';
+    dom.eventPosition.textContent = '0 / 0';
+    dom.momentTitle.textContent = title;
+    dom.momentDescription.textContent = description;
+    dom.eventScrubber.value = '0';
+    dom.eventScrubber.max = '0';
+    dom.eventScrubber.setAttribute('aria-valuetext','No recorded events available');
+    for (const id of ['previousEvent','nextEvent','previousMoment','nextMoment','playToggle','eventScrubber']) dom[id].disabled = true;
+    dom.inspectEvent.hidden = true;
+    dom.inspectEvent.removeAttribute('href');
     window.dispatchEvent(new CustomEvent('demo:step',{detail:getState()}));
   }
   function setIndex(index) {
-    if (!events.length) return;
-    eventIndex = Math.max(0,Math.min(events.length - 1,index));
+    if (!events.length || !Number.isFinite(index)) return;
+    eventIndex = Math.max(0,Math.min(events.length - 1,Math.trunc(index)));
     renderEvent();
   }
   function getState() {
     const event = currentEvent();
-    return {ready:Boolean(recordings),mode,chapter,scenario:scenario(),eventIndex,eventCount:events.length,momentCount:moments.length,playing,event:event ? {...event} : null};
+    return {ready:Boolean(recordings),mode,chapter,scenario:scenario(),eventIndex,eventCount:events.length,momentCount:moments.length,playing,event:event ? {...event} : null,touring,tourIndex,tourCount:tourSteps.length,tourCompleted};
   }
   function renderEvidence() {
     dom.evidenceRecords.replaceChildren();
@@ -272,11 +409,19 @@
     dom.boundaryLimit.textContent = `${number(recordings.no_restarts.config?.restart_limit)} restarts allowed`;
   }
   async function fetchJSON(path) {
-    const response = await fetch(path,{cache:'no-store'});
-    if (!response.ok) throw new Error(`${path} returned HTTP ${response.status}.`);
-    return response.json();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(),10000);
+    try {
+      const response = await fetch(path,{cache:'no-store',signal:controller.signal});
+      if (!response.ok) throw new Error(`${path} returned HTTP ${response.status}.`);
+      return await response.json();
+    } finally { clearTimeout(timeout); }
   }
   async function initialize() {
+    dom.architecture.setAttribute('aria-busy','true');
+    for (const id of ['mode-baseline','mode-no-restarts','variant-invalid','variant-replay',...Object.keys(CHAPTERS).map(key => `chapter-${key}`)]) dom[id].disabled = true;
+    renderEmpty('Recorded evidence is loading.','The demonstration reads the bundled QNX guest recordings.');
+    renderTourControls();
     try {
       let data;
       if (bundled) {
@@ -292,38 +437,63 @@
       dom['mode-baseline'].disabled = false;
       dom['mode-no-restarts'].disabled = false;
       renderEvidence();
+      buildTour();
       chooseContext(mode,chapter,variant);
+      dom.architecture.setAttribute('aria-busy','false');
       window.dispatchEvent(new CustomEvent('demo:ready',{detail:getState()}));
     } catch (error) {
+      pause();
+      pauseTour(true);
       recordings = null;
+      manifest = {};
+      events = [];
+      moments = [];
+      eventIndex = 0;
+      tourSteps = [];
+      dom.momentList.replaceChildren();
+      momentButtons = [];
+      dom.momentCount.textContent = '0 moments';
+      dom.evidenceRecords.replaceChildren();
+      dom.evidenceTotals.textContent = 'Evidence unavailable';
+      dom.baselineLimit.textContent = 'Restarts unreported';
+      dom.boundaryLimit.textContent = 'Restarts unreported';
+      dom.environmentLabel.textContent = 'QNX evidence unavailable';
+      dom.scenarioLabel.textContent = 'Scenario · —';
+      for (const id of ['mode-baseline','mode-no-restarts','variant-invalid','variant-replay',...Object.keys(CHAPTERS).map(key => `chapter-${key}`)]) dom[id].disabled = true;
+      renderEmpty('Recorded evidence is unavailable.','The presentation needs both verified demo recordings. Reload after restoring the manifest and data files.');
+      renderTourControls();
+      dom.architecture.setAttribute('aria-busy','false');
       notice(`Recorded evidence could not be loaded. ${error.message} Open the generated offline demo, or serve this folder with its manifest and data files.`);
-      dom.momentTitle.textContent = 'Recorded evidence is unavailable.';
-      dom.momentDescription.textContent = 'The presentation needs the verified demo recordings.';
     }
   }
   for (const id of Object.keys(CHAPTERS)) dom[`chapter-${id}`].addEventListener('click',() => chooseContext(mode,id,variant));
   dom['mode-baseline'].addEventListener('click',() => chooseContext('baseline',chapter,variant,true));
   dom['mode-no-restarts'].addEventListener('click',() => chooseContext('no_restarts',chapter,variant,true));
   for (const id of ['invalid','replay']) dom[`variant-${id}`].addEventListener('click',() => chooseContext(mode,chapter,id));
-  dom.previousMoment.addEventListener('click',() => {pause();moveMoment(-1);});
-  dom.nextMoment.addEventListener('click',() => {pause();moveMoment(1);});
-  dom.previousEvent.addEventListener('click',() => {pause();setIndex(eventIndex - 1);});
-  dom.nextEvent.addEventListener('click',() => {pause();setIndex(eventIndex + 1);});
-  dom.eventScrubber.addEventListener('input',() => {pause();setIndex(Number(dom.eventScrubber.value));});
+  dom.previousMoment.addEventListener('click',() => {manualNavigation();moveMoment(-1);});
+  dom.nextMoment.addEventListener('click',() => {manualNavigation();moveMoment(1);});
+  dom.previousEvent.addEventListener('click',() => {manualNavigation();setIndex(eventIndex - 1);});
+  dom.nextEvent.addEventListener('click',() => {manualNavigation();setIndex(eventIndex + 1);});
+  dom.eventScrubber.addEventListener('input',() => {manualNavigation();setIndex(Number(dom.eventScrubber.value));});
   dom.playToggle.addEventListener('click',() => {
     if (playing) {pause();return;}
+    pauseTour(true);
     if (!moments.some(index => index > eventIndex)) setIndex(0);
     playing = true;
     dom.playToggle.textContent = 'Ⅱ Pause chapter';
     dom.playToggle.setAttribute('aria-pressed','true');
-    timer = setTimeout(playStep,1000);
+    timer = setTimeout(playStep,presentationDelay(currentEvent()));
   });
+  dom.tourToggle?.addEventListener('click',toggleTour);
+  dom.tourTransportToggle?.addEventListener('click',toggleTour);
   document.addEventListener('keydown',event => {
+    if (event.key === 'Escape' && (playing || touring)) {event.preventDefault();pause();pauseTour();announce('Presentation playback paused.');return;}
     if (!recordings || event.altKey || event.ctrlKey || event.metaKey || event.target.closest('input,select,textarea')) return;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {event.preventDefault();pause();moveMoment(event.key === 'ArrowRight' ? 1 : -1);}
+    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {event.preventDefault();manualNavigation();moveMoment(event.key === 'ArrowRight' ? 1 : -1);}
     if (event.code === 'Space' && !event.target.closest('button,a,summary')) {event.preventDefault();dom.playToggle.click();}
   });
-  document.addEventListener('visibilitychange',() => {if (document.hidden) pause();});
+  document.addEventListener('visibilitychange',() => {if (document.hidden) {pause();pauseTour();}});
+  reducedMotion.addEventListener('change',() => {pause();pauseTour();});
   window.recoveryDemo = Object.freeze({getState});
   initialize();
 })();

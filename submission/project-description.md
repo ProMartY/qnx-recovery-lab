@@ -22,7 +22,7 @@ The supervisor checks the sending process, protocol fields, generation, sequence
 
 The generation test sends deliberately incorrect metadata from the active worker. It exercises generation validation within that controlled test case.
 
-A browser viewer exposes individual events and measured intervals. A guided replay compares the same fault and watchdog settings with two permitted restarts and with none. JSON, Markdown, JUnit XML and digest manifests let developers inspect the evidence alongside the visual explanation.
+A browser viewer exposes individual events and measured intervals. A guided replay compares the same fault and watchdog settings with two permitted restarts and with none. A pausable tour follows 20 recorded decisions, while manual controls expose every event. JSON, Markdown, JUnit XML and digest manifests let developers inspect the evidence alongside the visual explanation.
 
 ## How it was built
 
@@ -38,7 +38,7 @@ The baseline recording contains 203 events from QNX 8.0.0. Healthy operation pas
 
 A second recording changes only the restart budget to zero. It contains 112 events. The healthy control passes, and all six fault scenarios reach the expected contained outcome. Both recordings use fault sequence 8 and a 700 ms watchdog. Their raw guest logs and source snapshots accompany the reports.
 
-The 106.88-second demonstration video is a browser recording of this guided replay. It has 29 English caption cues and no audio. The underlying events came from native QNX guest executions, and the video presents those archived events through the UI.
+The 103.56-second demonstration video is a browser recording of this guided replay. It has 29 English caption cues and no audio. The underlying events came from native QNX guest executions, and the video presents those archived events through the UI.
 
 ## Challenges and lessons
 
