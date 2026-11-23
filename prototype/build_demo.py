@@ -370,7 +370,7 @@ def readme(manifest):
                  ("The movie starts with a newly executed QNX guest run observed live, then switches to the archived-event workbench. "
                   "data/native includes the direct segment's immutable trace, raw console, source snapshot and capture receipt. "
                   if manifest.get("native_capture") else "The media directory contains a browser screencast of recorded playback. ") +
-                 "Its file digests and sizes are listed in manifest.json.", "",
+                 "Media file digests and sizes are listed in manifest.json.", "",
                  "From the full workspace, run `python prototype/serve.py` and use the printed server address. "
                  "That server supports byte-range requests for video seeking. A basic HTTP server can play "
                  "the recording progressively. Seeking requires byte-range support or a fully buffered recording.", ""]
