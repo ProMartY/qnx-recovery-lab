@@ -1,26 +1,38 @@
 {
-  "duration": 100.28,
+  "duration": 158.32,
   "width": 1440,
   "height": 1000,
   "error": null,
-  "captions": 29,
+  "captions": 33,
   "decoded_checkpoints": [
     {
+      "name": "native-runtime",
+      "at_seconds": 33.2879711
+    },
+    {
+      "name": "native-complete",
+      "at_seconds": 43.338424399999994
+    },
+    {
+      "name": "assessment",
+      "at_seconds": 83.8271873
+    },
+    {
       "name": "rejection",
-      "at_seconds": 17.769921199999995
+      "at_seconds": 63.689632700000004
     },
     {
       "name": "lockout",
-      "at_seconds": 75.1959624
+      "at_seconds": 129.2450071
     },
     {
       "name": "no-restarts",
-      "at_seconds": 80.2775708
+      "at_seconds": 134.3773377
     },
     {
       "name": "evidence",
-      "at_seconds": 93.4163564
+      "at_seconds": 147.52181330000002
     }
   ],
-  "verified_at": "2026-11-22T00:49:04.086Z"
+  "verified_at": "2026-11-23T22:07:58.342Z"
 }

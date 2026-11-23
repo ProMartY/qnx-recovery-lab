@@ -2,7 +2,7 @@
 
 ## Elevator pitch
 
-A fault-injection lab for QNX developers that makes worker recovery, message validation and zero-output lockout visible through recorded guest evidence.
+Inspect when a QNX worker is allowed to control an output after failure, with native fault injection, message validation and reproducible guest evidence.
 
 ## Category draft
 
@@ -10,50 +10,56 @@ Developer Tooling & Host Tools
 
 ## Inspiration
 
-Restarting a failed process leaves several questions open. Which messages can still be trusted? When should output resume? What should happen when the replacement fails again?
-
-Recovery Lab gives developers a small, inspectable example of those decisions. A separate supervisor owns a simulated actuator value. A worker proposes values, and the supervisor decides whether they can reach the output.
+A developer building a process-based industrial controller on QNX needs to decide when a restarted worker's commands can reach the output again. Recovery Lab is a small, reproducible place to exercise and review that policy before adapting it to an application. The worker supplies proposals, and a separate supervisor owns the simulated actuator value.
 
 ## What it does
 
-The lab runs a healthy control and six fault scenarios in QNX 8.0. A worker exits with code 42, stops sending messages, proposes an out-of-range value, crashes repeatedly, repeats a sequence number, or sends an incorrect generation number.
+Seven scenarios exercise healthy operation, worker exit, stalled progress, an out-of-range value, repeated crashes, a duplicate sequence and an incorrect generation.
 
-The supervisor checks the sending process, protocol fields, generation, sequence, freshness and allowed value range. It holds the output at zero during validation and after a detected fault. A replacement worker must supply three fresh, valid proposals before output resumes. Once the restart budget is exhausted, the supervisor remains locked out at zero.
+The supervisor validates the sender, message size, protocol fields, generation, sequence, freshness and value range. Output remains zero during fresh validation and after a detected fault. A replacement worker starts a new generation and needs three fresh, valid proposals before output resumes. Repeated failures exhaust the restart budget and end in zero-output lockout.
 
-The generation test sends deliberately incorrect metadata from the active worker. It exercises generation validation within that controlled test case.
+The sequence and generation tests send in-range values with deliberately incorrect fields from the active worker. They exercise message checks that a numeric range check alone would miss.
 
-A browser viewer exposes individual events and measured intervals. A guided replay compares the same fault and watchdog settings with two permitted restarts and with none. A pausable tour follows 20 recorded decisions, while manual controls expose every event. JSON, Markdown, JUnit XML and digest manifests let developers inspect the evidence alongside the visual explanation.
+A detailed viewer connects the assessment to individual events, measured intervals and raw JSON. The guided workbench follows a message through the supervisor's decision to held or permitted output. A pausable tour follows 20 recorded decisions, and a self-contained offline page lets teammates inspect the pinned recordings.
 
-The guided workbench shows a recorded message reaching the supervisor gate. The displayed route stops there during fresh validation or rejection, then reaches the output when the recorded supervisor permits it.
+## Why QNX
+
+The supervisor and worker are native QNX processes. Worker termination leaves the supervisor running to observe the exit and manage replacement. QNX channels carry synchronous messages and timer pulses into its event loop, and `MsgReceive` supplies sender metadata for validation. Receipt acknowledgement and application acceptance are separate steps. These mechanisms directly implement the behavior under inspection.
+
+## The technical contribution
+
+A watchdog detects missing progress. Recovery Lab connects that detection with message validity, fresh validation and a bounded restart policy. A developer can trace each rejection, zero-output hold, replacement and resume or lockout to a guest event. Host checks verify those transitions independently of the summary's success flag.
 
 ## How it was built
 
-The native C11 program uses QNX channels, synchronous message passing and timer pulses. The worker sends proposals with `MsgSend`, while the supervisor monitors the process and applies the output policy.
+A Windows runner builds the C11 program with `qcc`, GCC 12.2.0 and `mkqnximage`, then executes it in QNX 8.0.0 x86-64 under QEMU TCG.
 
-The Windows runner cross-compiles with `qcc` and GCC 12.2.0, builds a QNX x86-64 image with `mkqnximage`, and runs it under QEMU TCG. Python checks the event sequence, output state, rejection evidence, restart budget and summaries. The exporter also compares the trace with the raw guest console, successful exit markers and source snapshot hashes.
+Python checks event order, sequences, rejections, output and restart counts. The exporter compares events and environment/configuration with the raw console, checks exit markers and source hashes, and produces Markdown, JUnit XML and digest manifests.
 
-The main implementation is in `prototype/src/recovery_lab.c`. Evidence checks are in `prototype/check_trace.py` and `prototype/export_report.py`. The viewer, guided replay and portable offline page use HTML, CSS and JavaScript.
+The implementation is in `prototype/src/recovery_lab.c`, with checks in `prototype/check_trace.py` and `prototype/export_report.py`. The browser presentation uses HTML, CSS and JavaScript.
 
 ## What has been verified
 
-The baseline recording contains 203 events from QNX 8.0.0. Healthy operation passes, five single-fault scenarios recover, and repeated crashes reach the expected zero-output lockout.
+The baseline recording has 203 guest events. Healthy operation passes, five single-fault scenarios recover, and repeated crashes reach the expected lockout after two restarts.
 
-A second recording changes only the restart budget to zero. It contains 112 events. The healthy control passes, and all six fault scenarios reach the expected contained outcome. Both recordings use fault sequence 8 and a 700 ms watchdog. Their raw guest logs and source snapshots accompany the reports.
+The 112-event comparison changes only the restart budget to zero. Healthy operation passes, and all six fault scenarios reach zero-output containment. Both recordings use fault sequence 8 and a 700 ms watchdog, with raw logs and matching source snapshots included.
 
-The 100.28-second demonstration video is a browser recording of this guided replay. It has 29 English caption cues and no audio. The underlying events came from native QNX guest executions, and the video presents those archived events through the UI.
+The 158.32-second video starts with a new QNX guest execution observed live through its serial stream, then moves to the archived-event workbench. The new run, `run-20261124-000447-913.json`, contains 203 events and seven passing scenarios; both guest and host exit successfully. Its raw console, C snapshot and capture receipt accompany the video. The movie has 33 English caption cues and no audio.
 
-## Challenges and lessons
+The workbench also compares recorded response intervals. In the pinned baseline's out-of-range-command scenario, fault notice to hold is 11 ms and hold to validated resume is 280 ms. The zero-restart recording reaches lockout instead. These are observations of those emulated executions.
 
-An early implementation started the initial watchdog interval before process spawning had finished. The supervisor now refreshes its monotonic timestamp after a successful spawn. Both recordings used in the guided comparison were produced after that fix.
+## Challenges and limits
 
-A separate run with a 300 ms watchdog failed in the healthy scenario after a 332 ms gap without an accepted proposal under QEMU. That failed trace remains archived. It shows why watchdog settings need to be evaluated in the environment where the application runs.
+An early watchdog interval included process-spawn overhead. The supervisor now refreshes its monotonic timestamp after successful spawning. Both pinned recordings were produced after that fix.
 
-Recorded intervals describe these emulated runs. The output is simulated, and physical I/O, hardware timing bounds and production safety remain outside the measurements.
+A separate 300 ms watchdog run failed in the healthy scenario after a 332 ms gap without an accepted proposal under QEMU. Its failed trace is retained.
+
+Output is simulated. Recorded times describe those guest runs, and hardware timing, physical I/O and production safety require further validation. Hashes and matching logs establish internal consistency of locally produced evidence.
 
 ## What is next
 
-The next technical step is to repeat the same scenarios on supported hardware and compare the recorded behavior. Further work can extend the fault cases while preserving reproducible traces and independent checks.
+Repeat the same scenarios on supported hardware, then evaluate the output policy with an application-specific I/O boundary while retaining the same event checks.
 
 ## Built with
 
-QNX 8.0.0, C11, QNX IPC, qcc, GCC 12.2.0, QEMU, Windows, PowerShell, Python, HTML, CSS, JavaScript and Playwright.
+QNX 8.0.0, C11, QNX IPC, qcc, GCC 12.2.0, QEMU, PowerShell, Python, HTML, CSS, JavaScript and Playwright.

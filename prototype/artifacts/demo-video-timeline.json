@@ -1,23 +1,24 @@
 {
   "schema_version": 1,
-  "recorded_at": "2026-11-22T00:47:57.315Z",
-  "kind": "real browser UI capture",
+  "recorded_at": "2026-11-23T22:07:23.526Z",
+  "kind": "new native QNX run followed by archived-event UI replay",
+  "duration_seconds": 158.32,
   "viewport": {
     "width": 1440,
     "height": 1000
   },
   "ui_assets": {
     "index.html": {
-      "sha256": "85853266784605aa09fb99a5b971e9d6e3470444d5cab9d1b15c8d3a36cfeb45",
-      "size_bytes": 14836
+      "sha256": "3af56e15ff9cde959d23d4a1ee1194a3ef072bc750ca5e1e9178340fa7653370",
+      "size_bytes": 15860
     },
     "demo.css": {
-      "sha256": "6fb26ef9f017974ed7c2492b74cd389513d873dde1713d281f17a3c0185b910e",
-      "size_bytes": 24290
+      "sha256": "27771d0998d4727c8bef21c52864838b1ca61d41e2a5a806ea45ce57bb50a451",
+      "size_bytes": 27438
     },
     "demo.js": {
-      "sha256": "2c59836bab87b997b16027c46a33bdba6c4688c12bb54212e784c8832d2185ee",
-      "size_bytes": 35558
+      "sha256": "421085f3ffc0eac1c87e382d1e11a3a6cbf0af4f12f0691b4d1d090a29c365e3",
+      "size_bytes": 40687
     },
     "fonts/inter-tight-latin-wght-normal.woff2": {
       "sha256": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618",
@@ -107,10 +108,2684 @@
       }
     }
   },
+  "native": {
+    "start": 0.10413840000000005,
+    "end": 46.338424399999994,
+    "schema_version": 1,
+    "kind": "new QNX guest execution observed during browser capture",
+    "started_at": "2026-11-23T22:04:47.579Z",
+    "run_file": "run-20261124-000447-913.json",
+    "run_sha256": "5a2f166056ac4e3c480e9a932786fa17f00eaeda6e03d92539be07cc616f3179",
+    "console_file": "guest-20261124-000447-913.log",
+    "console_sha256": "70b13cc35e735678f08b794a6d74b1e2a3fc0b9518350df09aacef9baa670343",
+    "observed_live_prefix_sha256": "70b13cc35e735678f08b794a6d74b1e2a3fc0b9518350df09aacef9baa670343",
+    "observed_live_lines": 236,
+    "source_file": "source-20261124-000447-913.c",
+    "source_sha256": "9c32b86ebe50ef0edf883f122cf5ad12ddad5d14744974d80d49da6a0005216d",
+    "binary_sha256": "99be8764781cbc04a602e3fcc9eab024e789e789d1a2b6ae18cb1b7138172859",
+    "boot_sha256": "c8d810b4c3a25704c29c7e3e3ba3fe1dfbbedece40c87b922036993c98aa7cc2",
+    "config": {
+      "scenario": "all",
+      "fault_at": 8,
+      "watchdog_ms": 700,
+      "restart_limit": 2
+    },
+    "environment": {
+      "os": "QNX",
+      "release": "8.0.0",
+      "machine": "x86pc",
+      "emulator": "QEMU TCG on Windows",
+      "toolchain": "Toolchain:  gcc\tVersion:  12.2.0",
+      "measurement": "Guest monotonic clock under software emulation"
+    },
+    "event_count": 203,
+    "scenario_count": 7,
+    "guest_exit": 0,
+    "host_exit": 0,
+    "monitor_sha256": "8be92e213cc288c65a995451594d93166f366729c67576e2d400f6e779673219",
+    "observer_sha256": "c8ea043bf29a18b2b8af27fcbf733720473d39cb1a94410690890f0dcf98766d",
+    "observations": [
+      {
+        "at_seconds": 0.0721282000000001,
+        "phase": "booting",
+        "event_count": 0,
+        "current": null
+      },
+      {
+        "at_seconds": 22.192652300000002,
+        "phase": "running",
+        "event_count": 3,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 22,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 22.3013318,
+        "phase": "running",
+        "event_count": 4,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 125,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 22.409650300000003,
+        "phase": "running",
+        "event_count": 6,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 227,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 22.518756800000002,
+        "phase": "running",
+        "event_count": 7,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 329,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 22.626714,
+        "phase": "running",
+        "event_count": 8,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 436,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 22.734916600000002,
+        "phase": "running",
+        "event_count": 9,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 537,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 22.8421111,
+        "phase": "running",
+        "event_count": 10,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 639,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 22.9471069,
+        "phase": "running",
+        "event_count": 12,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 844,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 9,
+          "output": 42,
+          "proposed_output": 42,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 23.0538164,
+        "phase": "running",
+        "event_count": 13,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 946,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 10,
+          "output": 49,
+          "proposed_output": 49,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 23.1601211,
+        "phase": "running",
+        "event_count": 14,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 1047,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 11,
+          "output": 56,
+          "proposed_output": 56,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 23.268492900000002,
+        "phase": "running",
+        "event_count": 16,
+        "current": {
+          "scenario": "healthy",
+          "t_ms": 1150,
+          "event": "scenario_complete",
+          "state": "stopped",
+          "generation": 1,
+          "seq": 12,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "output_held_before_shutdown"
+        }
+      },
+      {
+        "at_seconds": 23.3768295,
+        "phase": "running",
+        "event_count": 20,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 19,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 23.484884700000002,
+        "phase": "running",
+        "event_count": 21,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 121,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 23.5923905,
+        "phase": "running",
+        "event_count": 23,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 223,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 23.6972631,
+        "phase": "running",
+        "event_count": 24,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 325,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 23.8037823,
+        "phase": "running",
+        "event_count": 25,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 427,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 23.9097516,
+        "phase": "running",
+        "event_count": 26,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 529,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.0182056,
+        "phase": "running",
+        "event_count": 27,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 630,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.125983,
+        "phase": "running",
+        "event_count": 33,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 793,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.2345466,
+        "phase": "running",
+        "event_count": 34,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 894,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.3470848,
+        "phase": "running",
+        "event_count": 36,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 995,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.454136600000002,
+        "phase": "running",
+        "event_count": 37,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 1097,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.559843200000003,
+        "phase": "running",
+        "event_count": 38,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 1200,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.666420100000003,
+        "phase": "running",
+        "event_count": 39,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 1302,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.7722447,
+        "phase": "running",
+        "event_count": 40,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 1403,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.8781831,
+        "phase": "running",
+        "event_count": 41,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 1505,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 8,
+          "output": 35,
+          "proposed_output": 35,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 24.985237800000004,
+        "phase": "running",
+        "event_count": 42,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 1608,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 9,
+          "output": 42,
+          "proposed_output": 42,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.091229000000002,
+        "phase": "running",
+        "event_count": 43,
+        "current": {
+          "scenario": "crash",
+          "t_ms": 1710,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 10,
+          "output": 49,
+          "proposed_output": 49,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.1974771,
+        "phase": "running",
+        "event_count": 49,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 18,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.3072538,
+        "phase": "running",
+        "event_count": 50,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 121,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.416874600000003,
+        "phase": "running",
+        "event_count": 52,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 223,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.522718100000002,
+        "phase": "running",
+        "event_count": 53,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 324,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.6311224,
+        "phase": "running",
+        "event_count": 54,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 426,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.7373305,
+        "phase": "running",
+        "event_count": 55,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 529,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.8423753,
+        "phase": "running",
+        "event_count": 56,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 631,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 25.9483164,
+        "phase": "running",
+        "event_count": 57,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 733,
+          "event": "fault_injected",
+          "state": "running",
+          "generation": 1,
+          "seq": 8,
+          "output": 28,
+          "proposed_output": 0,
+          "reason": "stall"
+        }
+      },
+      {
+        "at_seconds": 26.589044700000002,
+        "phase": "running",
+        "event_count": 60,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 1414,
+          "event": "restart",
+          "state": "validating",
+          "generation": 2,
+          "seq": 0,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "previous_worker_reaped"
+        }
+      },
+      {
+        "at_seconds": 26.697495900000003,
+        "phase": "running",
+        "event_count": 62,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 1534,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 26.809553,
+        "phase": "running",
+        "event_count": 64,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 1636,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 26.917156300000002,
+        "phase": "running",
+        "event_count": 65,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 1738,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.026387500000002,
+        "phase": "running",
+        "event_count": 66,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 1840,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.1326314,
+        "phase": "running",
+        "event_count": 67,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 1943,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.2390107,
+        "phase": "running",
+        "event_count": 68,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 2045,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.347183400000002,
+        "phase": "running",
+        "event_count": 69,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 2148,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 8,
+          "output": 35,
+          "proposed_output": 35,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.4533279,
+        "phase": "running",
+        "event_count": 70,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 2250,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 9,
+          "output": 42,
+          "proposed_output": 42,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.559956100000004,
+        "phase": "running",
+        "event_count": 71,
+        "current": {
+          "scenario": "stall",
+          "t_ms": 2353,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 10,
+          "output": 49,
+          "proposed_output": 49,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.6684507,
+        "phase": "running",
+        "event_count": 75,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 0,
+          "event": "start",
+          "state": "validating",
+          "generation": 1,
+          "seq": 0,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "simulated_output"
+        }
+      },
+      {
+        "at_seconds": 27.7765111,
+        "phase": "running",
+        "event_count": 77,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 19,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.8871736,
+        "phase": "running",
+        "event_count": 78,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 120,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 27.993372200000003,
+        "phase": "running",
+        "event_count": 81,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 325,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 28.1014722,
+        "phase": "running",
+        "event_count": 82,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 426,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 28.207431200000002,
+        "phase": "running",
+        "event_count": 83,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 528,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 28.313926300000002,
+        "phase": "running",
+        "event_count": 84,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 630,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 28.422416100000003,
+        "phase": "running",
+        "event_count": 87,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 737,
+          "event": "hold",
+          "state": "holding",
+          "generation": 1,
+          "seq": 7,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "command_range"
+        }
+      },
+      {
+        "at_seconds": 28.530120600000004,
+        "phase": "running",
+        "event_count": 90,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 778,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 28.636694900000002,
+        "phase": "running",
+        "event_count": 91,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 880,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 28.744644900000004,
+        "phase": "running",
+        "event_count": 93,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 982,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 28.851845700000002,
+        "phase": "running",
+        "event_count": 94,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 1084,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 28.9604144,
+        "phase": "running",
+        "event_count": 96,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 1289,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 29.068251900000003,
+        "phase": "running",
+        "event_count": 97,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 1390,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 29.173764900000002,
+        "phase": "running",
+        "event_count": 98,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 1491,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 8,
+          "output": 35,
+          "proposed_output": 35,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 29.2829648,
+        "phase": "running",
+        "event_count": 99,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 1593,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 9,
+          "output": 42,
+          "proposed_output": 42,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 29.389098500000003,
+        "phase": "running",
+        "event_count": 100,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 1694,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 10,
+          "output": 49,
+          "proposed_output": 49,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 29.497676499999997,
+        "phase": "running",
+        "event_count": 102,
+        "current": {
+          "scenario": "invalid",
+          "t_ms": 1796,
+          "event": "scenario_complete",
+          "state": "stopped",
+          "generation": 2,
+          "seq": 11,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "output_held_before_shutdown"
+        }
+      },
+      {
+        "at_seconds": 29.606091900000003,
+        "phase": "running",
+        "event_count": 106,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 20,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 29.7142669,
+        "phase": "running",
+        "event_count": 107,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 124,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 29.822805199999998,
+        "phase": "running",
+        "event_count": 109,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 226,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 29.931507200000002,
+        "phase": "running",
+        "event_count": 110,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 329,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.037170200000006,
+        "phase": "running",
+        "event_count": 111,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 432,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.1431864,
+        "phase": "running",
+        "event_count": 112,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 534,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.251662700000004,
+        "phase": "running",
+        "event_count": 113,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 635,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.357255000000002,
+        "phase": "running",
+        "event_count": 119,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 791,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.465189200000005,
+        "phase": "running",
+        "event_count": 120,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 892,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.5723469,
+        "phase": "running",
+        "event_count": 122,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 994,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.6808314,
+        "phase": "running",
+        "event_count": 123,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1096,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.789021100000003,
+        "phase": "running",
+        "event_count": 124,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1197,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 30.897584,
+        "phase": "running",
+        "event_count": 125,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1299,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.003661100000002,
+        "phase": "running",
+        "event_count": 126,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1400,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.1087726,
+        "phase": "running",
+        "event_count": 132,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1545,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 3,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.214382699999998,
+        "phase": "running",
+        "event_count": 133,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1646,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 3,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.320214000000004,
+        "phase": "running",
+        "event_count": 135,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1747,
+          "event": "proposal",
+          "state": "running",
+          "generation": 3,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.4268006,
+        "phase": "running",
+        "event_count": 136,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1850,
+          "event": "proposal",
+          "state": "running",
+          "generation": 3,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.532507999999996,
+        "phase": "running",
+        "event_count": 137,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 1952,
+          "event": "proposal",
+          "state": "running",
+          "generation": 3,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.638303000000004,
+        "phase": "running",
+        "event_count": 138,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 2054,
+          "event": "proposal",
+          "state": "running",
+          "generation": 3,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.743174000000003,
+        "phase": "running",
+        "event_count": 139,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 2156,
+          "event": "proposal",
+          "state": "running",
+          "generation": 3,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 31.851651200000003,
+        "phase": "running",
+        "event_count": 144,
+        "current": {
+          "scenario": "crash_loop",
+          "t_ms": 2307,
+          "event": "scenario_complete",
+          "state": "locked_out",
+          "generation": 3,
+          "seq": 7,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "output_held_before_shutdown"
+        }
+      },
+      {
+        "at_seconds": 31.9606764,
+        "phase": "running",
+        "event_count": 148,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 19,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.0681391,
+        "phase": "running",
+        "event_count": 149,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 121,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.176163,
+        "phase": "running",
+        "event_count": 151,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 223,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.2833112,
+        "phase": "running",
+        "event_count": 152,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 326,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.3895564,
+        "phase": "running",
+        "event_count": 153,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 427,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.4963143,
+        "phase": "running",
+        "event_count": 154,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 530,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.601429700000004,
+        "phase": "running",
+        "event_count": 155,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 632,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.7100011,
+        "phase": "running",
+        "event_count": 161,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 827,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 1,
+          "output": 0,
+          "proposed_output": 27,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.818511099999995,
+        "phase": "running",
+        "event_count": 162,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 929,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 32.926545399999995,
+        "phase": "running",
+        "event_count": 164,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 1031,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 33.034802899999995,
+        "phase": "running",
+        "event_count": 165,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 1134,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 33.1406368,
+        "phase": "running",
+        "event_count": 166,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 1236,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 33.2473518,
+        "phase": "running",
+        "event_count": 167,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 1338,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 33.353998999999995,
+        "phase": "running",
+        "event_count": 168,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 1440,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 33.4596794,
+        "phase": "running",
+        "event_count": 169,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 1541,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 8,
+          "output": 35,
+          "proposed_output": 35,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 33.5683059,
+        "phase": "running",
+        "event_count": 170,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 1643,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 9,
+          "output": 42,
+          "proposed_output": 42,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 33.6755858,
+        "phase": "running",
+        "event_count": 171,
+        "current": {
+          "scenario": "replay",
+          "t_ms": 1745,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 10,
+          "output": 49,
+          "proposed_output": 49,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 33.781206399999995,
+        "phase": "running",
+        "event_count": 176,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 9,
+          "event": "worker_started",
+          "state": "validating",
+          "generation": 1,
+          "seq": 0,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "fresh_validation_required"
+        }
+      },
+      {
+        "at_seconds": 33.8911191,
+        "phase": "running",
+        "event_count": 178,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 120,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 1,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 34.00033919999999,
+        "phase": "running",
+        "event_count": 180,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 224,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 34.106311999999996,
+        "phase": "running",
+        "event_count": 181,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 326,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 34.212393299999995,
+        "phase": "running",
+        "event_count": 182,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 427,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 34.3217664,
+        "phase": "running",
+        "event_count": 183,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 530,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 34.430693999999995,
+        "phase": "running",
+        "event_count": 184,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 632,
+          "event": "proposal",
+          "state": "running",
+          "generation": 1,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 34.5390902,
+        "phase": "running",
+        "event_count": 189,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 760,
+          "event": "restart",
+          "state": "validating",
+          "generation": 2,
+          "seq": 0,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "previous_worker_reaped"
+        }
+      },
+      {
+        "at_seconds": 34.646573499999995,
+        "phase": "running",
+        "event_count": 191,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 878,
+          "event": "proposal",
+          "state": "validating",
+          "generation": 2,
+          "seq": 2,
+          "output": 0,
+          "proposed_output": 34,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 34.7517287,
+        "phase": "running",
+        "event_count": 192,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 979,
+          "event": "resumed",
+          "state": "running",
+          "generation": 2,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "three_fresh_proposals"
+        }
+      },
+      {
+        "at_seconds": 34.8599484,
+        "phase": "running",
+        "event_count": 194,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1081,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 4,
+          "output": 48,
+          "proposed_output": 48,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 34.9682181,
+        "phase": "running",
+        "event_count": 195,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1183,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 5,
+          "output": 55,
+          "proposed_output": 55,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 35.077059999999996,
+        "phase": "running",
+        "event_count": 196,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1284,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 6,
+          "output": 21,
+          "proposed_output": 21,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 35.18359579999999,
+        "phase": "running",
+        "event_count": 197,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1385,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 7,
+          "output": 28,
+          "proposed_output": 28,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 35.290425899999995,
+        "phase": "running",
+        "event_count": 198,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1488,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 8,
+          "output": 35,
+          "proposed_output": 35,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 35.397628899999994,
+        "phase": "running",
+        "event_count": 199,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1589,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 9,
+          "output": 42,
+          "proposed_output": 42,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 35.5059195,
+        "phase": "running",
+        "event_count": 200,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1692,
+          "event": "proposal",
+          "state": "running",
+          "generation": 2,
+          "seq": 10,
+          "output": 49,
+          "proposed_output": 49,
+          "reason": "accepted"
+        }
+      },
+      {
+        "at_seconds": 35.6132485,
+        "phase": "running",
+        "event_count": 202,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1795,
+          "event": "scenario_complete",
+          "state": "stopped",
+          "generation": 2,
+          "seq": 11,
+          "output": 0,
+          "proposed_output": 0,
+          "reason": "output_held_before_shutdown"
+        }
+      },
+      {
+        "at_seconds": 35.722725,
+        "phase": "verifying",
+        "event_count": 203,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1795,
+          "event": "summary",
+          "state": "stopped",
+          "generation": 2,
+          "seq": 11,
+          "output": 0,
+          "passed": true,
+          "outcome": "recovered",
+          "restarts": 1,
+          "holds": 1,
+          "recoveries": 1,
+          "accepted": 18,
+          "rejected": 1,
+          "held_after_fault": true,
+          "resumed": true,
+          "fault_announced": true,
+          "injection_observed": true,
+          "fault_detected": true,
+          "invalid_outputs": 0,
+          "recovered_valid": 8,
+          "max_tick_gap_ms": 59,
+          "injections": 1,
+          "fault_notices": 1,
+          "fault_at": 8,
+          "watchdog_ms": 700,
+          "restart_limit": 2,
+          "recovery_delay_ms": 238
+        }
+      },
+      {
+        "at_seconds": 36.126841399999996,
+        "phase": "passed",
+        "event_count": 203,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1795,
+          "event": "summary",
+          "state": "stopped",
+          "generation": 2,
+          "seq": 11,
+          "output": 0,
+          "passed": true,
+          "outcome": "recovered",
+          "restarts": 1,
+          "holds": 1,
+          "recoveries": 1,
+          "accepted": 18,
+          "rejected": 1,
+          "held_after_fault": true,
+          "resumed": true,
+          "fault_announced": true,
+          "injection_observed": true,
+          "fault_detected": true,
+          "invalid_outputs": 0,
+          "recovered_valid": 8,
+          "max_tick_gap_ms": 59,
+          "injections": 1,
+          "fault_notices": 1,
+          "fault_at": 8,
+          "watchdog_ms": 700,
+          "restart_limit": 2,
+          "recovery_delay_ms": 238
+        }
+      }
+    ],
+    "duration_seconds": 158.32,
+    "video_sha256": "22e731b9c60b9d92c6d11e48a179318df826400bf065d5c3102a9b31c8d28387",
+    "recorder_sha256": "02a51dfcf5fd453ec3dd35872e1a7e6da426b4eb2e838b956988e4b3d31f933d"
+  },
   "captions": [
     {
-      "start": 0.19593129999999997,
-      "end": 5.207839,
+      "start": 0.10416160000000002,
+      "end": 3.112473,
+      "text": "This is a new execution of the native C program in QNX 8 under QEMU. The browser observes the live guest serial stream.",
+      "section": "native",
+      "native": {
+        "phase": "ready",
+        "elapsed": 0,
+        "run_id": null,
+        "environment": null,
+        "config": null,
+        "event_count": 0,
+        "current": null,
+        "summaries": [],
+        "last_rejection": null,
+        "last_recovery": null,
+        "serial_tail": [],
+        "guest_exit": null,
+        "host_exit": null,
+        "verified": false
+      }
+    },
+    {
+      "start": 3.1142061999999995,
+      "end": 39.2705902,
+      "text": "QEMU boots QNX. The guest runs seven scenarios; the host then checks the raw console, event invariants and source digests.",
+      "section": "native",
+      "native": {
+        "phase": "passed",
+        "elapsed": 36.126841399999996,
+        "run_id": "20261124-000447-913",
+        "environment": {
+          "os": "QNX",
+          "release": "8.0.0",
+          "machine": "x86pc"
+        },
+        "config": {
+          "scenario": "all",
+          "fault_at": 8,
+          "watchdog_ms": 700,
+          "restart_limit": 2
+        },
+        "event_count": 203,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1795,
+          "event": "summary",
+          "state": "stopped",
+          "generation": 2,
+          "seq": 11,
+          "output": 0,
+          "passed": true,
+          "outcome": "recovered",
+          "restarts": 1,
+          "holds": 1,
+          "recoveries": 1,
+          "accepted": 18,
+          "rejected": 1,
+          "held_after_fault": true,
+          "resumed": true,
+          "fault_announced": true,
+          "injection_observed": true,
+          "fault_detected": true,
+          "invalid_outputs": 0,
+          "recovered_valid": 8,
+          "max_tick_gap_ms": 59,
+          "injections": 1,
+          "fault_notices": 1,
+          "fault_at": 8,
+          "watchdog_ms": 700,
+          "restart_limit": 2,
+          "recovery_delay_ms": 238
+        },
+        "summaries": [
+          {
+            "scenario": "healthy",
+            "t_ms": 1150,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 1,
+            "seq": 12,
+            "output": 0,
+            "passed": true,
+            "outcome": "healthy",
+            "restarts": 0,
+            "holds": 0,
+            "recoveries": 0,
+            "accepted": 12,
+            "rejected": 0,
+            "held_after_fault": false,
+            "resumed": false,
+            "fault_announced": false,
+            "injection_observed": false,
+            "fault_detected": false,
+            "invalid_outputs": 0,
+            "recovered_valid": 0,
+            "max_tick_gap_ms": 61,
+            "injections": 0,
+            "fault_notices": 0,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": null
+          },
+          {
+            "scenario": "crash",
+            "t_ms": 1811,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 0,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 58,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 236
+          },
+          {
+            "scenario": "stall",
+            "t_ms": 2455,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 0,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 58,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 278
+          },
+          {
+            "scenario": "invalid",
+            "t_ms": 1796,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 1,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 66,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 245
+          },
+          {
+            "scenario": "crash_loop",
+            "t_ms": 2307,
+            "event": "summary",
+            "state": "locked_out",
+            "generation": 3,
+            "seq": 7,
+            "output": 0,
+            "passed": true,
+            "outcome": "contained",
+            "restarts": 2,
+            "holds": 3,
+            "recoveries": 2,
+            "accepted": 21,
+            "rejected": 0,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 4,
+            "max_tick_gap_ms": 58,
+            "injections": 3,
+            "fault_notices": 3,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": null
+          },
+          {
+            "scenario": "replay",
+            "t_ms": 1847,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 1,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 59,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 290
+          },
+          {
+            "scenario": "wrong_generation",
+            "t_ms": 1795,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 1,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 59,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 238
+          }
+        ],
+        "last_rejection": {
+          "scenario": "wrong_generation",
+          "t_ms": 741,
+          "event": "rejected",
+          "state": "holding",
+          "generation": 1,
+          "received_generation": 0,
+          "seq": 8,
+          "output": 0,
+          "proposed_output": 35,
+          "reason": "generation"
+        },
+        "last_recovery": {
+          "scenario": "wrong_generation",
+          "t_ms": 979,
+          "event": "resumed",
+          "state": "running",
+          "generation": 2,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "three_fresh_proposals"
+        },
+        "serial_tail": [
+          "RECOVERY_ENV {\"os\":\"QNX\",\"release\":\"8.0.0\",\"machine\":\"x86pc\"}",
+          "RECOVERY_CONFIG {\"scenario\":\"all\",\"fault_at\":8,\"watchdog_ms\":700,\"restart_limit\":2}",
+          "RECOVERY_EVENT {\"scenario\":\"wrong_generation\",\"t_ms\":1795,\"event\":\"scenario_complete\",\"state\":\"stopped\",\"generation\":2,\"seq\":11,\"output\":0,\"proposed_output\":0,\"reason\":\"output_held_before_shutdown\"}",
+          "RECOVERY_EVENT {\"scenario\":\"wrong_generation\",\"t_ms\":1795,\"event\":\"summary\",\"state\":\"stopped\",\"generation\":2,\"seq\":11,\"output\":0,\"passed\":true,\"outcome\":\"recovered\",\"restarts\":1,\"holds\":1,\"recoveries\":1,\"accepted\":18,\"rejected\":1,\"held_after_fault\":true,\"resumed\":true,\"fault_announced\":true,\"injection_observed\":true,\"fault_detected\":true,\"invalid_outputs\":0,\"recovered_valid\":8,\"max_tick_gap_ms\":59,\"injections\":1,\"fault_notices\":1,\"fault_at\":8,\"watchdog_ms\":700,\"restart_limit\":2,\"recovery_delay_ms\":238}",
+          "RECOVERY_LAB_EXIT=0",
+          "RECOVERY_RUN_EXIT=0"
+        ],
+        "guest_exit": 0,
+        "host_exit": 0,
+        "verified": true
+      }
+    },
+    {
+      "start": 39.2724888,
+      "end": 46.282525199999995,
+      "text": "All seven native scenarios passed, including zero-output containment after the restart budget was exhausted. Both guest and host exited successfully.",
+      "section": "native",
+      "native": {
+        "phase": "passed",
+        "elapsed": 36.126841399999996,
+        "run_id": "20261124-000447-913",
+        "environment": {
+          "os": "QNX",
+          "release": "8.0.0",
+          "machine": "x86pc"
+        },
+        "config": {
+          "scenario": "all",
+          "fault_at": 8,
+          "watchdog_ms": 700,
+          "restart_limit": 2
+        },
+        "event_count": 203,
+        "current": {
+          "scenario": "wrong_generation",
+          "t_ms": 1795,
+          "event": "summary",
+          "state": "stopped",
+          "generation": 2,
+          "seq": 11,
+          "output": 0,
+          "passed": true,
+          "outcome": "recovered",
+          "restarts": 1,
+          "holds": 1,
+          "recoveries": 1,
+          "accepted": 18,
+          "rejected": 1,
+          "held_after_fault": true,
+          "resumed": true,
+          "fault_announced": true,
+          "injection_observed": true,
+          "fault_detected": true,
+          "invalid_outputs": 0,
+          "recovered_valid": 8,
+          "max_tick_gap_ms": 59,
+          "injections": 1,
+          "fault_notices": 1,
+          "fault_at": 8,
+          "watchdog_ms": 700,
+          "restart_limit": 2,
+          "recovery_delay_ms": 238
+        },
+        "summaries": [
+          {
+            "scenario": "healthy",
+            "t_ms": 1150,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 1,
+            "seq": 12,
+            "output": 0,
+            "passed": true,
+            "outcome": "healthy",
+            "restarts": 0,
+            "holds": 0,
+            "recoveries": 0,
+            "accepted": 12,
+            "rejected": 0,
+            "held_after_fault": false,
+            "resumed": false,
+            "fault_announced": false,
+            "injection_observed": false,
+            "fault_detected": false,
+            "invalid_outputs": 0,
+            "recovered_valid": 0,
+            "max_tick_gap_ms": 61,
+            "injections": 0,
+            "fault_notices": 0,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": null
+          },
+          {
+            "scenario": "crash",
+            "t_ms": 1811,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 0,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 58,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 236
+          },
+          {
+            "scenario": "stall",
+            "t_ms": 2455,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 0,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 58,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 278
+          },
+          {
+            "scenario": "invalid",
+            "t_ms": 1796,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 1,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 66,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 245
+          },
+          {
+            "scenario": "crash_loop",
+            "t_ms": 2307,
+            "event": "summary",
+            "state": "locked_out",
+            "generation": 3,
+            "seq": 7,
+            "output": 0,
+            "passed": true,
+            "outcome": "contained",
+            "restarts": 2,
+            "holds": 3,
+            "recoveries": 2,
+            "accepted": 21,
+            "rejected": 0,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 4,
+            "max_tick_gap_ms": 58,
+            "injections": 3,
+            "fault_notices": 3,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": null
+          },
+          {
+            "scenario": "replay",
+            "t_ms": 1847,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 1,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 59,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 290
+          },
+          {
+            "scenario": "wrong_generation",
+            "t_ms": 1795,
+            "event": "summary",
+            "state": "stopped",
+            "generation": 2,
+            "seq": 11,
+            "output": 0,
+            "passed": true,
+            "outcome": "recovered",
+            "restarts": 1,
+            "holds": 1,
+            "recoveries": 1,
+            "accepted": 18,
+            "rejected": 1,
+            "held_after_fault": true,
+            "resumed": true,
+            "fault_announced": true,
+            "injection_observed": true,
+            "fault_detected": true,
+            "invalid_outputs": 0,
+            "recovered_valid": 8,
+            "max_tick_gap_ms": 59,
+            "injections": 1,
+            "fault_notices": 1,
+            "fault_at": 8,
+            "watchdog_ms": 700,
+            "restart_limit": 2,
+            "recovery_delay_ms": 238
+          }
+        ],
+        "last_rejection": {
+          "scenario": "wrong_generation",
+          "t_ms": 741,
+          "event": "rejected",
+          "state": "holding",
+          "generation": 1,
+          "received_generation": 0,
+          "seq": 8,
+          "output": 0,
+          "proposed_output": 35,
+          "reason": "generation"
+        },
+        "last_recovery": {
+          "scenario": "wrong_generation",
+          "t_ms": 979,
+          "event": "resumed",
+          "state": "running",
+          "generation": 2,
+          "seq": 3,
+          "output": 41,
+          "proposed_output": 41,
+          "reason": "three_fresh_proposals"
+        },
+        "serial_tail": [
+          "RECOVERY_ENV {\"os\":\"QNX\",\"release\":\"8.0.0\",\"machine\":\"x86pc\"}",
+          "RECOVERY_CONFIG {\"scenario\":\"all\",\"fault_at\":8,\"watchdog_ms\":700,\"restart_limit\":2}",
+          "RECOVERY_EVENT {\"scenario\":\"wrong_generation\",\"t_ms\":1795,\"event\":\"scenario_complete\",\"state\":\"stopped\",\"generation\":2,\"seq\":11,\"output\":0,\"proposed_output\":0,\"reason\":\"output_held_before_shutdown\"}",
+          "RECOVERY_EVENT {\"scenario\":\"wrong_generation\",\"t_ms\":1795,\"event\":\"summary\",\"state\":\"stopped\",\"generation\":2,\"seq\":11,\"output\":0,\"passed\":true,\"outcome\":\"recovered\",\"restarts\":1,\"holds\":1,\"recoveries\":1,\"accepted\":18,\"rejected\":1,\"held_after_fault\":true,\"resumed\":true,\"fault_announced\":true,\"injection_observed\":true,\"fault_detected\":true,\"invalid_outputs\":0,\"recovered_valid\":8,\"max_tick_gap_ms\":59,\"injections\":1,\"fault_notices\":1,\"fault_at\":8,\"watchdog_ms\":700,\"restart_limit\":2,\"recovery_delay_ms\":238}",
+          "RECOVERY_LAB_EXIT=0",
+          "RECOVERY_RUN_EXIT=0"
+        ],
+        "guest_exit": 0,
+        "host_exit": 0,
+        "verified": true
+      }
+    },
+    {
+      "start": 46.5275763,
+      "end": 51.5282393,
       "text": "Recovery Lab replays native QNX 8 recordings. The worker proposes values; the supervisor owns the simulated output.",
       "ready": true,
       "mode": "baseline",
@@ -138,8 +2813,8 @@
       "tourCompleted": false
     },
     {
-      "start": 5.3502705,
-      "end": 7.359932000000001,
+      "start": 51.561918299999995,
+      "end": 53.565872999999996,
       "text": "The first fresh proposal is accepted, but output remains zero.",
       "ready": true,
       "mode": "baseline",
@@ -167,8 +2842,8 @@
       "tourCompleted": false
     },
     {
-      "start": 7.4200088,
-      "end": 9.442335100000001,
+      "start": 53.5792725,
+      "end": 55.5806926,
       "text": "The second proposal still keeps the output at zero.",
       "ready": true,
       "mode": "baseline",
@@ -196,8 +2871,8 @@
       "tourCompleted": false
     },
     {
-      "start": 9.5701466,
-      "end": 13.5766698,
+      "start": 55.595321299999995,
+      "end": 59.595524899999994,
       "text": "The third fresh proposal completes validation and releases a valid output.",
       "ready": true,
       "mode": "baseline",
@@ -225,8 +2900,8 @@
       "tourCompleted": false
     },
     {
-      "start": 13.744815899999999,
-      "end": 16.7584732,
+      "start": 59.6620669,
+      "end": 62.674573599999995,
       "text": "The worker now announces an injected out-of-range command.",
       "ready": true,
       "mode": "baseline",
@@ -254,8 +2929,8 @@
       "tourCompleted": false
     },
     {
-      "start": 16.769921199999995,
-      "end": 21.776870799999998,
+      "start": 62.689632700000004,
+      "end": 67.6998305,
       "text": "Proposed output 999 is rejected. The supervisor holds the accepted output at zero.",
       "ready": true,
       "mode": "baseline",
@@ -284,8 +2959,8 @@
       "tourCompleted": false
     },
     {
-      "start": 21.787903599999996,
-      "end": 24.8020028,
+      "start": 67.71185190000001,
+      "end": 70.71267630000001,
       "text": "The hold is a separate recorded decision, even when events share a timestamp.",
       "ready": true,
       "mode": "baseline",
@@ -313,8 +2988,8 @@
       "tourCompleted": false
     },
     {
-      "start": 24.8134973,
-      "end": 27.8274113,
+      "start": 70.7253221,
+      "end": 73.74055030000001,
       "text": "A replacement worker starts as generation 2. Output remains zero.",
       "ready": true,
       "mode": "baseline",
@@ -342,8 +3017,8 @@
       "tourCompleted": false
     },
     {
-      "start": 27.838013,
-      "end": 29.8395766,
+      "start": 73.75368420000001,
+      "end": 75.7672917,
       "text": "The replacement must provide fresh proposal one.",
       "ready": true,
       "mode": "baseline",
@@ -371,8 +3046,8 @@
       "tourCompleted": false
     },
     {
-      "start": 29.849910400000002,
-      "end": 31.851521500000004,
+      "start": 75.77861760000002,
+      "end": 77.7922355,
       "text": "Fresh proposal two still does not release the output.",
       "ready": true,
       "mode": "baseline",
@@ -400,8 +3075,8 @@
       "tourCompleted": false
     },
     {
-      "start": 31.8627056,
-      "end": 36.866022199999996,
+      "start": 77.8066223,
+      "end": 82.81603980000001,
       "text": "Fresh proposal three restores the output. The guest timestamp records the observed recovery.",
       "ready": true,
       "mode": "baseline",
@@ -429,8 +3104,37 @@
       "tourCompleted": false
     },
     {
-      "start": 36.8955778,
-      "end": 38.9025051,
+      "start": 82.8271873,
+      "end": 90.83926090000001,
+      "text": "In this recording: 11 ms from fault notice to hold, then 280 ms to validated resume. No restarts means lockout.",
+      "ready": true,
+      "mode": "baseline",
+      "chapter": "validation",
+      "scenario": "invalid",
+      "eventIndex": 17,
+      "eventCount": 29,
+      "momentCount": 14,
+      "playing": false,
+      "event": {
+        "scenario": "invalid",
+        "t_ms": 1113,
+        "event": "resumed",
+        "state": "running",
+        "generation": 2,
+        "seq": 3,
+        "output": 41,
+        "proposed_output": 41,
+        "reason": "three_fresh_proposals",
+        "sourceIndex": 17
+      },
+      "touring": false,
+      "tourIndex": -1,
+      "tourCount": 20,
+      "tourCompleted": false
+    },
+    {
+      "start": 90.88213760000001,
+      "end": 92.89483220000001,
       "text": "Range checking alone is not enough. This injection repeats an old sequence number.",
       "ready": true,
       "mode": "baseline",
@@ -458,8 +3162,8 @@
       "tourCompleted": false
     },
     {
-      "start": 38.912925900000005,
-      "end": 43.928420900000006,
+      "start": 92.9081503,
+      "end": 97.91817920000001,
       "text": "The duplicate sequence is rejected even though its numeric value is within range.",
       "ready": true,
       "mode": "baseline",
@@ -488,8 +3192,8 @@
       "tourCompleted": false
     },
     {
-      "start": 43.9384456,
-      "end": 46.952600600000004,
+      "start": 97.9306591,
+      "end": 100.94205190000001,
       "text": "The replayed command never reaches the simulated output.",
       "ready": true,
       "mode": "baseline",
@@ -517,8 +3221,8 @@
       "tourCompleted": false
     },
     {
-      "start": 46.977583900000006,
-      "end": 48.9803135,
+      "start": 100.9812007,
+      "end": 102.9927911,
       "text": "Next, the active worker deliberately sends generation zero.",
       "ready": true,
       "mode": "baseline",
@@ -546,8 +3250,8 @@
       "tourCompleted": false
     },
     {
-      "start": 48.9904441,
-      "end": 54.0032781,
+      "start": 103.0061998,
+      "end": 108.01757160000001,
       "text": "Received generation zero does not match active generation one. The message is rejected and output is zero.",
       "ready": true,
       "mode": "baseline",
@@ -576,8 +3280,8 @@
       "tourCompleted": false
     },
     {
-      "start": 54.013673000000004,
-      "end": 57.0174775,
+      "start": 108.03127950000001,
+      "end": 111.03521160000001,
       "text": "The validated replacement can resume output.",
       "ready": true,
       "mode": "baseline",
@@ -605,8 +3309,8 @@
       "tourCompleted": false
     },
     {
-      "start": 57.0473614,
-      "end": 60.0558079,
+      "start": 111.0751943,
+      "end": 114.08441470000001,
       "text": "Repeated crashes exercise the restart budget.",
       "ready": true,
       "mode": "baseline",
@@ -634,8 +3338,8 @@
       "tourCompleted": false
     },
     {
-      "start": 60.067204600000004,
-      "end": 62.0706465,
+      "start": 114.0989149,
+      "end": 116.10796470000001,
       "text": "The guest records the worker exit with code 42.",
       "ready": true,
       "mode": "baseline",
@@ -664,8 +3368,8 @@
       "tourCompleted": false
     },
     {
-      "start": 62.0801171,
-      "end": 65.0919862,
+      "start": 116.12388220000001,
+      "end": 119.13810010000002,
       "text": "The supervisor holds zero before restarting.",
       "ready": true,
       "mode": "baseline",
@@ -693,8 +3397,8 @@
       "tourCompleted": false
     },
     {
-      "start": 65.10290180000001,
-      "end": 67.116251,
+      "start": 119.15195440000001,
+      "end": 121.16706950000001,
       "text": "A restart consumes one unit of the budget.",
       "ready": true,
       "mode": "baseline",
@@ -722,8 +3426,8 @@
       "tourCompleted": false
     },
     {
-      "start": 67.1316075,
-      "end": 69.135159,
+      "start": 121.18004400000001,
+      "end": 123.1913114,
       "text": "Fresh validation permits the replacement to run.",
       "ready": true,
       "mode": "baseline",
@@ -751,8 +3455,8 @@
       "tourCompleted": false
     },
     {
-      "start": 69.1522401,
-      "end": 71.1526944,
+      "start": 123.2047287,
+      "end": 125.2094244,
       "text": "A second crash repeats the containment and recovery path.",
       "ready": true,
       "mode": "baseline",
@@ -780,8 +3484,8 @@
       "tourCompleted": false
     },
     {
-      "start": 71.16712700000001,
-      "end": 74.1759702,
+      "start": 125.2222482,
+      "end": 128.2313915,
       "text": "The third crash arrives after both permitted restarts have been used.",
       "ready": true,
       "mode": "baseline",
@@ -809,8 +3513,8 @@
       "tourCompleted": false
     },
     {
-      "start": 74.1959624,
-      "end": 79.19964540000001,
+      "start": 128.2450071,
+      "end": 133.2894133,
       "text": "The budget is exhausted. The supervisor stays locked out at zero.",
       "ready": true,
       "mode": "baseline",
@@ -838,8 +3542,8 @@
       "tourCompleted": false
     },
     {
-      "start": 79.2775708,
-      "end": 83.2905955,
+      "start": 133.3773377,
+      "end": 137.3800854,
       "text": "The second recording keeps the same fault sequence and watchdog, with no restarts allowed.",
       "ready": true,
       "mode": "no_restarts",
@@ -867,8 +3571,8 @@
       "tourCompleted": false
     },
     {
-      "start": 83.3465131,
-      "end": 88.3565699,
+      "start": 137.44778900000003,
+      "end": 142.4554405,
       "text": "Under that policy, the first rejected command holds zero without creating a replacement.",
       "ready": true,
       "mode": "no_restarts",
@@ -897,8 +3601,8 @@
       "tourCompleted": false
     },
     {
-      "start": 88.369877,
-      "end": 92.3706506,
+      "start": 142.47247950000002,
+      "end": 146.48623500000002,
       "text": "The first detected fault ends in containment: generation one, zero restarts, output zero.",
       "ready": true,
       "mode": "no_restarts",
@@ -926,8 +3630,8 @@
       "tourCompleted": false
     },
     {
-      "start": 92.4163564,
-      "end": 100.4291728,
+      "start": 146.52181330000002,
+      "end": 154.5333854,
       "text": "Both recordings contain seven checked scenarios. Raw guest logs, source snapshots and digests are included. Output is simulated; QEMU timing is not a hardware guarantee.",
       "ready": true,
       "mode": "no_restarts",

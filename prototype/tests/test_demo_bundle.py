@@ -167,6 +167,18 @@ class DemoBundleTests(unittest.TestCase):
             self.assertEqual(archive.read("fonts/inter-tight-latin-wght-normal.woff2"), raw)
         self.assertEqual(manifest["assets"]["fonts/inter-tight-latin-wght-normal.woff2"]["sha256"], hashlib.sha256(raw).hexdigest())
 
+    def test_native_receipt_cannot_be_attached_to_another_video(self):
+        self.build()
+        previous = self.archive.read_bytes()
+        media = self.demo / "media"
+        media.mkdir()
+        (media / "demo.webm").write_bytes(b"\x1a\x45\xdf\xa3synthetic-video")
+        (self.artifacts / "demo-native-capture.json").write_text(
+            json.dumps({"video_sha256": "0" * 64}), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "different video"):
+            self.build(include_media=True)
+        self.assertEqual(self.archive.read_bytes(), previous)
+
     def test_remote_assets_and_unsafe_tags_fail_before_publication(self):
         cases = (
             ("demo.css", "@import 'https://example.com/style.css';"),

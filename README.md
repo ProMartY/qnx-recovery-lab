@@ -18,7 +18,11 @@ Open [the guided demo](http://127.0.0.1:8764/demo/), [the full trace viewer](htt
 
 **Start guided tour** walks through 20 recorded decisions across both restart policies. Pause or resume from the chapter navigation or transport controls. Manual navigation resets the tour; Escape pauses playback. Presentation pauses adapt to the explanation length and reduced-motion preference, while guest timestamps remain unchanged.
 
-The [recorded walkthrough](prototype/demo/media/demo.webm) has [English captions](prototype/demo/media/demo.vtt), with explanations also visible in the UI. It records the replay interface; it is not a live capture of the guest OS. [Presenter notes](prototype/DEMO.md) explain the four chapters.
+The [recorded walkthrough](prototype/demo/media/demo.webm) has [English captions](prototype/demo/media/demo.vtt), with explanations also visible in the UI. [Presenter notes](prototype/DEMO.md) identify its execution and replay sections.
+
+The 2m38s movie opens with a new QNX guest run, observed live through serial output, then moves to the recorded workbench. The new run passed seven scenarios with 203 events. Its [capture receipt](prototype/artifacts/demo-native-capture.json), raw log and source snapshot are included; the portable demo also carries them under `data/native`.
+
+The **recorded response** table compares fault-notice-to-hold and hold-to-validated-resume or lockout intervals for both policies, including each repeated-crash cycle. These are measurements from the selected QNX/QEMU recordings.
 
 ## What runs on QNX
 
@@ -27,6 +31,8 @@ The supervisor creates a QNX channel, receives proposals and timer pulses, and o
 Messages are checked for sender, size, protocol, generation, sequence, value range and freshness. A detected injected fault holds output at zero before a bounded restart. The replacement must send three fresh proposals. Exhausting the restart budget produces `locked_out` with output zero.
 
 The program uses `ChannelCreate`, `ConnectAttach`, `MsgSend`, `MsgReceive`, `MsgReply`, `TimerTimeout`, timer pulses, `posix_spawn`, and `waitpid`. [Architecture](docs/architecture.md) describes the state machine and boundaries.
+
+The supplied worker is a built-in reference implementation. [Integration boundaries](docs/integration.md) explain its current protocol, acknowledgement versus acceptance, and the source changes and new target checks needed to adapt it to an application.
 
 ## Reproduce a native run
 

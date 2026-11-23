@@ -68,6 +68,8 @@ function Write-RunAttempt([string]$Status, [string]$Detail = '') {
     [IO.File]::Move($attemptPending, (Join-Path $artifacts 'latest-attempt.json'), $true)
 }
 Write-RunAttempt 'running'
+# Bind observers to this owned process after acquiring the VM-directory lock.
+Write-Output ('RECOVERY_HOST_RUN ' + ([ordered]@{ run_id = $runId; scenario = $Scenario } | ConvertTo-Json -Compress))
 $output = Join-Path $imageRoot 'output'
 $binary = Join-Path $imageRoot 'recovery-lab'
 $buildMetadata = Join-Path $imageRoot 'build-metadata.json'

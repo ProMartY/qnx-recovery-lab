@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "suite_version": 2,
-  "recorded_at": "2026-11-21T23:46:39.2843213Z",
+  "recorded_at": "2026-11-23T22:05:23.4125279Z",
   "environment": {
     "os": "QNX",
     "release": "8.0.0",
@@ -30,7 +30,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 8,
+      "t_ms": 11,
       "event": "worker_started",
       "state": "validating",
       "generation": 1,
@@ -41,7 +41,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 16,
+      "t_ms": 22,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -52,7 +52,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 118,
+      "t_ms": 125,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -63,7 +63,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 220,
+      "t_ms": 227,
       "event": "validated",
       "state": "running",
       "generation": 1,
@@ -74,7 +74,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 220,
+      "t_ms": 227,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -85,7 +85,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 322,
+      "t_ms": 329,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -96,7 +96,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 423,
+      "t_ms": 436,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -107,7 +107,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 524,
+      "t_ms": 537,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -118,7 +118,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 633,
+      "t_ms": 639,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -129,7 +129,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 736,
+      "t_ms": 741,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -140,7 +140,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 838,
+      "t_ms": 844,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -151,7 +151,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 939,
+      "t_ms": 946,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -162,7 +162,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 1041,
+      "t_ms": 1047,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -173,7 +173,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 1143,
+      "t_ms": 1150,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -184,7 +184,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 1143,
+      "t_ms": 1150,
       "event": "scenario_complete",
       "state": "stopped",
       "generation": 1,
@@ -195,7 +195,7 @@
     },
     {
       "scenario": "healthy",
-      "t_ms": 1143,
+      "t_ms": 1150,
       "event": "summary",
       "state": "stopped",
       "generation": 1,
@@ -215,7 +215,7 @@
       "fault_detected": false,
       "invalid_outputs": 0,
       "recovered_valid": 0,
-      "max_tick_gap_ms": 58,
+      "max_tick_gap_ms": 61,
       "injections": 0,
       "fault_notices": 0,
       "fault_at": 8,
@@ -236,7 +236,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 9,
+      "t_ms": 8,
       "event": "worker_started",
       "state": "validating",
       "generation": 1,
@@ -247,7 +247,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 17,
+      "t_ms": 19,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -258,7 +258,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 118,
+      "t_ms": 121,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -269,7 +269,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 220,
+      "t_ms": 223,
       "event": "validated",
       "state": "running",
       "generation": 1,
@@ -280,7 +280,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 220,
+      "t_ms": 223,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -291,7 +291,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 321,
+      "t_ms": 325,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -302,7 +302,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 422,
+      "t_ms": 427,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -313,7 +313,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 524,
+      "t_ms": 529,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -324,7 +324,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 626,
+      "t_ms": 630,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -335,7 +335,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 727,
+      "t_ms": 731,
       "event": "fault_injected",
       "state": "running",
       "generation": 1,
@@ -346,7 +346,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 757,
+      "t_ms": 759,
       "event": "worker_exit",
       "state": "running",
       "generation": 1,
@@ -358,7 +358,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 757,
+      "t_ms": 759,
       "event": "hold",
       "state": "holding",
       "generation": 1,
@@ -369,7 +369,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 772,
+      "t_ms": 775,
       "event": "worker_started",
       "state": "validating",
       "generation": 2,
@@ -380,7 +380,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 772,
+      "t_ms": 775,
       "event": "restart",
       "state": "validating",
       "generation": 2,
@@ -391,7 +391,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 786,
+      "t_ms": 793,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -402,7 +402,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 888,
+      "t_ms": 894,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -413,7 +413,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 989,
+      "t_ms": 995,
       "event": "resumed",
       "state": "running",
       "generation": 2,
@@ -424,7 +424,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 989,
+      "t_ms": 995,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -435,7 +435,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1092,
+      "t_ms": 1097,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -446,7 +446,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1194,
+      "t_ms": 1200,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -457,7 +457,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1296,
+      "t_ms": 1302,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -468,7 +468,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1398,
+      "t_ms": 1403,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -479,7 +479,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1500,
+      "t_ms": 1505,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -490,7 +490,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1602,
+      "t_ms": 1608,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -501,7 +501,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1704,
+      "t_ms": 1710,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -512,7 +512,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1805,
+      "t_ms": 1811,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -523,7 +523,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1805,
+      "t_ms": 1811,
       "event": "scenario_complete",
       "state": "stopped",
       "generation": 2,
@@ -534,7 +534,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1805,
+      "t_ms": 1811,
       "event": "summary",
       "state": "stopped",
       "generation": 2,
@@ -560,7 +560,7 @@
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 232
+      "recovery_delay_ms": 236
     },
     {
       "scenario": "stall",
@@ -586,7 +586,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 17,
+      "t_ms": 18,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -597,7 +597,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 119,
+      "t_ms": 121,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -608,7 +608,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 220,
+      "t_ms": 223,
       "event": "validated",
       "state": "running",
       "generation": 1,
@@ -619,7 +619,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 220,
+      "t_ms": 223,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -630,7 +630,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 321,
+      "t_ms": 324,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -641,7 +641,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 422,
+      "t_ms": 426,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -652,7 +652,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 524,
+      "t_ms": 529,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -663,7 +663,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 629,
+      "t_ms": 631,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -674,7 +674,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 730,
+      "t_ms": 733,
       "event": "fault_injected",
       "state": "running",
       "generation": 1,
@@ -696,7 +696,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1410,
+      "t_ms": 1414,
       "event": "worker_started",
       "state": "validating",
       "generation": 2,
@@ -707,7 +707,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1410,
+      "t_ms": 1414,
       "event": "restart",
       "state": "validating",
       "generation": 2,
@@ -718,7 +718,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1424,
+      "t_ms": 1431,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -729,7 +729,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1526,
+      "t_ms": 1534,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -740,7 +740,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1628,
+      "t_ms": 1636,
       "event": "resumed",
       "state": "running",
       "generation": 2,
@@ -751,7 +751,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1628,
+      "t_ms": 1636,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -762,7 +762,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1731,
+      "t_ms": 1738,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -773,7 +773,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1833,
+      "t_ms": 1840,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -784,7 +784,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 1934,
+      "t_ms": 1943,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -795,7 +795,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 2035,
+      "t_ms": 2045,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -806,7 +806,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 2137,
+      "t_ms": 2148,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -817,7 +817,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 2239,
+      "t_ms": 2250,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -828,7 +828,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 2354,
+      "t_ms": 2353,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -839,7 +839,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 2457,
+      "t_ms": 2455,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -850,7 +850,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 2457,
+      "t_ms": 2455,
       "event": "scenario_complete",
       "state": "stopped",
       "generation": 2,
@@ -861,7 +861,7 @@
     },
     {
       "scenario": "stall",
-      "t_ms": 2457,
+      "t_ms": 2455,
       "event": "summary",
       "state": "stopped",
       "generation": 2,
@@ -881,13 +881,13 @@
       "fault_detected": true,
       "invalid_outputs": 0,
       "recovered_valid": 8,
-      "max_tick_gap_ms": 80,
+      "max_tick_gap_ms": 58,
       "injections": 1,
       "fault_notices": 1,
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 270
+      "recovery_delay_ms": 278
     },
     {
       "scenario": "invalid",
@@ -902,7 +902,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 9,
+      "t_ms": 8,
       "event": "worker_started",
       "state": "validating",
       "generation": 1,
@@ -935,7 +935,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 222,
+      "t_ms": 223,
       "event": "validated",
       "state": "running",
       "generation": 1,
@@ -946,7 +946,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 222,
+      "t_ms": 223,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -957,7 +957,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 324,
+      "t_ms": 325,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -979,7 +979,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 527,
+      "t_ms": 528,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -990,7 +990,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 629,
+      "t_ms": 630,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1001,7 +1001,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 730,
+      "t_ms": 731,
       "event": "fault_injected",
       "state": "running",
       "generation": 1,
@@ -1012,7 +1012,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 736,
+      "t_ms": 737,
       "event": "rejected",
       "state": "holding",
       "generation": 1,
@@ -1024,7 +1024,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 736,
+      "t_ms": 737,
       "event": "hold",
       "state": "holding",
       "generation": 1,
@@ -1035,7 +1035,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 759,
+      "t_ms": 761,
       "event": "worker_started",
       "state": "validating",
       "generation": 2,
@@ -1046,7 +1046,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 759,
+      "t_ms": 761,
       "event": "restart",
       "state": "validating",
       "generation": 2,
@@ -1057,7 +1057,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 774,
+      "t_ms": 778,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -1068,7 +1068,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 876,
+      "t_ms": 880,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -1079,7 +1079,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 977,
+      "t_ms": 982,
       "event": "resumed",
       "state": "running",
       "generation": 2,
@@ -1090,7 +1090,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 977,
+      "t_ms": 982,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1101,7 +1101,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1078,
+      "t_ms": 1084,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1112,7 +1112,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1179,
+      "t_ms": 1187,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1123,7 +1123,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1281,
+      "t_ms": 1289,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1134,7 +1134,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1383,
+      "t_ms": 1390,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1145,7 +1145,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1485,
+      "t_ms": 1491,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1156,7 +1156,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1586,
+      "t_ms": 1593,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1167,7 +1167,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1688,
+      "t_ms": 1694,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1178,7 +1178,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1789,
+      "t_ms": 1796,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1189,7 +1189,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1789,
+      "t_ms": 1796,
       "event": "scenario_complete",
       "state": "stopped",
       "generation": 2,
@@ -1200,7 +1200,7 @@
     },
     {
       "scenario": "invalid",
-      "t_ms": 1789,
+      "t_ms": 1796,
       "event": "summary",
       "state": "stopped",
       "generation": 2,
@@ -1220,13 +1220,13 @@
       "fault_detected": true,
       "invalid_outputs": 0,
       "recovered_valid": 8,
-      "max_tick_gap_ms": 58,
+      "max_tick_gap_ms": 66,
       "injections": 1,
       "fault_notices": 1,
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 241
+      "recovery_delay_ms": 245
     },
     {
       "scenario": "crash_loop",
@@ -1241,7 +1241,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 7,
+      "t_ms": 8,
       "event": "worker_started",
       "state": "validating",
       "generation": 1,
@@ -1252,7 +1252,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 15,
+      "t_ms": 20,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -1263,7 +1263,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 117,
+      "t_ms": 124,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -1274,7 +1274,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 218,
+      "t_ms": 226,
       "event": "validated",
       "state": "running",
       "generation": 1,
@@ -1285,7 +1285,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 218,
+      "t_ms": 226,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1296,7 +1296,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 319,
+      "t_ms": 329,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1307,7 +1307,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 421,
+      "t_ms": 432,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1318,7 +1318,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 524,
+      "t_ms": 534,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1329,7 +1329,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 625,
+      "t_ms": 635,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1340,7 +1340,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 726,
+      "t_ms": 737,
       "event": "fault_injected",
       "state": "running",
       "generation": 1,
@@ -1351,7 +1351,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 757,
+      "t_ms": 758,
       "event": "worker_exit",
       "state": "running",
       "generation": 1,
@@ -1363,7 +1363,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 757,
+      "t_ms": 758,
       "event": "hold",
       "state": "holding",
       "generation": 1,
@@ -1374,7 +1374,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 770,
+      "t_ms": 774,
       "event": "worker_started",
       "state": "validating",
       "generation": 2,
@@ -1385,7 +1385,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 770,
+      "t_ms": 774,
       "event": "restart",
       "state": "validating",
       "generation": 2,
@@ -1396,7 +1396,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 783,
+      "t_ms": 791,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -1407,7 +1407,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 885,
+      "t_ms": 892,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -1418,7 +1418,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 986,
+      "t_ms": 994,
       "event": "resumed",
       "state": "running",
       "generation": 2,
@@ -1429,7 +1429,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 986,
+      "t_ms": 994,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1440,7 +1440,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1088,
+      "t_ms": 1096,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1451,7 +1451,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1191,
+      "t_ms": 1197,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1462,7 +1462,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1292,
+      "t_ms": 1299,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1473,7 +1473,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1394,
+      "t_ms": 1400,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1484,7 +1484,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1496,
+      "t_ms": 1502,
       "event": "fault_injected",
       "state": "running",
       "generation": 2,
@@ -1495,7 +1495,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1509,
+      "t_ms": 1510,
       "event": "worker_exit",
       "state": "running",
       "generation": 2,
@@ -1507,7 +1507,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1509,
+      "t_ms": 1510,
       "event": "hold",
       "state": "holding",
       "generation": 2,
@@ -1518,7 +1518,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1522,
+      "t_ms": 1527,
       "event": "worker_started",
       "state": "validating",
       "generation": 3,
@@ -1529,7 +1529,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1522,
+      "t_ms": 1527,
       "event": "restart",
       "state": "validating",
       "generation": 3,
@@ -1540,7 +1540,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1536,
+      "t_ms": 1545,
       "event": "proposal",
       "state": "validating",
       "generation": 3,
@@ -1551,7 +1551,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1637,
+      "t_ms": 1646,
       "event": "proposal",
       "state": "validating",
       "generation": 3,
@@ -1562,7 +1562,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1738,
+      "t_ms": 1747,
       "event": "resumed",
       "state": "running",
       "generation": 3,
@@ -1573,7 +1573,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1738,
+      "t_ms": 1747,
       "event": "proposal",
       "state": "running",
       "generation": 3,
@@ -1584,7 +1584,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1839,
+      "t_ms": 1850,
       "event": "proposal",
       "state": "running",
       "generation": 3,
@@ -1595,7 +1595,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 1941,
+      "t_ms": 1952,
       "event": "proposal",
       "state": "running",
       "generation": 3,
@@ -1606,7 +1606,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2042,
+      "t_ms": 2054,
       "event": "proposal",
       "state": "running",
       "generation": 3,
@@ -1617,7 +1617,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2145,
+      "t_ms": 2156,
       "event": "proposal",
       "state": "running",
       "generation": 3,
@@ -1628,7 +1628,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2247,
+      "t_ms": 2258,
       "event": "fault_injected",
       "state": "running",
       "generation": 3,
@@ -1639,7 +1639,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2257,
+      "t_ms": 2307,
       "event": "worker_exit",
       "state": "running",
       "generation": 3,
@@ -1651,7 +1651,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2257,
+      "t_ms": 2307,
       "event": "hold",
       "state": "holding",
       "generation": 3,
@@ -1662,7 +1662,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2257,
+      "t_ms": 2307,
       "event": "locked_out",
       "state": "locked_out",
       "generation": 3,
@@ -1673,7 +1673,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2257,
+      "t_ms": 2307,
       "event": "scenario_complete",
       "state": "locked_out",
       "generation": 3,
@@ -1684,7 +1684,7 @@
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2257,
+      "t_ms": 2307,
       "event": "summary",
       "state": "locked_out",
       "generation": 3,
@@ -1725,7 +1725,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 6,
+      "t_ms": 9,
       "event": "worker_started",
       "state": "validating",
       "generation": 1,
@@ -1736,7 +1736,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 14,
+      "t_ms": 19,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -1747,7 +1747,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 115,
+      "t_ms": 121,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -1758,7 +1758,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 217,
+      "t_ms": 223,
       "event": "validated",
       "state": "running",
       "generation": 1,
@@ -1769,7 +1769,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 217,
+      "t_ms": 223,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1780,7 +1780,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 318,
+      "t_ms": 326,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1791,7 +1791,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 420,
+      "t_ms": 427,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1802,7 +1802,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 522,
+      "t_ms": 530,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1813,7 +1813,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 623,
+      "t_ms": 632,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -1824,7 +1824,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 725,
+      "t_ms": 734,
       "event": "fault_injected",
       "state": "running",
       "generation": 1,
@@ -1835,7 +1835,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 730,
+      "t_ms": 741,
       "event": "rejected",
       "state": "holding",
       "generation": 1,
@@ -1847,7 +1847,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 730,
+      "t_ms": 741,
       "event": "hold",
       "state": "holding",
       "generation": 1,
@@ -1858,7 +1858,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 758,
+      "t_ms": 810,
       "event": "worker_started",
       "state": "validating",
       "generation": 2,
@@ -1869,7 +1869,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 758,
+      "t_ms": 810,
       "event": "restart",
       "state": "validating",
       "generation": 2,
@@ -1880,7 +1880,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 773,
+      "t_ms": 827,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -1891,7 +1891,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 875,
+      "t_ms": 929,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -1902,7 +1902,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 976,
+      "t_ms": 1031,
       "event": "resumed",
       "state": "running",
       "generation": 2,
@@ -1913,7 +1913,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 976,
+      "t_ms": 1031,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1924,7 +1924,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1077,
+      "t_ms": 1134,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1935,7 +1935,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1180,
+      "t_ms": 1236,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1946,7 +1946,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1281,
+      "t_ms": 1338,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1957,7 +1957,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1389,
+      "t_ms": 1440,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1968,7 +1968,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1490,
+      "t_ms": 1541,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1979,7 +1979,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1592,
+      "t_ms": 1643,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -1990,7 +1990,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1694,
+      "t_ms": 1745,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2001,7 +2001,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1795,
+      "t_ms": 1847,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2012,7 +2012,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1795,
+      "t_ms": 1847,
       "event": "scenario_complete",
       "state": "stopped",
       "generation": 2,
@@ -2023,7 +2023,7 @@
     },
     {
       "scenario": "replay",
-      "t_ms": 1795,
+      "t_ms": 1847,
       "event": "summary",
       "state": "stopped",
       "generation": 2,
@@ -2043,13 +2043,13 @@
       "fault_detected": true,
       "invalid_outputs": 0,
       "recovered_valid": 8,
-      "max_tick_gap_ms": 57,
+      "max_tick_gap_ms": 59,
       "injections": 1,
       "fault_notices": 1,
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 246
+      "recovery_delay_ms": 290
     },
     {
       "scenario": "wrong_generation",
@@ -2064,7 +2064,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 10,
+      "t_ms": 9,
       "event": "worker_started",
       "state": "validating",
       "generation": 1,
@@ -2075,7 +2075,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 21,
+      "t_ms": 18,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -2086,7 +2086,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 123,
+      "t_ms": 120,
       "event": "proposal",
       "state": "validating",
       "generation": 1,
@@ -2119,7 +2119,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 325,
+      "t_ms": 326,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -2130,7 +2130,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 426,
+      "t_ms": 427,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -2141,7 +2141,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 528,
+      "t_ms": 530,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -2152,7 +2152,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 630,
+      "t_ms": 632,
       "event": "proposal",
       "state": "running",
       "generation": 1,
@@ -2163,7 +2163,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 731,
+      "t_ms": 734,
       "event": "fault_injected",
       "state": "running",
       "generation": 1,
@@ -2174,7 +2174,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 738,
+      "t_ms": 741,
       "event": "rejected",
       "state": "holding",
       "generation": 1,
@@ -2186,7 +2186,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 738,
+      "t_ms": 741,
       "event": "hold",
       "state": "holding",
       "generation": 1,
@@ -2197,7 +2197,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 761,
+      "t_ms": 760,
       "event": "worker_started",
       "state": "validating",
       "generation": 2,
@@ -2208,7 +2208,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 761,
+      "t_ms": 760,
       "event": "restart",
       "state": "validating",
       "generation": 2,
@@ -2230,7 +2230,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 877,
+      "t_ms": 878,
       "event": "proposal",
       "state": "validating",
       "generation": 2,
@@ -2263,7 +2263,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1080,
+      "t_ms": 1081,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2274,7 +2274,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1181,
+      "t_ms": 1183,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2285,7 +2285,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1282,
+      "t_ms": 1284,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2296,7 +2296,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1383,
+      "t_ms": 1385,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2307,7 +2307,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1484,
+      "t_ms": 1488,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2318,7 +2318,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1586,
+      "t_ms": 1589,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2329,7 +2329,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1687,
+      "t_ms": 1692,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2340,7 +2340,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1789,
+      "t_ms": 1795,
       "event": "proposal",
       "state": "running",
       "generation": 2,
@@ -2351,7 +2351,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1789,
+      "t_ms": 1795,
       "event": "scenario_complete",
       "state": "stopped",
       "generation": 2,
@@ -2362,7 +2362,7 @@
     },
     {
       "scenario": "wrong_generation",
-      "t_ms": 1789,
+      "t_ms": 1795,
       "event": "summary",
       "state": "stopped",
       "generation": 2,
@@ -2382,19 +2382,19 @@
       "fault_detected": true,
       "invalid_outputs": 0,
       "recovered_valid": 8,
-      "max_tick_gap_ms": 60,
+      "max_tick_gap_ms": 59,
       "injections": 1,
       "fault_notices": 1,
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 241
+      "recovery_delay_ms": 238
     }
   ],
   "scenarios": [
     {
       "scenario": "healthy",
-      "t_ms": 1143,
+      "t_ms": 1150,
       "event": "summary",
       "state": "stopped",
       "generation": 1,
@@ -2414,7 +2414,7 @@
       "fault_detected": false,
       "invalid_outputs": 0,
       "recovered_valid": 0,
-      "max_tick_gap_ms": 58,
+      "max_tick_gap_ms": 61,
       "injections": 0,
       "fault_notices": 0,
       "fault_at": 8,
@@ -2424,7 +2424,7 @@
     },
     {
       "scenario": "crash",
-      "t_ms": 1805,
+      "t_ms": 1811,
       "event": "summary",
       "state": "stopped",
       "generation": 2,
@@ -2450,11 +2450,11 @@
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 232
+      "recovery_delay_ms": 236
     },
     {
       "scenario": "stall",
-      "t_ms": 2457,
+      "t_ms": 2455,
       "event": "summary",
       "state": "stopped",
       "generation": 2,
@@ -2474,17 +2474,17 @@
       "fault_detected": true,
       "invalid_outputs": 0,
       "recovered_valid": 8,
-      "max_tick_gap_ms": 80,
+      "max_tick_gap_ms": 58,
       "injections": 1,
       "fault_notices": 1,
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 270
+      "recovery_delay_ms": 278
     },
     {
       "scenario": "invalid",
-      "t_ms": 1789,
+      "t_ms": 1796,
       "event": "summary",
       "state": "stopped",
       "generation": 2,
@@ -2504,17 +2504,17 @@
       "fault_detected": true,
       "invalid_outputs": 0,
       "recovered_valid": 8,
-      "max_tick_gap_ms": 58,
+      "max_tick_gap_ms": 66,
       "injections": 1,
       "fault_notices": 1,
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 241
+      "recovery_delay_ms": 245
     },
     {
       "scenario": "crash_loop",
-      "t_ms": 2257,
+      "t_ms": 2307,
       "event": "summary",
       "state": "locked_out",
       "generation": 3,
@@ -2544,6 +2544,36 @@
     },
     {
       "scenario": "replay",
+      "t_ms": 1847,
+      "event": "summary",
+      "state": "stopped",
+      "generation": 2,
+      "seq": 11,
+      "output": 0,
+      "passed": true,
+      "outcome": "recovered",
+      "restarts": 1,
+      "holds": 1,
+      "recoveries": 1,
+      "accepted": 18,
+      "rejected": 1,
+      "held_after_fault": true,
+      "resumed": true,
+      "fault_announced": true,
+      "injection_observed": true,
+      "fault_detected": true,
+      "invalid_outputs": 0,
+      "recovered_valid": 8,
+      "max_tick_gap_ms": 59,
+      "injections": 1,
+      "fault_notices": 1,
+      "fault_at": 8,
+      "watchdog_ms": 700,
+      "restart_limit": 2,
+      "recovery_delay_ms": 290
+    },
+    {
+      "scenario": "wrong_generation",
       "t_ms": 1795,
       "event": "summary",
       "state": "stopped",
@@ -2564,53 +2594,23 @@
       "fault_detected": true,
       "invalid_outputs": 0,
       "recovered_valid": 8,
-      "max_tick_gap_ms": 57,
+      "max_tick_gap_ms": 59,
       "injections": 1,
       "fault_notices": 1,
       "fault_at": 8,
       "watchdog_ms": 700,
       "restart_limit": 2,
-      "recovery_delay_ms": 246
-    },
-    {
-      "scenario": "wrong_generation",
-      "t_ms": 1789,
-      "event": "summary",
-      "state": "stopped",
-      "generation": 2,
-      "seq": 11,
-      "output": 0,
-      "passed": true,
-      "outcome": "recovered",
-      "restarts": 1,
-      "holds": 1,
-      "recoveries": 1,
-      "accepted": 18,
-      "rejected": 1,
-      "held_after_fault": true,
-      "resumed": true,
-      "fault_announced": true,
-      "injection_observed": true,
-      "fault_detected": true,
-      "invalid_outputs": 0,
-      "recovered_valid": 8,
-      "max_tick_gap_ms": 60,
-      "injections": 1,
-      "fault_notices": 1,
-      "fault_at": 8,
-      "watchdog_ms": 700,
-      "restart_limit": 2,
-      "recovery_delay_ms": 241
+      "recovery_delay_ms": 238
     }
   ],
   "evidence": {
-    "console": "guest-20261122-014546-687.log",
-    "console_sha256": "70413b5c48edb7361f49695c46b3ef774a5a03ad2a7a064d1c319a54ac013d59",
-    "source_snapshot": "source-20261122-014546-687.c",
+    "console": "guest-20261124-000447-913.log",
+    "console_sha256": "70b13cc35e735678f08b794a6d74b1e2a3fc0b9518350df09aacef9baa670343",
+    "source_snapshot": "source-20261124-000447-913.c",
     "source_sha256": "9c32b86ebe50ef0edf883f122cf5ad12ddad5d14744974d80d49da6a0005216d",
     "binary_sha256": "99be8764781cbc04a602e3fcc9eab024e789e789d1a2b6ae18cb1b7138172859",
-    "boot_sha256": "fb077f707fb0076447c32cd1a4d77562bf8e93884b429cc6ec27e20581a16602",
-    "disk_sha256": "1c1cf3d0a566ee7dcfae26a794e58de74d2b8f10e83ee5afe33d2110514e904f",
+    "boot_sha256": "c8d810b4c3a25704c29c7e3e3ba3fe1dfbbedece40c87b922036993c98aa7cc2",
+    "disk_sha256": "2b6917d2ec3f2852f0b0e07269b29d3a2b5872340a044969695e48c7f50fb900",
     "build_flags": "-Vgcc_ntox86_64 -std=c11 -D_QNX_SOURCE -Wall -Wextra -Werror -O2"
   }
 }

@@ -68,6 +68,92 @@
   function configValue(key) { return summary()?.[key] ?? currentTrace()?.config?.[key]; }
   function notice(message) { dom.dataNotice.textContent = message; dom.dataNotice.hidden = !message; }
   function announce(message) { dom.announcer.textContent = message; }
+  function recordedPolicyAssessment(trace,name) {
+    const source = (trace?.events ?? []).filter(event => event.scenario === name).map((event,index) => ({...event,sourceIndex:index})).sort((a,b) => a.t_ms - b.t_ms || a.sourceIndex - b.sourceIndex);
+    const result = trace?.scenarios.find(item => item?.scenario === name);
+    const cycles = [];
+    let cycle = null;
+    for (const event of source) {
+      if (!['fault_injected','hold','resumed','locked_out'].includes(event.event)) continue;
+      if (event.event === 'fault_injected') {
+        cycle = {notice:event};
+        cycles.push(cycle);
+      } else {
+        if (!cycle || cycle.terminal) { cycle = {}; cycles.push(cycle); }
+        if (event.event === 'hold') cycle.hold ??= event;
+        else cycle.terminal = event;
+      }
+    }
+    const elapsed = (from,to) => from && to && to.t_ms >= from.t_ms ? to.t_ms - from.t_ms : null;
+    const available = source.length > 0;
+    const outcome = result?.passed === false ? 'failed' : text(result?.outcome,result?.passed === true ? 'passed' : 'unrecorded');
+    return {
+      available,
+      outcome,
+      passed:typeof result?.passed === 'boolean' ? result.passed : null,
+      restartLimit:result?.restart_limit ?? trace?.config?.restart_limit ?? null,
+      healthyControl:available && name === 'healthy' && result?.passed === true && !source.some(event => event.event === 'fault_injected' || event.event === 'hold'),
+      cycles:cycles.map(item => ({
+        generation:item.notice?.generation ?? item.hold?.generation ?? item.terminal?.generation ?? null,
+        noticeMs:item.notice?.t_ms ?? null,
+        holdMs:item.hold?.t_ms ?? null,
+        noticeToHoldMs:elapsed(item.notice,item.hold),
+        terminal:item.terminal?.event ?? null,
+        terminalMs:item.terminal?.t_ms ?? null,
+        holdToResumeMs:item.terminal?.event === 'resumed' ? elapsed(item.hold,item.terminal) : null,
+        holdToLockoutMs:item.terminal?.event === 'locked_out' ? elapsed(item.hold,item.terminal) : null,
+        output:item.terminal?.output ?? null
+      }))
+    };
+  }
+  function getAssessment(name = scenario()) {
+    const selected = typeof name === 'string' ? name : scenario();
+    return {
+      scenario:selected,
+      measurement:'Recorded QNX guest clock under QEMU software emulation',
+      baseline:recordedPolicyAssessment(recordings?.baseline,selected),
+      no_restarts:recordedPolicyAssessment(recordings?.no_restarts,selected)
+    };
+  }
+  function assessmentMetric(label,value,note = '') {
+    const cell = element('td');
+    cell.dataset.label = label;
+    cell.append(element('strong',`assessment-value${value === null ? ' unreported' : ''}`,value === null ? 'Unrecorded' : typeof value === 'number' ? `${number(value)} ms` : value));
+    if (note) cell.append(element('span','assessment-outcome-note',note));
+    return cell;
+  }
+  function renderRecordedAssessment() {
+    if (!dom.recordedAssessmentRows) return;
+    dom.recordedAssessmentRows.replaceChildren();
+    const assessment = getAssessment();
+    dom.recordedAssessmentScenario.textContent = `${human(assessment.scenario)} · full recorded scenario`;
+    for (const key of MODES) {
+      const policy = assessment[key];
+      const cycles = policy.cycles.length ? policy.cycles : [null];
+      for (const [index,item] of cycles.entries()) {
+        const row = element('tr');
+        row.dataset.policy = key;
+        row.dataset.cycle = String(index);
+        row.dataset.selected = String(key === mode);
+        const recording = element('th');
+        recording.scope = 'row';
+        recording.append(element('span','',key === 'baseline' ? 'Baseline' : 'No restarts'));
+        const resultTone = policy.outcome === 'contained' ? ' contained' : policy.outcome === 'failed' ? ' failed' : '';
+        const resultText = policy.available ? `Restart limit ${number(policy.restartLimit)} · final ${human(policy.outcome)}` : 'Recording unavailable';
+        recording.append(element('span',`assessment-policy-note${policy.passed === true || policy.passed === false ? ` assessment-result${resultTone}` : ''}`,resultText));
+        const generation = element('td','',item ? `Generation ${number(item.generation)}` : policy.healthyControl ? 'Healthy control' : 'Unrecorded');
+        row.append(recording,generation);
+        if (policy.healthyControl) {
+          row.append(assessmentMetric('Notice → hold','No injected fault'),assessmentMetric('Hold → outcome','No recovery interval'));
+        } else {
+          const delay = item?.terminal === 'resumed' ? item.holdToResumeMs : item?.terminal === 'locked_out' ? item.holdToLockoutMs : null;
+          const outcomeNote = item?.terminal ? `${item.terminal === 'resumed' ? 'Validated resume' : 'Lockout'} · output ${number(item.output)}` : '';
+          row.append(assessmentMetric('Notice → hold',item?.noticeToHoldMs ?? null),assessmentMetric('Hold → outcome',delay,outcomeNote));
+        }
+        dom.recordedAssessmentRows.append(row);
+      }
+    }
+  }
   function validateTrace(trace) {
     if (!trace || trace.schema_version !== 1 || !Array.isArray(trace.events) || !Array.isArray(trace.scenarios)) throw new Error('A recording has an unsupported trace schema.');
     if (trace.events.length > 100000 || !trace.events.every(event => event && typeof event.scenario === 'string' && typeof event.event === 'string' && typeof event.state === 'string' && Number.isFinite(event.t_ms) && event.t_ms >= 0)) throw new Error('A recording contains invalid event data.');
@@ -278,6 +364,7 @@
     const environment = currentTrace()?.environment ?? {};
     dom.environmentLabel.textContent = `${text(environment.os,'QNX')} ${text(environment.release,'8')} guest · ${text(environment.emulator,'runtime unreported')}`;
     renderMoments();
+    renderRecordedAssessment();
     renderEvent();
     if (recordings) notice(events.length ? '' : 'This recording does not contain the selected scenario. Choose another chapter or recording.');
     announce(`${mode === 'baseline' ? 'Baseline' : 'No restarts'} recording. ${CHAPTERS[chapter].subtitle}.`);
@@ -486,6 +573,7 @@
     renderEmpty('Recorded evidence is loading.','The demonstration reads the bundled QNX guest recordings.');
     renderRecordingCounts();
     renderTourControls();
+    renderRecordedAssessment();
     try {
       let data;
       if (bundled) {
@@ -524,6 +612,7 @@
       dom.environmentLabel.textContent = 'QNX evidence unavailable';
       dom.scenarioLabel.textContent = 'Scenario · —';
       renderRecordingCounts();
+      renderRecordedAssessment();
       for (const id of ['mode-baseline','mode-no-restarts','variant-invalid','variant-replay',...Object.keys(CHAPTERS).map(key => `chapter-${key}`)]) dom[id].disabled = true;
       renderEmpty('Recorded evidence is unavailable.','The presentation needs both verified demo recordings. Reload after restoring the manifest and data files.');
       renderTourControls();
@@ -559,6 +648,6 @@
   });
   document.addEventListener('visibilitychange',() => {if (document.hidden) {pause();pauseTour();}});
   reducedMotion.addEventListener('change',() => {pause();pauseTour();});
-  window.recoveryDemo = Object.freeze({getState});
+  window.recoveryDemo = Object.freeze({getState,getAssessment});
   initialize();
 })();

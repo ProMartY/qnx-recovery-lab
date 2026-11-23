@@ -19,6 +19,6 @@ The package contains the demo interface, recordings, text evidence and any expli
 
 The full-workspace viewer link requires the surrounding prototype directory when served. The portable snapshot plays independently.
 
-[Watch the captioned browser screencast](./video.html). Open video.html directly from this directory. The media directory contains a browser screencast of recorded playback. Its file digests and sizes are listed in manifest.json.
+[Watch the captioned browser screencast](./video.html). Open video.html directly from this directory. The movie starts with a newly executed QNX guest run observed live, then switches to the archived-event workbench. data/native includes the direct segment's immutable trace, raw console, source snapshot and capture receipt. Its file digests and sizes are listed in manifest.json.
 
 From the full workspace, run `python prototype/serve.py` and use the printed server address. That server supports byte-range requests for video seeking. A basic HTTP server can play the recording progressively. Seeking requires byte-range support or a fully buffered recording.

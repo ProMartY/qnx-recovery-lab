@@ -12,7 +12,7 @@ The output is an integer in supervisor memory. The experiment demonstrates proce
 | QNX guest execution | The native supervisor and worker execute on QNX 8.0.0 inside QEMU TCG | Guest environment/configuration records, ordered events, scenario summaries, and guest exit markers |
 | Recorded replay | JavaScript presents archived guest events in a browser | The selected JSON trace, its raw console/source evidence, and the demo manifest |
 
-The Python checker and exporter run on the host. The browser's playback controls select recorded events. Recording a browser video captures that replay. A successful build, a verified guest run, and a browser replay each provide evidence for their own layer.
+The Python checker and exporter run on the host. The browser's playback controls select recorded events. The final video first observes a new owned QNX execution through its serial stream, then records that replay. Its native capture receipt binds the movie to the fresh run, console, source and recorder hashes. A successful build, a verified guest run, and a browser replay each provide evidence for their own layer.
 
 ## Native process model
 
@@ -97,7 +97,7 @@ The digests and correspondence checks support reproducibility and detection of e
 
 [viewer/index.html](../prototype/viewer/index.html) provides exact-event stepping, scenario filters, state intervals, measured response milestones, import/export, and a command helper for the next run. Its combined timeline places separate scenarios sequentially with labeled 50 ms display gaps. The source `t_ms` fields and exported JSON retain their original per-scenario values.
 
-[demo/index.html](../prototype/demo/index.html) provides four presenter chapters. Guided moments preserve the separate rejection, zero-output hold, restart, fresh-proposal, and resume or lockout events, including events sharing a timestamp. Presenter playback advances at one second per selected moment. Guest timestamps remain visible independently of presentation pace.
+[demo/index.html](../prototype/demo/index.html) provides four presenter chapters. Guided moments preserve the separate rejection, zero-output hold, restart, fresh-proposal, and resume or lockout events, including events sharing a timestamp. Presentation pauses adapt to explanation length and reduced-motion preference. Guest timestamps remain visible independently of presentation pace.
 
 [build_demo.py](../prototype/build_demo.py) verifies two pinned recordings and packages their JSON, raw console logs, source snapshots, and reports. The generated manifest includes source trace names, configuration, outcomes, counts, and SHA-256 digests. The standalone `offline.html` embeds this evidence and the UI assets. The served demo can link an exact event to the full viewer through its source recording filename.
 

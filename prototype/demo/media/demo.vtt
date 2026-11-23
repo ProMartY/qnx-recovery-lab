@@ -1,117 +1,133 @@
 WEBVTT
 
 1
-00:00:00.196 --> 00:00:05.208
-Recovery Lab replays native QNX 8 recordings. The worker proposes values; the supervisor owns the simulated output.
+00:00:00.104 --> 00:00:03.112
+This is a new execution of the native C program in QNX 8 under QEMU. The browser observes the live guest serial stream.
 
 2
-00:00:05.350 --> 00:00:07.360
-The first fresh proposal is accepted, but output remains zero.
+00:00:03.114 --> 00:00:39.271
+QEMU boots QNX. The guest runs seven scenarios; the host then checks the raw console, event invariants and source digests.
 
 3
-00:00:07.420 --> 00:00:09.442
-The second proposal still keeps the output at zero.
+00:00:39.272 --> 00:00:46.283
+All seven native scenarios passed, including zero-output containment after the restart budget was exhausted. Both guest and host exited successfully.
 
 4
-00:00:09.570 --> 00:00:13.577
-The third fresh proposal completes validation and releases a valid output.
+00:00:46.528 --> 00:00:51.528
+Recovery Lab replays native QNX 8 recordings. The worker proposes values; the supervisor owns the simulated output.
 
 5
-00:00:13.745 --> 00:00:16.758
-The worker now announces an injected out-of-range command.
+00:00:51.562 --> 00:00:53.566
+The first fresh proposal is accepted, but output remains zero.
 
 6
-00:00:16.770 --> 00:00:21.777
-Proposed output 999 is rejected. The supervisor holds the accepted output at zero.
+00:00:53.579 --> 00:00:55.581
+The second proposal still keeps the output at zero.
 
 7
-00:00:21.788 --> 00:00:24.802
-The hold is a separate recorded decision, even when events share a timestamp.
+00:00:55.595 --> 00:00:59.596
+The third fresh proposal completes validation and releases a valid output.
 
 8
-00:00:24.813 --> 00:00:27.827
-A replacement worker starts as generation 2. Output remains zero.
+00:00:59.662 --> 00:01:02.675
+The worker now announces an injected out-of-range command.
 
 9
-00:00:27.838 --> 00:00:29.840
-The replacement must provide fresh proposal one.
+00:01:02.690 --> 00:01:07.700
+Proposed output 999 is rejected. The supervisor holds the accepted output at zero.
 
 10
-00:00:29.850 --> 00:00:31.852
-Fresh proposal two still does not release the output.
+00:01:07.712 --> 00:01:10.713
+The hold is a separate recorded decision, even when events share a timestamp.
 
 11
-00:00:31.863 --> 00:00:36.866
-Fresh proposal three restores the output. The guest timestamp records the observed recovery.
+00:01:10.725 --> 00:01:13.741
+A replacement worker starts as generation 2. Output remains zero.
 
 12
-00:00:36.896 --> 00:00:38.903
-Range checking alone is not enough. This injection repeats an old sequence number.
+00:01:13.754 --> 00:01:15.767
+The replacement must provide fresh proposal one.
 
 13
-00:00:38.913 --> 00:00:43.928
-The duplicate sequence is rejected even though its numeric value is within range.
+00:01:15.779 --> 00:01:17.792
+Fresh proposal two still does not release the output.
 
 14
-00:00:43.938 --> 00:00:46.953
-The replayed command never reaches the simulated output.
+00:01:17.807 --> 00:01:22.816
+Fresh proposal three restores the output. The guest timestamp records the observed recovery.
 
 15
-00:00:46.978 --> 00:00:48.980
-Next, the active worker deliberately sends generation zero.
+00:01:22.827 --> 00:01:30.839
+In this recording: 11 ms from fault notice to hold, then 280 ms to validated resume. No restarts means lockout.
 
 16
-00:00:48.990 --> 00:00:54.003
-Received generation zero does not match active generation one. The message is rejected and output is zero.
+00:01:30.882 --> 00:01:32.895
+Range checking alone is not enough. This injection repeats an old sequence number.
 
 17
-00:00:54.014 --> 00:00:57.017
-The validated replacement can resume output.
+00:01:32.908 --> 00:01:37.918
+The duplicate sequence is rejected even though its numeric value is within range.
 
 18
-00:00:57.047 --> 00:01:00.056
-Repeated crashes exercise the restart budget.
+00:01:37.931 --> 00:01:40.942
+The replayed command never reaches the simulated output.
 
 19
-00:01:00.067 --> 00:01:02.071
-The guest records the worker exit with code 42.
+00:01:40.981 --> 00:01:42.993
+Next, the active worker deliberately sends generation zero.
 
 20
-00:01:02.080 --> 00:01:05.092
-The supervisor holds zero before restarting.
+00:01:43.006 --> 00:01:48.018
+Received generation zero does not match active generation one. The message is rejected and output is zero.
 
 21
-00:01:05.103 --> 00:01:07.116
-A restart consumes one unit of the budget.
+00:01:48.031 --> 00:01:51.035
+The validated replacement can resume output.
 
 22
-00:01:07.132 --> 00:01:09.135
-Fresh validation permits the replacement to run.
+00:01:51.075 --> 00:01:54.084
+Repeated crashes exercise the restart budget.
 
 23
-00:01:09.152 --> 00:01:11.153
-A second crash repeats the containment and recovery path.
+00:01:54.099 --> 00:01:56.108
+The guest records the worker exit with code 42.
 
 24
-00:01:11.167 --> 00:01:14.176
-The third crash arrives after both permitted restarts have been used.
+00:01:56.124 --> 00:01:59.138
+The supervisor holds zero before restarting.
 
 25
-00:01:14.196 --> 00:01:19.200
-The budget is exhausted. The supervisor stays locked out at zero.
+00:01:59.152 --> 00:02:01.167
+A restart consumes one unit of the budget.
 
 26
-00:01:19.278 --> 00:01:23.291
-The second recording keeps the same fault sequence and watchdog, with no restarts allowed.
+00:02:01.180 --> 00:02:03.191
+Fresh validation permits the replacement to run.
 
 27
-00:01:23.347 --> 00:01:28.357
-Under that policy, the first rejected command holds zero without creating a replacement.
+00:02:03.205 --> 00:02:05.209
+A second crash repeats the containment and recovery path.
 
 28
-00:01:28.370 --> 00:01:32.371
-The first detected fault ends in containment: generation one, zero restarts, output zero.
+00:02:05.222 --> 00:02:08.231
+The third crash arrives after both permitted restarts have been used.
 
 29
-00:01:32.416 --> 00:01:40.429
+00:02:08.245 --> 00:02:13.289
+The budget is exhausted. The supervisor stays locked out at zero.
+
+30
+00:02:13.377 --> 00:02:17.380
+The second recording keeps the same fault sequence and watchdog, with no restarts allowed.
+
+31
+00:02:17.448 --> 00:02:22.455
+Under that policy, the first rejected command holds zero without creating a replacement.
+
+32
+00:02:22.472 --> 00:02:26.486
+The first detected fault ends in containment: generation one, zero restarts, output zero.
+
+33
+00:02:26.522 --> 00:02:34.533
 Both recordings contain seven checked scenarios. Raw guest logs, source snapshots and digests are included. Output is simulated; QEMU timing is not a hardware guarantee.

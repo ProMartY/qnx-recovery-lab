@@ -197,7 +197,52 @@ def offline_html(index, css, javascript, recordings, manifest, fonts=None):
     return result.encode("utf-8")
 
 
-def video_html(media):
+def verified_native_capture(artifacts, media_files):
+    """Bind the optional direct-execution segment to this exact movie and guest evidence."""
+    receipt_path = artifacts / "demo-native-capture.json"
+    if not receipt_path.exists():
+        return None, {}
+    raw_receipt = receipt_path.read_bytes()
+    receipt = json.loads(raw_receipt.decode("utf-8-sig"))
+    require(receipt.get("video_sha256") == sha256(media_files.get("media/demo.webm", b"")),
+            "Native execution receipt belongs to a different video")
+    name = receipt.get("run_file", "")
+    require(re.fullmatch(r"run-\d{8}-\d{6}-\d{3}\.json", name) is not None,
+            "Invalid native capture run filename")
+    trace = artifacts / name
+    data, recording, evidence = verified_recording(artifacts, "baseline", trace)
+    require(recording["sha256"] == receipt.get("run_sha256"), "Native capture trace digest mismatch")
+    require(recording["event_count"] == receipt.get("event_count") and receipt.get("scenario_count") == 7,
+            "Native capture event/scenario counts mismatch")
+    require(receipt.get("host_exit") == receipt.get("guest_exit") == 0, "Native capture did not exit successfully")
+    for key in ("console_sha256", "source_sha256", "binary_sha256", "boot_sha256"):
+        require(receipt.get(key) == data["evidence"][key], f"Native capture {key} mismatch")
+    for filename, key in (("native-monitor.html", "monitor_sha256"),
+                          ("native-capture.cjs", "observer_sha256"),
+                          ("record-demo.cjs", "recorder_sha256")):
+        require(sha256((PROTOTYPE / "tools" / filename).read_bytes()) == receipt.get(key),
+                f"Native capture source changed: {filename}")
+    live_counts = {item["event_count"] for item in receipt.get("observations", [])
+                   if item.get("phase") == "running" and item.get("event_count", 0) > 0}
+    require(len(live_counts) >= 2, "Native capture has no increasing live guest observations")
+    prefix_lines = receipt.get("observed_live_lines", 0)
+    require(type(prefix_lines) is int and prefix_lines > 0, "Native capture has no observed serial prefix")
+    console = (artifacts / data["evidence"]["console"]).read_bytes()
+    prefix = b"\n".join(console.split(b"\n")[:prefix_lines]) + b"\n"
+    require(sha256(prefix) == receipt.get("observed_live_prefix_sha256"), "Native observed serial prefix mismatch")
+    files = {"data/native/capture.json": raw_receipt, "data/native/" + name: trace.read_bytes()}
+    for old, contents in evidence.items():
+        if old != DATA_FILES["baseline"]:
+            files["data/native/" + Path(old).name] = contents
+    metadata = {"receipt": "data/native/capture.json", "receipt_sha256": sha256(raw_receipt),
+                "run": "data/native/" + name, "run_sha256": recording["sha256"],
+                "start_seconds": receipt["start"], "end_seconds": receipt["end"],
+                "event_count": recording["event_count"], "scenario_count": 7,
+                "note": "New native execution observed during this browser capture; consistency checked, not independently attested."}
+    return metadata, files
+
+
+def video_html(media, native_capture=None):
     sources = []
     captions = ""
     poster = ""
@@ -257,7 +302,7 @@ def video_html(media):
   <header><a class="brand" href="./offline.html"><span aria-hidden="true"><i></i><i></i><i></i></span>recoverylab</a><span class="status">Recorded walkthrough</span></header>
   <main>
     <div class="intro"><div><p class="eyebrow">QNX Recovery Lab / Demonstration</p><h1 id="videoTitle">Recovery,<br>on record.</h1></div>
-    <p class="intro-copy" id="videoDescription">Follow a rejected message, a replacement worker, and a bounded restart policy. This screencast presents archived native QNX 8 guest events under QEMU.</p></div>
+    <p class="intro-copy" id="videoDescription">VIDEO_DESCRIPTION</p></div>
     <section class="stage" aria-label="Recorded demonstration video">
     <video controls preload="metadata" playsinline aria-labelledby="videoTitle" aria-describedby="videoDescription">
 SOURCES
@@ -266,7 +311,7 @@ CAPTIONS
     </video>
     <div class="recording-meta"><span>QNX 8 guest · QEMU software emulation</span><span id="clipDuration">Recorded UI replay</span></div>
     </section>
-    <div class="bottom"><p>The numeric output is simulated. Guest timestamps describe the archived execution; playback time describes this walkthrough. Use the interactive demo to inspect each decision at your own pace.</p><a class="action" href="./offline.html">Open the interactive demo</a></div>
+    <div class="bottom"><p>The numeric output is simulated. Guest timestamps describe native execution; playback time describes this walkthrough. Use the interactive demo to inspect archived decisions at your own pace.</p><a class="action" href="./offline.html">Open the interactive demo</a></div>
   </main>
   <footer>Original interface and recordings · Local evidence · No hardware timing guarantee</footer>
   </div>
@@ -281,7 +326,9 @@ CAPTIONS
 </body>
 </html>
 '''
-    return page.replace("SOURCES", "\n".join(sources)).replace("CAPTIONS", captions).replace(
+    description = ("Watch a new QNX 8 guest run complete seven scenarios, then inspect a rejected message, fresh validation and bounded restarts in the recorded-event workbench."
+                   if native_capture else "Follow a rejected message, a replacement worker, and a bounded restart policy. This screencast presents archived native QNX 8 guest events under QEMU.")
+    return page.replace("VIDEO_DESCRIPTION", description).replace("SOURCES", "\n".join(sources)).replace("CAPTIONS", captions).replace(
         "playsinline aria-", "playsinline" + poster + " aria-", 1).encode("utf-8")
 
 
@@ -319,8 +366,10 @@ def readme(manifest):
     ]
     if manifest["media"]:
         rows += ["[Watch the captioned browser screencast](./video.html). "
-                 "Open video.html directly from this directory. "
-                 "The media directory contains a browser screencast of recorded playback. "
+                 "Open video.html directly from this directory. " +
+                 ("The movie starts with a newly executed QNX guest run observed live, then switches to the archived-event workbench. "
+                  "data/native includes the direct segment's immutable trace, raw console, source snapshot and capture receipt. "
+                  if manifest.get("native_capture") else "The media directory contains a browser screencast of recorded playback. ") +
                  "Its file digests and sizes are listed in manifest.json.", "",
                  "From the full workspace, run `python prototype/serve.py` and use the printed server address. "
                  "That server supports byte-range requests for video seeking. A basic HTTP server can play "
@@ -358,7 +407,11 @@ def prepare_bundle(artifacts, demo, include_media=False, baseline=None, no_resta
     if include_media:
         media_files, manifest["media"] = read_media(demo)
         files.update(media_files)
-        files["video.html"] = video_html(manifest["media"])
+        native_capture, native_files = verified_native_capture(artifacts, media_files)
+        if native_capture:
+            manifest["native_capture"] = native_capture
+            files.update(native_files)
+        files["video.html"] = video_html(manifest["media"], native_capture)
     files["manifest.json"] = json_bytes(manifest)
     fonts = {name: assets[name] for name in FONT_FILES} if FONT_FILES[0] in assets else None
     files["offline.html"] = offline_html(text["index.html"], text["demo.css"], text["demo.js"],

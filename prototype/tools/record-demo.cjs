@@ -4,7 +4,9 @@ const crypto = require('node:crypto');
 const fs = require('node:fs/promises');
 const { existsSync } = require('node:fs');
 const path = require('node:path');
+const { pathToFileURL } = require('node:url');
 const { performance } = require('node:perf_hooks');
+const { createNativeCapture } = require('./native-capture.cjs');
 const root = path.resolve(__dirname, '../..');
 const localBrowserCache = path.join(root, 'work/browser-cache');
 if (!process.env.PLAYWRIGHT_BROWSERS_PATH && existsSync(path.join(localBrowserCache, 'ffmpeg-1013'))) {
@@ -36,20 +38,23 @@ function stamp(seconds) {
     assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),record.sha256);
     data[role] = JSON.parse(raw);
   }
+  const native = process.argv.includes('--native') ? await createNativeCapture(root,path.resolve(root,process.env.QNX_CAPTURE_WORK_ROOT || 'work/qnx-recovery-vm')) : null;
+  let nativeSection = null;
   const browser = await chromium.launch({channel:'chrome',headless:true});
   const context = await browser.newContext({viewport:{width:1440,height:1000},recordVideo:{dir:path.join(root,'work/demo-recording'),size:{width:1440,height:1000},fps:25}});
   const page = await context.newPage();
   const video = page.video();
+  const candidateVideo = path.join(root,'work/demo-recording',`candidate-${Date.now()}.webm`);
   const started = performance.now();
   const captions = [];
   const errors = [];
   const now = () => (performance.now() - started) / 1000;
   page.on('pageerror',error=>errors.push(error.message));
-  await page.route('**/*',route=>route.request().url().startsWith('http://127.0.0.1:8764/') ? route.continue() : route.abort());
+  await page.route('**/*',route=>route.request().url().startsWith('http://127.0.0.1:8764/') || (native && route.request().url().startsWith(native.url)) ? route.continue() : route.abort());
   async function hold(text,seconds) {
     const start=now();
     await page.waitForTimeout(seconds*1000);
-    captions.push({start,end:now(),text,...await page.evaluate(()=>window.recoveryDemo.getState())});
+    captions.push({start,end:now(),text,...await page.evaluate(()=>window.recoveryDemo?.getState() ?? {section:'native',native:window.nativeCaptureState})});
   }
   async function seek(kind, occurrence=0, predicate=()=>true) {
     const state=await page.evaluate(()=>window.recoveryDemo.getState());
@@ -64,6 +69,24 @@ function stamp(seconds) {
     await page.evaluate(()=>scrollTo(0,0));
   }
   try {
+    if (native) {
+      console.log('Recording a new native QNX guest execution');
+      await page.goto(native.url);
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForFunction(() => window.nativeCaptureState?.phase === 'ready');
+      const start = now();
+      await hold('This is a new execution of the native C program in QNX 8 under QEMU. The browser observes the live guest serial stream.',3);
+      const runStart = now();
+      const completed = native.start();
+      await page.waitForFunction(() => ['passed','failed'].includes(window.nativeCaptureState?.phase),{},{timeout:115000});
+      await completed;
+      assert.equal(await page.evaluate(() => window.nativeCaptureState.phase),'passed');
+      assert.equal(await page.evaluate(() => window.nativeCaptureError ?? null),null);
+      captions.push({start:runStart,end:now(),text:'QEMU boots QNX. The guest runs seven scenarios; the host then checks the raw console, event invariants and source digests.',section:'native',native:await native.snapshot()});
+      await hold('All seven native scenarios passed, including zero-output containment after the restart budget was exhausted. Both guest and host exited successfully.',7);
+      await page.screenshot({path:path.join(root,'prototype/artifacts/native-run-overview.png')});
+      nativeSection = {start,end:now(),...await native.receipt()};
+    }
     await page.goto('http://127.0.0.1:8764/demo/');
     await page.waitForFunction(()=>window.recoveryDemo?.getState().ready);
     console.log('Recording healthy validation');
@@ -92,6 +115,10 @@ function stamp(seconds) {
     await hold('Fresh proposal two still does not release the output.',2);
     await seek('resumed');
     await hold('Fresh proposal three restores the output. The guest timestamp records the observed recovery.',5);
+    await page.locator('#recordedAssessment').scrollIntoViewIfNeeded();
+    const assessment = await page.evaluate(() => window.recoveryDemo.getAssessment('invalid'));
+    const measured = assessment.baseline.cycles[0];
+    await hold(`In this recording: ${measured.noticeToHoldMs} ms from fault notice to hold, then ${measured.holdToResumeMs} ms to validated resume. No restarts means lockout.`,8);
 
     console.log('Recording sequence and generation validation');
     await page.locator('#variant-replay').click();
@@ -142,9 +169,28 @@ function stamp(seconds) {
     await page.locator('#evidence').scrollIntoViewIfNeeded();
     await hold('Both recordings contain seven checked scenarios. Raw guest logs, source snapshots and digests are included. Output is simulated; QEMU timing is not a hardware guarantee.',8);
     assert.deepEqual(errors,[]);
-  } finally { await context.close(); await video.saveAs(path.join(media,'demo.webm')); await browser.close(); }
+  } finally { await context.close(); await video.saveAs(candidateVideo); await browser.close(); if(native) await native.close(); }
+  // Encoding/closing time is not part of the movie. Measure the completed media itself.
+  const metadataHtml = candidateVideo + '.html';
+  await fs.writeFile(metadataHtml,`<!doctype html><meta charset="utf-8"><video src="${path.basename(candidateVideo)}" preload="auto"></video>`);
+  const metadataBrowser = await chromium.launch({channel:'chrome',headless:true});
+  let duration;
+  try {
+    const metadataPage = await metadataBrowser.newPage();
+    await metadataPage.goto(pathToFileURL(metadataHtml).href);
+    await metadataPage.waitForFunction(() => Number.isFinite(document.querySelector('video').duration));
+    duration = await metadataPage.locator('video').evaluate(media => media.duration);
+    assert(duration > 0 && duration < 180, 'Capture exceeds the submission video limit. Previous published media was retained.');
+  } finally { await metadataBrowser.close(); }
   const vtt='WEBVTT\n\n'+captions.map((item,index)=>`${index+1}\n${stamp(item.start)} --> ${stamp(item.end)}\n${item.text}\n`).join('\n');
+  await fs.copyFile(candidateVideo,path.join(media,'demo.webm'));
+  if(nativeSection){
+    nativeSection.duration_seconds=duration;
+    nativeSection.video_sha256=crypto.createHash('sha256').update(await fs.readFile(candidateVideo)).digest('hex');
+    nativeSection.recorder_sha256=crypto.createHash('sha256').update(await fs.readFile(__filename)).digest('hex');
+    await fs.writeFile(path.join(root,'prototype/artifacts/demo-native-capture.json'),JSON.stringify(nativeSection,null,2)+'\n');
+  }
   await fs.writeFile(path.join(media,'demo.vtt'),vtt,'utf8');
-  await fs.writeFile(path.join(root,'prototype/artifacts/demo-video-timeline.json'),JSON.stringify({schema_version:1,recorded_at:new Date().toISOString(),kind:'real browser UI capture',viewport:{width:1440,height:1000},ui_assets:manifest.assets,recordings:manifest.recordings,captions},null,2)+'\n');
-  console.log(`Saved actual demo UI recording (${now().toFixed(1)} seconds wall time), captions and event timeline.`);
+  await fs.writeFile(path.join(root,'prototype/artifacts/demo-video-timeline.json'),JSON.stringify({schema_version:1,recorded_at:new Date().toISOString(),kind:nativeSection?'new native QNX run followed by archived-event UI replay':'real browser UI capture',duration_seconds:duration,viewport:{width:1440,height:1000},ui_assets:manifest.assets,recordings:manifest.recordings,...nativeSection?{native:nativeSection}:{},captions},null,2)+'\n');
+  console.log(`Saved actual recording (${duration.toFixed(2)} seconds), captions and event timeline.`);
 })().catch(error=>{console.error(error);process.exitCode=1;});

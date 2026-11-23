@@ -125,7 +125,7 @@ The parameter range permits experiments with a 300 ms watchdog. An archived stre
 
 ## Optional browser video recording
 
-The supplied screencast captures the actual recorded-replay UI. Re-recording it uses Node.js, Playwright 1.65.1, a separately installed Chrome available to Playwright's `chrome` channel, and Playwright's FFmpeg build 1013. These browser tools and their local caches are outside the source repository.
+The recorder supports an archived UI replay and a new native QNX run followed by that replay. Both use Node.js, Playwright 1.65.1, a separately installed Chrome available to Playwright's `chrome` channel, and Playwright's FFmpeg build 1013. These browser tools and their local caches are outside the source repository.
 
 Install the repository's locked development dependencies and the FFmpeg helper into the local browser cache.
 
@@ -135,13 +135,44 @@ $env:PLAYWRIGHT_BROWSERS_PATH = Join-Path (Get-Location) 'work/browser-cache'
 npx playwright install ffmpeg
 ```
 
-Keep the Python server running on port 8764 in another terminal, then run the recorder from the repository root.
+Keep the Python server running on port 8764 in another terminal. Run the recorder from the repository root. The UI-only mode drives the existing pinned recordings.
 
 ```powershell
 node prototype/tools/record-demo.cjs
+```
+
+For native-plus-replay mode, first build the normal `all`/8/700/2 image using the runner's default SDK and emulator locations. Rebuild this configuration after running any of the other native examples.
+
+```powershell
+.\prototype\run-lab.ps1 -Scenario all -FaultAt 8 -WatchdogMs 700 -RestartLimit 2
+```
+
+This capture entry point uses the runner's default SDK at `%USERPROFILE%\qnx800` and QEMU at `work/qemu-download/qemu`. It forwards the work-directory setting to the runner. The standalone runner's custom `SdkRoot` and `QemuRoot` parameters are separate from this recorder entry point.
+
+The capture defaults to `work/qnx-recovery-vm`. If the normal image was built with another `WorkRoot`, set `QNX_CAPTURE_WORK_ROOT` to that directory's absolute path before invoking the recorder. For the `$labPaths.WorkRoot` prepared above, use the following assignment.
+
+```powershell
+$env:QNX_CAPTURE_WORK_ROOT = (Resolve-Path $labPaths.WorkRoot).Path
+```
+
+Start native-plus-replay capture with the following command.
+
+```powershell
+node prototype/tools/record-demo.cjs --native
+```
+
+This mode prepares a read-only observer on localhost before starting a new owned QNX guest run through the runner's `-SkipBuild` path. That path checks the saved source, configuration and build hashes. The observer displays the new run's serial output as it arrives. The same continuous browser capture then moves to the archived UI replay.
+
+Both modes use an isolated headless Chrome context at 1440 × 1000, drive the chapter and event controls, and check displayed output against the selected archived events. They produce `demo.webm`, English `demo.vtt` captions and an event-selection timeline. Guest timestamps remain visible independently of browser presentation pace.
+
+The completed candidate movie is opened in Chrome and its actual media duration must be below three minutes before replacing the published local clip. Time spent closing or encoding the recording is separate from the movie's measured duration. A successful native capture also writes `prototype/artifacts/demo-native-capture.json`, binding the fresh run, console and source digests, and the observer/recorder source hashes, to the movie.
+
+After a successful recording, rebuild the portable package.
+
+```powershell
 python prototype/build_demo.py --include-media
 ```
 
-The recorder uses an isolated headless Chrome context at 1440 × 1000, drives the real chapter and event controls, and checks the displayed output against the selected native events. It writes `demo.webm`, English `demo.vtt` captions, and an event-selection timeline. The recording captures the browser replay while the guest timestamps remain visible in the UI.
+When deliberately switching from native-plus-replay to UI-only capture, complete the UI-only recording successfully first. Move the previous `prototype/artifacts/demo-native-capture.json` out of the artifacts directory and retain it with the original clip's local history before rebuilding. Its strict movie binding belongs to the original capture. Preserve the original raw guest logs, JSON recording and source snapshot.
 
-The script requires the pinned demo data, a working local server, and the expected Chrome/FFmpeg tools. If a dependency is unavailable, the existing offline replay and Python evidence checks remain usable. See the [architecture](architecture.md) for the native behavior and evidence boundaries.
+The recorder requires pinned demo data, a working local server and the expected Chrome/FFmpeg tools. Native-plus-replay mode also requires the prepared native image and runner prerequisites. If a dependency is unavailable, the existing offline replay and Python evidence checks remain usable. See the [architecture](architecture.md) for the native behavior and evidence boundaries.

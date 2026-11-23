@@ -339,6 +339,20 @@
             </div>
           </div>
         </section>
+        <section class="recorded-assessment" id="recordedAssessment" aria-labelledby="recordedAssessmentHeading">
+          <div class="assessment-heading">
+            <h2 id="recordedAssessmentHeading">The recorded response.</h2>
+            <span id="recordedAssessmentScenario">Awaiting evidence</span>
+          </div>
+          <table class="assessment-table">
+            <caption class="sr-only">Selected scenario response intervals across both recorded restart policies</caption>
+            <thead>
+              <tr><th scope="col">Recording</th><th scope="col">Fault cycle</th><th scope="col">Notice → hold</th><th scope="col">Hold → outcome</th></tr>
+            </thead>
+            <tbody id="recordedAssessmentRows"></tbody>
+          </table>
+          <p class="assessment-note" id="recordedAssessmentNote">Full-scenario measurements from the recorded QNX guest clock under QEMU. Intervals describe these recordings; physical hardware requires separate validation.</p>
+        </section>
         <section class="moment-list-panel" aria-labelledby="momentsHeading">
           <div class="moments-heading">
             <h2 id="momentsHeading">The sequence, unpacked.</h2>

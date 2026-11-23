@@ -43,3 +43,9 @@ Thumbs.db
 !/prototype/artifacts/run-20261122-014546-687.json
 !/prototype/artifacts/guest-20261122-014546-687.log
 !/prototype/artifacts/source-20261122-014546-687.c
+
+!/prototype/artifacts/demo-native-capture.json
+!/prototype/artifacts/native-run-overview.png
+!/prototype/artifacts/run-20261124-000447-913.json
+!/prototype/artifacts/guest-20261124-000447-913.log
+!/prototype/artifacts/source-20261124-000447-913.c

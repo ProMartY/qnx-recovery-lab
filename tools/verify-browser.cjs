@@ -59,6 +59,20 @@ const cleanEvent = event => {const {sourceIndex,...value} = event;return value;}
       browser = await chromium.launch({channel:'chrome',headless:true});
       report.browser = browser.version();
     });
+    await check('direct native-capture evidence matches its video',async () => {
+      if (!manifest.native_capture) return;
+      const folder = path.join(root,'prototype/demo');
+      const rawReceipt = await fs.readFile(path.join(folder,manifest.native_capture.receipt));
+      assert.equal(digest(rawReceipt),manifest.native_capture.receipt_sha256);
+      const receipt = JSON.parse(rawReceipt);
+      for (const [fileKey,hashKey] of [['run_file','run_sha256'],['console_file','console_sha256'],['source_file','source_sha256']]) {
+        assert.equal(digest(await fs.readFile(path.join(folder,'data/native',receipt[fileKey]))),receipt[hashKey]);
+      }
+      assert.equal(digest(await fs.readFile(path.join(folder,'media/demo.webm'))),receipt.video_sha256);
+      assert.equal(receipt.scenario_count,7);assert.equal(receipt.guest_exit,0);assert.equal(receipt.host_exit,0);
+      assert(new Set(receipt.observations.filter(row => row.phase==='running').map(row => row.event_count)).size>=2);
+      report.native_capture={run:receipt.run_file,events:receipt.event_count,scenarios:receipt.scenario_count,duration_seconds:receipt.duration_seconds};
+    });
     const demo = await newPage({viewport:{width:1440,height:1000}});
     await check('227 presented event rows',async () => {
       await demo.goto(base+'demo/');
@@ -84,6 +98,20 @@ const cleanEvent = event => {const {sourceIndex,...value} = event;return value;}
         }
       }
       assert.equal(count,227);report.presented_events=count;
+    });
+    await check('recorded response distinguishes recovery, immediate lockout and healthy control',async () => {
+      const assessment = await demo.evaluate(() => Object.fromEntries(['invalid','stall','crash_loop','healthy'].map(name => [name,window.recoveryDemo.getAssessment(name)])));
+      assert.equal(assessment.invalid.baseline.cycles[0].noticeToHoldMs,11);
+      assert.equal(assessment.invalid.baseline.cycles[0].holdToResumeMs,280);
+      assert.equal(assessment.invalid.no_restarts.cycles[0].holdToLockoutMs,0);
+      assert.equal(assessment.invalid.no_restarts.cycles[0].holdToResumeMs,null);
+      assert.equal(assessment.stall.baseline.cycles[0].noticeToHoldMs,625);
+      assert.equal(assessment.stall.baseline.cycles[0].holdToResumeMs,284);
+      assert.equal(assessment.crash_loop.baseline.cycles.length,3);
+      assert.equal(assessment.crash_loop.baseline.cycles[2].terminal,'locked_out');
+      assert.equal(assessment.healthy.baseline.healthyControl,true);
+      assert.equal(assessment.healthy.baseline.cycles.length,0);
+      report.recorded_assessment_cases=Object.keys(assessment).length;
     });
     await check('message packets stop at the supervisor gate',async () => {
       await demo.locator('#mode-baseline').click();

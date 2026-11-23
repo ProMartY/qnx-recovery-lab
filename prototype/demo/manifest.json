@@ -80,16 +80,16 @@
   },
   "assets": {
     "index.html": {
-      "sha256": "85853266784605aa09fb99a5b971e9d6e3470444d5cab9d1b15c8d3a36cfeb45",
-      "size_bytes": 14836
+      "sha256": "3af56e15ff9cde959d23d4a1ee1194a3ef072bc750ca5e1e9178340fa7653370",
+      "size_bytes": 15860
     },
     "demo.css": {
-      "sha256": "6fb26ef9f017974ed7c2492b74cd389513d873dde1713d281f17a3c0185b910e",
-      "size_bytes": 24290
+      "sha256": "27771d0998d4727c8bef21c52864838b1ca61d41e2a5a806ea45ce57bb50a451",
+      "size_bytes": 27438
     },
     "demo.js": {
-      "sha256": "2c59836bab87b997b16027c46a33bdba6c4688c12bb54212e784c8832d2185ee",
-      "size_bytes": 35558
+      "sha256": "421085f3ffc0eac1c87e382d1e11a3a6cbf0af4f12f0691b4d1d090a29c365e3",
+      "size_bytes": 40687
     },
     "fonts/inter-tight-latin-wght-normal.woff2": {
       "sha256": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618",
@@ -107,14 +107,14 @@
   "media": [
     {
       "file": "media/demo.webm",
-      "sha256": "4e476b4a1c3b68a25527f28f28e47e02fef6158bbd7d05ab88e52a4f483cd8f4",
-      "size_bytes": 14087105,
+      "sha256": "22e731b9c60b9d92c6d11e48a179318df826400bf065d5c3102a9b31c8d28387",
+      "size_bytes": 22615745,
       "type": "video/webm"
     },
     {
       "file": "media/demo.vtt",
-      "sha256": "e579e4a012a16e99b748c14702f87a1ee962ebdde68ed4830f31dc19716dd06e",
-      "size_bytes": 3071,
+      "sha256": "e966cd7c68e9e1a1d1bbd55a0f52315b5f9379a627ebd525359bffbd8613073c",
+      "size_bytes": 3712,
       "type": "text/vtt"
     },
     {
@@ -123,5 +123,16 @@
       "size_bytes": 137117,
       "type": "image/png"
     }
-  ]
+  ],
+  "native_capture": {
+    "receipt": "data/native/capture.json",
+    "receipt_sha256": "111690449a0f1a073f6c416e44646877ac8b01d04078a43d179bb4251a55836f",
+    "run": "data/native/run-20261124-000447-913.json",
+    "run_sha256": "5a2f166056ac4e3c480e9a932786fa17f00eaeda6e03d92539be07cc616f3179",
+    "start_seconds": 0.10413840000000005,
+    "end_seconds": 46.338424399999994,
+    "event_count": 203,
+    "scenario_count": 7,
+    "note": "New native execution observed during this browser capture; consistency checked, not independently attested."
+  }
 }

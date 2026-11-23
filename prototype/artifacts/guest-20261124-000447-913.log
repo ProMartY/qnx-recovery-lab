@@ -1,0 +1,236 @@
+
+non UEFI or UEFI+CSM boot
+ACPI table not found (0x4746434d)
+System behaves poorly without PCID support.
+overriding mask for controller 2, vector_base 0
+---> Starting slogger2
+---> Starting PCI Services
+---> Starting fsevmgr
+# ---> Starting devb
+---> Mounting file systems
+Path=0 - Intel 82371SB
+ target=0 lun=0     Direct-Access(0) -          QEMU HARDDISK    Rev: 2.5+
+Path=1 - Intel 82371SB
+ target=0 lun=0            CD-ROM(5) - QEMU     QEMU DVD-ROM     Rev: 2.5+
+---> Mounting file systems
+No fstab entries found for type /boot
+/proc/boot/mount_fs.sh[54]: /system/bin/cleanup_tmp: cannot execute - No such file or directory
+---> Starting Networking
+if_up: tries exhausted
+ifconfig: interface vtnet0 does not exist
+no valid interfaces found
+---> Starting sshd
+---> Starting misc
+RECOVERY_ENV {"os":"QNX","release":"8.0.0","machine":"x86pc"}
+RECOVERY_CONFIG {"scenario":"all","fault_at":8,"watchdog_ms":700,"restart_limit":2}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":0,"event":"start","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"simulated_output"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":11,"event":"worker_started","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":22,"event":"proposal","state":"validating","generation":1,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":125,"event":"proposal","state":"validating","generation":1,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":227,"event":"validated","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":227,"event":"proposal","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":329,"event":"proposal","state":"running","generation":1,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":436,"event":"proposal","state":"running","generation":1,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":537,"event":"proposal","state":"running","generation":1,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":639,"event":"proposal","state":"running","generation":1,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":741,"event":"proposal","state":"running","generation":1,"seq":8,"output":35,"proposed_output":35,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":844,"event":"proposal","state":"running","generation":1,"seq":9,"output":42,"proposed_output":42,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":946,"event":"proposal","state":"running","generation":1,"seq":10,"output":49,"proposed_output":49,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":1047,"event":"proposal","state":"running","generation":1,"seq":11,"output":56,"proposed_output":56,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":1150,"event":"proposal","state":"running","generation":1,"seq":12,"output":22,"proposed_output":22,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":1150,"event":"scenario_complete","state":"stopped","generation":1,"seq":12,"output":0,"proposed_output":0,"reason":"output_held_before_shutdown"}
+RECOVERY_EVENT {"scenario":"healthy","t_ms":1150,"event":"summary","state":"stopped","generation":1,"seq":12,"output":0,"passed":true,"outcome":"healthy","restarts":0,"holds":0,"recoveries":0,"accepted":12,"rejected":0,"held_after_fault":false,"resumed":false,"fault_announced":false,"injection_observed":false,"fault_detected":false,"invalid_outputs":0,"recovered_valid":0,"max_tick_gap_ms":61,"injections":0,"fault_notices":0,"fault_at":8,"watchdog_ms":700,"restart_limit":2,"recovery_delay_ms":null}
+RECOVERY_EVENT {"scenario":"crash","t_ms":0,"event":"start","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"simulated_output"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":8,"event":"worker_started","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":19,"event":"proposal","state":"validating","generation":1,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":121,"event":"proposal","state":"validating","generation":1,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":223,"event":"validated","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":223,"event":"proposal","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":325,"event":"proposal","state":"running","generation":1,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":427,"event":"proposal","state":"running","generation":1,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":529,"event":"proposal","state":"running","generation":1,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":630,"event":"proposal","state":"running","generation":1,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":731,"event":"fault_injected","state":"running","generation":1,"seq":8,"output":28,"proposed_output":0,"reason":"crash"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":759,"event":"worker_exit","state":"running","generation":1,"seq":7,"output":28,"exit_code":42,"signal":0,"reason":"injected_exit_42"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":759,"event":"hold","state":"holding","generation":1,"seq":7,"output":0,"proposed_output":0,"reason":"worker_crash"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":775,"event":"worker_started","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":775,"event":"restart","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"previous_worker_reaped"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":793,"event":"proposal","state":"validating","generation":2,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":894,"event":"proposal","state":"validating","generation":2,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":995,"event":"resumed","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":995,"event":"proposal","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1097,"event":"proposal","state":"running","generation":2,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1200,"event":"proposal","state":"running","generation":2,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1302,"event":"proposal","state":"running","generation":2,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1403,"event":"proposal","state":"running","generation":2,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1505,"event":"proposal","state":"running","generation":2,"seq":8,"output":35,"proposed_output":35,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1608,"event":"proposal","state":"running","generation":2,"seq":9,"output":42,"proposed_output":42,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1710,"event":"proposal","state":"running","generation":2,"seq":10,"output":49,"proposed_output":49,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1811,"event":"proposal","state":"running","generation":2,"seq":11,"output":56,"proposed_output":56,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1811,"event":"scenario_complete","state":"stopped","generation":2,"seq":11,"output":0,"proposed_output":0,"reason":"output_held_before_shutdown"}
+RECOVERY_EVENT {"scenario":"crash","t_ms":1811,"event":"summary","state":"stopped","generation":2,"seq":11,"output":0,"passed":true,"outcome":"recovered","restarts":1,"holds":1,"recoveries":1,"accepted":18,"rejected":0,"held_after_fault":true,"resumed":true,"fault_announced":true,"injection_observed":true,"fault_detected":true,"invalid_outputs":0,"recovered_valid":8,"max_tick_gap_ms":58,"injections":1,"fault_notices":1,"fault_at":8,"watchdog_ms":700,"restart_limit":2,"recovery_delay_ms":236}
+RECOVERY_EVENT {"scenario":"stall","t_ms":0,"event":"start","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"simulated_output"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":8,"event":"worker_started","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":18,"event":"proposal","state":"validating","generation":1,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":121,"event":"proposal","state":"validating","generation":1,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":223,"event":"validated","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":223,"event":"proposal","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":324,"event":"proposal","state":"running","generation":1,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":426,"event":"proposal","state":"running","generation":1,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":529,"event":"proposal","state":"running","generation":1,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":631,"event":"proposal","state":"running","generation":1,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":733,"event":"fault_injected","state":"running","generation":1,"seq":8,"output":28,"proposed_output":0,"reason":"stall"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1358,"event":"hold","state":"holding","generation":1,"seq":7,"output":0,"proposed_output":0,"reason":"heartbeat_timeout"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1414,"event":"worker_started","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1414,"event":"restart","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"previous_worker_reaped"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1431,"event":"proposal","state":"validating","generation":2,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1534,"event":"proposal","state":"validating","generation":2,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1636,"event":"resumed","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1636,"event":"proposal","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1738,"event":"proposal","state":"running","generation":2,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1840,"event":"proposal","state":"running","generation":2,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":1943,"event":"proposal","state":"running","generation":2,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":2045,"event":"proposal","state":"running","generation":2,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":2148,"event":"proposal","state":"running","generation":2,"seq":8,"output":35,"proposed_output":35,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":2250,"event":"proposal","state":"running","generation":2,"seq":9,"output":42,"proposed_output":42,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":2353,"event":"proposal","state":"running","generation":2,"seq":10,"output":49,"proposed_output":49,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":2455,"event":"proposal","state":"running","generation":2,"seq":11,"output":56,"proposed_output":56,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":2455,"event":"scenario_complete","state":"stopped","generation":2,"seq":11,"output":0,"proposed_output":0,"reason":"output_held_before_shutdown"}
+RECOVERY_EVENT {"scenario":"stall","t_ms":2455,"event":"summary","state":"stopped","generation":2,"seq":11,"output":0,"passed":true,"outcome":"recovered","restarts":1,"holds":1,"recoveries":1,"accepted":18,"rejected":0,"held_after_fault":true,"resumed":true,"fault_announced":true,"injection_observed":true,"fault_detected":true,"invalid_outputs":0,"recovered_valid":8,"max_tick_gap_ms":58,"injections":1,"fault_notices":1,"fault_at":8,"watchdog_ms":700,"restart_limit":2,"recovery_delay_ms":278}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":0,"event":"start","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"simulated_output"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":8,"event":"worker_started","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":19,"event":"proposal","state":"validating","generation":1,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":120,"event":"proposal","state":"validating","generation":1,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":223,"event":"validated","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":223,"event":"proposal","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":325,"event":"proposal","state":"running","generation":1,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":426,"event":"proposal","state":"running","generation":1,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":528,"event":"proposal","state":"running","generation":1,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":630,"event":"proposal","state":"running","generation":1,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":731,"event":"fault_injected","state":"running","generation":1,"seq":8,"output":28,"proposed_output":0,"reason":"invalid"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":737,"event":"rejected","state":"holding","generation":1,"received_generation":1,"seq":8,"output":0,"proposed_output":999,"reason":"command_range"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":737,"event":"hold","state":"holding","generation":1,"seq":7,"output":0,"proposed_output":0,"reason":"command_range"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":761,"event":"worker_started","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":761,"event":"restart","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"previous_worker_reaped"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":778,"event":"proposal","state":"validating","generation":2,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":880,"event":"proposal","state":"validating","generation":2,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":982,"event":"resumed","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":982,"event":"proposal","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1084,"event":"proposal","state":"running","generation":2,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1187,"event":"proposal","state":"running","generation":2,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1289,"event":"proposal","state":"running","generation":2,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1390,"event":"proposal","state":"running","generation":2,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1491,"event":"proposal","state":"running","generation":2,"seq":8,"output":35,"proposed_output":35,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1593,"event":"proposal","state":"running","generation":2,"seq":9,"output":42,"proposed_output":42,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1694,"event":"proposal","state":"running","generation":2,"seq":10,"output":49,"proposed_output":49,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1796,"event":"proposal","state":"running","generation":2,"seq":11,"output":56,"proposed_output":56,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1796,"event":"scenario_complete","state":"stopped","generation":2,"seq":11,"output":0,"proposed_output":0,"reason":"output_held_before_shutdown"}
+RECOVERY_EVENT {"scenario":"invalid","t_ms":1796,"event":"summary","state":"stopped","generation":2,"seq":11,"output":0,"passed":true,"outcome":"recovered","restarts":1,"holds":1,"recoveries":1,"accepted":18,"rejected":1,"held_after_fault":true,"resumed":true,"fault_announced":true,"injection_observed":true,"fault_detected":true,"invalid_outputs":0,"recovered_valid":8,"max_tick_gap_ms":66,"injections":1,"fault_notices":1,"fault_at":8,"watchdog_ms":700,"restart_limit":2,"recovery_delay_ms":245}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":0,"event":"start","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"simulated_output"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":8,"event":"worker_started","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":20,"event":"proposal","state":"validating","generation":1,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":124,"event":"proposal","state":"validating","generation":1,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":226,"event":"validated","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":226,"event":"proposal","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":329,"event":"proposal","state":"running","generation":1,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":432,"event":"proposal","state":"running","generation":1,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":534,"event":"proposal","state":"running","generation":1,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":635,"event":"proposal","state":"running","generation":1,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":737,"event":"fault_injected","state":"running","generation":1,"seq":8,"output":28,"proposed_output":0,"reason":"crash_loop"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":758,"event":"worker_exit","state":"running","generation":1,"seq":7,"output":28,"exit_code":42,"signal":0,"reason":"injected_exit_42"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":758,"event":"hold","state":"holding","generation":1,"seq":7,"output":0,"proposed_output":0,"reason":"worker_crash"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":774,"event":"worker_started","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":774,"event":"restart","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"previous_worker_reaped"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":791,"event":"proposal","state":"validating","generation":2,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":892,"event":"proposal","state":"validating","generation":2,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":994,"event":"resumed","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":994,"event":"proposal","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1096,"event":"proposal","state":"running","generation":2,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1197,"event":"proposal","state":"running","generation":2,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1299,"event":"proposal","state":"running","generation":2,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1400,"event":"proposal","state":"running","generation":2,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1502,"event":"fault_injected","state":"running","generation":2,"seq":8,"output":28,"proposed_output":0,"reason":"crash_loop"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1510,"event":"worker_exit","state":"running","generation":2,"seq":7,"output":28,"exit_code":42,"signal":0,"reason":"injected_exit_42"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1510,"event":"hold","state":"holding","generation":2,"seq":7,"output":0,"proposed_output":0,"reason":"worker_crash"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1527,"event":"worker_started","state":"validating","generation":3,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1527,"event":"restart","state":"validating","generation":3,"seq":0,"output":0,"proposed_output":0,"reason":"previous_worker_reaped"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1545,"event":"proposal","state":"validating","generation":3,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1646,"event":"proposal","state":"validating","generation":3,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1747,"event":"resumed","state":"running","generation":3,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1747,"event":"proposal","state":"running","generation":3,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1850,"event":"proposal","state":"running","generation":3,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":1952,"event":"proposal","state":"running","generation":3,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":2054,"event":"proposal","state":"running","generation":3,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":2156,"event":"proposal","state":"running","generation":3,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":2258,"event":"fault_injected","state":"running","generation":3,"seq":8,"output":28,"proposed_output":0,"reason":"crash_loop"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":2307,"event":"worker_exit","state":"running","generation":3,"seq":7,"output":28,"exit_code":42,"signal":0,"reason":"injected_exit_42"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":2307,"event":"hold","state":"holding","generation":3,"seq":7,"output":0,"proposed_output":0,"reason":"worker_crash"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":2307,"event":"locked_out","state":"locked_out","generation":3,"seq":7,"output":0,"proposed_output":0,"reason":"restart_budget_exhausted"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":2307,"event":"scenario_complete","state":"locked_out","generation":3,"seq":7,"output":0,"proposed_output":0,"reason":"output_held_before_shutdown"}
+RECOVERY_EVENT {"scenario":"crash_loop","t_ms":2307,"event":"summary","state":"locked_out","generation":3,"seq":7,"output":0,"passed":true,"outcome":"contained","restarts":2,"holds":3,"recoveries":2,"accepted":21,"rejected":0,"held_after_fault":true,"resumed":true,"fault_announced":true,"injection_observed":true,"fault_detected":true,"invalid_outputs":0,"recovered_valid":4,"max_tick_gap_ms":58,"injections":3,"fault_notices":3,"fault_at":8,"watchdog_ms":700,"restart_limit":2,"recovery_delay_ms":null}
+RECOVERY_EVENT {"scenario":"replay","t_ms":0,"event":"start","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"simulated_output"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":9,"event":"worker_started","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":19,"event":"proposal","state":"validating","generation":1,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":121,"event":"proposal","state":"validating","generation":1,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":223,"event":"validated","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":223,"event":"proposal","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":326,"event":"proposal","state":"running","generation":1,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":427,"event":"proposal","state":"running","generation":1,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":530,"event":"proposal","state":"running","generation":1,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":632,"event":"proposal","state":"running","generation":1,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":734,"event":"fault_injected","state":"running","generation":1,"seq":8,"output":28,"proposed_output":0,"reason":"replay"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":741,"event":"rejected","state":"holding","generation":1,"received_generation":1,"seq":7,"output":0,"proposed_output":35,"reason":"sequence"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":741,"event":"hold","state":"holding","generation":1,"seq":7,"output":0,"proposed_output":0,"reason":"sequence"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":810,"event":"worker_started","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":810,"event":"restart","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"previous_worker_reaped"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":827,"event":"proposal","state":"validating","generation":2,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":929,"event":"proposal","state":"validating","generation":2,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1031,"event":"resumed","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1031,"event":"proposal","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1134,"event":"proposal","state":"running","generation":2,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1236,"event":"proposal","state":"running","generation":2,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1338,"event":"proposal","state":"running","generation":2,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1440,"event":"proposal","state":"running","generation":2,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1541,"event":"proposal","state":"running","generation":2,"seq":8,"output":35,"proposed_output":35,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1643,"event":"proposal","state":"running","generation":2,"seq":9,"output":42,"proposed_output":42,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1745,"event":"proposal","state":"running","generation":2,"seq":10,"output":49,"proposed_output":49,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1847,"event":"proposal","state":"running","generation":2,"seq":11,"output":56,"proposed_output":56,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1847,"event":"scenario_complete","state":"stopped","generation":2,"seq":11,"output":0,"proposed_output":0,"reason":"output_held_before_shutdown"}
+RECOVERY_EVENT {"scenario":"replay","t_ms":1847,"event":"summary","state":"stopped","generation":2,"seq":11,"output":0,"passed":true,"outcome":"recovered","restarts":1,"holds":1,"recoveries":1,"accepted":18,"rejected":1,"held_after_fault":true,"resumed":true,"fault_announced":true,"injection_observed":true,"fault_detected":true,"invalid_outputs":0,"recovered_valid":8,"max_tick_gap_ms":59,"injections":1,"fault_notices":1,"fault_at":8,"watchdog_ms":700,"restart_limit":2,"recovery_delay_ms":290}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":0,"event":"start","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"simulated_output"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":9,"event":"worker_started","state":"validating","generation":1,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":18,"event":"proposal","state":"validating","generation":1,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":120,"event":"proposal","state":"validating","generation":1,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":224,"event":"validated","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":224,"event":"proposal","state":"running","generation":1,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":326,"event":"proposal","state":"running","generation":1,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":427,"event":"proposal","state":"running","generation":1,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":530,"event":"proposal","state":"running","generation":1,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":632,"event":"proposal","state":"running","generation":1,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":734,"event":"fault_injected","state":"running","generation":1,"seq":8,"output":28,"proposed_output":0,"reason":"wrong_generation"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":741,"event":"rejected","state":"holding","generation":1,"received_generation":0,"seq":8,"output":0,"proposed_output":35,"reason":"generation"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":741,"event":"hold","state":"holding","generation":1,"seq":7,"output":0,"proposed_output":0,"reason":"generation"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":760,"event":"worker_started","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"fresh_validation_required"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":760,"event":"restart","state":"validating","generation":2,"seq":0,"output":0,"proposed_output":0,"reason":"previous_worker_reaped"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":776,"event":"proposal","state":"validating","generation":2,"seq":1,"output":0,"proposed_output":27,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":878,"event":"proposal","state":"validating","generation":2,"seq":2,"output":0,"proposed_output":34,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":979,"event":"resumed","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"three_fresh_proposals"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":979,"event":"proposal","state":"running","generation":2,"seq":3,"output":41,"proposed_output":41,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1081,"event":"proposal","state":"running","generation":2,"seq":4,"output":48,"proposed_output":48,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1183,"event":"proposal","state":"running","generation":2,"seq":5,"output":55,"proposed_output":55,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1284,"event":"proposal","state":"running","generation":2,"seq":6,"output":21,"proposed_output":21,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1385,"event":"proposal","state":"running","generation":2,"seq":7,"output":28,"proposed_output":28,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1488,"event":"proposal","state":"running","generation":2,"seq":8,"output":35,"proposed_output":35,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1589,"event":"proposal","state":"running","generation":2,"seq":9,"output":42,"proposed_output":42,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1692,"event":"proposal","state":"running","generation":2,"seq":10,"output":49,"proposed_output":49,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1795,"event":"proposal","state":"running","generation":2,"seq":11,"output":56,"proposed_output":56,"reason":"accepted"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1795,"event":"scenario_complete","state":"stopped","generation":2,"seq":11,"output":0,"proposed_output":0,"reason":"output_held_before_shutdown"}
+RECOVERY_EVENT {"scenario":"wrong_generation","t_ms":1795,"event":"summary","state":"stopped","generation":2,"seq":11,"output":0,"passed":true,"outcome":"recovered","restarts":1,"holds":1,"recoveries":1,"accepted":18,"rejected":1,"held_after_fault":true,"resumed":true,"fault_announced":true,"injection_observed":true,"fault_detected":true,"invalid_outputs":0,"recovered_valid":8,"max_tick_gap_ms":59,"injections":1,"fault_notices":1,"fault_at":8,"watchdog_ms":700,"restart_limit":2,"recovery_delay_ms":238}
+RECOVERY_LAB_EXIT=0
+RECOVERY_RUN_EXIT=0
+
+To exit QEMU, type <ctrl>a x
+
+[?7hProcess count:22
+Startup complete
+QNX recovery-lab 8.0.0 2026/10/30-09:10:05EDT x86pc x86_64
