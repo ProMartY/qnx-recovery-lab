@@ -91,7 +91,7 @@ With an installed Chrome and `npm ci`, run `npm run test:browser` against the lo
 
 ## Submission materials
 
-[English project description](submission/project-description.md), [Ukrainian summary](submission/project-description.uk.md), and [submission readiness](submission/readiness.md) are local drafts. Public repository and YouTube URLs have not been created. The full competition rules, assistance disclosure requirements and acceptance of a recorded-UI demonstration still need confirmation before submission.
+[Watch the public YouTube demo](https://www.youtube.com/watch?v=0lpTnAGlJc0). The repository and video were published on 24 November 2026. [English project description](submission/project-description.md), [Ukrainian summary](submission/project-description.uk.md), and [submission readiness](submission/readiness.md) contain the prepared submission material. The full competition rules and assistance disclosure requirements still need confirmation before final submission.
 
 ## License
 
