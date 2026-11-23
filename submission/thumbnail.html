@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280, initial-scale=1">
+  <title>QNX Recovery Lab · Video cover</title>
+  <style>
+    @font-face{font-family:"Inter Tight";font-style:normal;font-weight:100 900;font-display:block;src:url("../prototype/demo/fonts/inter-tight-latin-wght-normal.woff2") format("woff2")}
+    :root{color-scheme:dark;--carbon:#0c0e10;--ink:#f0f2f4;--muted:#a3adb7;--orange:#ff7049;--line:#30363c;--font:"Inter Tight",Arial,sans-serif;--mono:Consolas,"Courier New",monospace}
+    *{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px}body{background:var(--carbon);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased}.cover{position:relative;width:1280px;height:720px;overflow:hidden;padding:47px 54px 37px}
+    .masthead{display:flex;align-items:center;gap:17px}.mark{display:flex;align-items:center;gap:6px;width:42px;height:39px}.mark i{display:block;width:9px;height:28px;background:var(--ink);border-radius:1px}.mark i:nth-child(2){height:39px;background:var(--orange)}.mark i:nth-child(3){height:18px;align-self:flex-end}.name{font-size:31px;line-height:1;font-weight:650;letter-spacing:-1px}.name span{font-weight:450;color:var(--muted)}.edition{margin-left:auto;color:var(--muted);font:15px var(--mono);letter-spacing:1px}
+    .rule{position:absolute;left:54px;right:54px;top:116px;height:1px;background:var(--line)}.rule:before{content:"";display:block;width:42px;height:2px;background:var(--orange)}
+    .copy{position:absolute;left:54px;top:187px;z-index:2}.eyebrow{margin:0 0 22px;color:var(--muted);font:15px/1.3 var(--mono);letter-spacing:1.2px;text-transform:uppercase}h1{font-size:80px;line-height:.99;font-weight:600;letter-spacing:-4.1px;margin:0}h1 span{display:block;color:var(--orange);margin-top:8px}.description{margin:30px 0 0;font-size:25px;line-height:1.45;letter-spacing:-.25px;color:#d3d9df}.description strong{font-weight:550;color:var(--ink)}
+    .diagram{position:absolute;left:650px;top:169px;width:576px;height:397px}.diagram svg{width:100%;height:100%;overflow:visible}.diagram text{font-family:var(--font)}.diagram .mono{font-family:var(--mono)}
+    .revalidation{position:absolute;left:683px;top:547px;display:flex;align-items:center;gap:15px}.revalidation .label{color:var(--muted);font:13px/1.6 var(--mono);letter-spacing:.7px}.steps{display:flex;align-items:center;gap:7px}.step{display:flex;align-items:center;justify-content:center;width:31px;height:31px;border:1px solid #76838e;color:var(--ink);font:15px var(--mono)}.step:last-child{border-color:var(--orange);color:var(--orange)}.step-line{width:12px;height:1px;background:#59636d}.resume{color:var(--ink);font-size:20px;letter-spacing:-.3px}
+    .footer{position:absolute;bottom:36px;left:54px;right:54px;border-top:1px solid var(--line);padding-top:20px;display:flex;align-items:center;justify-content:space-between}.platform{font-size:22px;font-weight:500;letter-spacing:-.25px}.platform b{font-weight:500;color:var(--orange)}.simulation{font:14px var(--mono);color:var(--muted)}
+  </style>
+</head>
+<body>
+  <main class="cover" aria-label="QNX Recovery Lab video cover: bad command, fresh recovery">
+    <header class="masthead">
+      <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div class="name">QNX Recovery <span>Lab</span></div>
+      <div class="edition">PROCESS RECOVERY</div>
+    </header>
+    <div class="rule" aria-hidden="true"></div>
+    <section class="copy">
+      <p class="eyebrow">Follow the message. Inspect the decision.</p>
+      <h1>Bad command.<span>Fresh recovery.</span></h1>
+      <p class="description">Rejected at the supervisor.<br><strong>Three valid proposals to resume.</strong></p>
+    </section>
+    <div class="diagram" role="img" aria-label="Worker proposes 999. The supervisor rejects it. Simulated output is held at zero.">
+      <svg viewBox="0 0 576 397" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M26 45H548M26 345H548" fill="none" stroke="#22282e"/>
+        <path d="M26 37V53M548 37V53M26 337V353M548 337V353" fill="none" stroke="#4b545d"/>
+        <text x="28" y="91" fill="#a3adb7" font-size="15" letter-spacing="1.4" class="mono">WORKER</text>
+        <text x="267" y="91" fill="#a3adb7" font-size="15" letter-spacing="1" class="mono">SUPERVISOR</text>
+        <text x="27" y="223" fill="#ff7049" font-size="112" font-weight="500" letter-spacing="-5">999</text>
+        <text x="29" y="255" fill="#a3adb7" font-size="15" class="mono">PROPOSED VALUE</text>
+        <path d="M220 185H304" fill="none" stroke="#ff7049" stroke-width="3"/>
+        <path d="M277 178L284 185L277 192" fill="none" stroke="#ff7049" stroke-width="2"/>
+        <path d="M334 119V151M334 219V271" fill="none" stroke="#515c66" stroke-width="2"/>
+        <path d="M324 119H344M324 271H344" fill="none" stroke="#515c66" stroke-width="2"/>
+        <circle cx="334" cy="185" r="32" fill="#211613" stroke="#ff7049" stroke-width="2"/>
+        <path d="M325 176L343 194M343 176L325 194" fill="none" stroke="#ff7049" stroke-width="3" stroke-linecap="round"/>
+        <text x="334" y="305" fill="#ff7049" text-anchor="middle" font-size="18" font-weight="600" letter-spacing=".2">REJECTED</text>
+        <path d="M380 185H425" fill="none" stroke="#4b555e" stroke-width="2" stroke-dasharray="3 6"/>
+        <text x="488" y="226" fill="#f0f2f4" text-anchor="middle" font-size="130" font-weight="450" letter-spacing="-6">0</text>
+        <text x="488" y="257" fill="#d3d9df" text-anchor="middle" font-size="15" letter-spacing=".5" class="mono">OUTPUT HELD</text>
+      </svg>
+    </div>
+    <div class="revalidation" aria-label="One, two, three fresh valid proposals before resume">
+      <span class="label">FRESH<br>VALIDATION</span>
+      <span class="steps" aria-hidden="true"><span class="step">1</span><span class="step-line"></span><span class="step">2</span><span class="step-line"></span><span class="step">3</span></span>
+      <span class="resume">Then resume.</span>
+    </div>
+    <footer class="footer">
+      <span class="platform">Native QNX 8 <b>·</b> Tested in QEMU</span>
+      <span class="simulation">SIMULATED OUTPUT · ORIGINAL GUEST EVIDENCE</span>
+    </footer>
+  </main>
+</body>
+</html>
